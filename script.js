@@ -6,6 +6,13 @@ const database = [
         genre: "hood-trap",
         cover: "assets/IMAGE/Rosalia.jpg", 
         audio: "assets/MP3/Berghain.mp3"
+    },
+      {
+        id: 2,
+        title: "MIRAGE",
+        genre: "Trap",
+        cover: "assets/IMAGE/MIRAGE.jpg", 
+        audio: "assets/MP3/MIRAGE.mp3"
     }
 ];
 
