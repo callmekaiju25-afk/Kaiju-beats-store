@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Kaiju Beats Store | Premium Beats</title>
+    <title>KAIJU BEATS | Store</title>
     <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link rel="stylesheet" href="style.css">
@@ -13,7 +13,6 @@
         <div class="container nav-content">
             <div class="logo">KAIJU<span class="logo-accent">BEATS</span></div>
             <div class="nav-menu">
-                <a href="#beats" class="nav-link">Beats</a>
                 <button class="cart-btn" id="cartBtn">
                     <i class="fas fa-shopping-cart"></i> <span id="cartCount">0</span>
                 </button>
@@ -21,58 +20,59 @@
         </div>
     </nav>
 
-    <section class="hero">
+    <header class="hero">
         <div class="container">
-            <h1 style="font-family:'Orbitron'; font-size: 3.5rem; margin-bottom: 20px;">KAIJU ON THE BEAT</h1>
-            <p>Production urbaine premium pour artistes exigeants.</p>
+            <h1 class="glitch">KAIJU ON THE BEAT</h1>
+            <p>DARK. MINIMALIST. PREMIUM.</p>
         </div>
-    </section>
+    </header>
 
-    <section id="beats" style="padding: 80px 0;">
+    <section id="beats" class="catalog-section">
         <div class="container">
             <div class="section-header">
                 <h2>CATALOGUE (<span id="beatsCount">0</span>)</h2>
             </div>
-            <div class="beats-grid" id="beatsGrid"></div>
+            <div class="beats-grid" id="beatsGrid">
+                </div>
         </div>
     </section>
 
-    <div id="cartModal" class="cart-modal">
-        <div class="cart-content">
-            <div class="cart-header">
-                <h3>TON PANIER</h3>
+    <div id="cartModal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3>VOTRE PANIER</h3>
                 <button id="cartClose"><i class="fas fa-times"></i></button>
             </div>
-            <div id="cartBody" class="cart-body"></div>
-            <div id="cartFooter" class="cart-footer" style="display: none;">
+            <div id="cartBody" class="modal-body"></div>
+            <div id="cartFooter" class="modal-footer" style="display: none;">
                 <div id="cartTotalDisplay"></div>
-                <button id="checkoutWhatsapp" class="btn-primary">
-                    <i class="fab fa-whatsapp"></i> COMMANDER
+                <button id="checkoutWhatsapp" class="btn-checkout">
+                    <i class="fab fa-whatsapp"></i> COMMANDER SUR WHATSAPP
                 </button>
             </div>
         </div>
     </div>
 
     <div class="audio-player" id="audioPlayer" style="display: none;">
-        <div class="container audio-player-content">
-            <img src="" id="playerImage" class="player-image">
-            <div class="audio-details">
+        <div class="container player-inner">
+            <img src="" id="playerImage" class="p-img">
+            <div class="p-info">
                 <h4 id="playerTitle">Titre</h4>
                 <p id="playerGenre">Genre</p>
             </div>
-            <div class="player-controls-center">
-                <div class="player-btns">
-                    <button id="restartBtn" class="control-btn"><i class="fas fa-undo"></i></button>
-                    <button id="playPauseBtn" class="control-btn play-main"><i class="fas fa-play"></i></button>
-                    <button id="forwardBtn" class="control-btn"><i class="fas fa-forward"></i></button>
+            <div class="p-controls">
+                <div class="p-btns">
+                    <button id="restartBtn"><i class="fas fa-undo"></i></button>
+                    <button id="playPauseBtn" class="main-play"><i class="fas fa-play"></i></button>
+                    <button id="forwardBtn"><i class="fas fa-forward"></i></button>
                 </div>
-                <div class="progress-bar-container">
+                <div class="p-progress">
                     <span id="currentTime">0:00</span>
                     <input type="range" id="progressBar" value="0" max="100">
                     <span id="durationTime">0:00</span>
                 </div>
             </div>
-            <button id="playerClose" class="close-player"><i class="fas fa-times"></i></button>
+            <button id="playerClose" class="p-close"><i class="fas fa-times"></i></button>
         </div>
         <audio id="mainAudio"></audio>
     </div>

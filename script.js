@@ -6,125 +6,113 @@ const database = [
 ];
 
 let cart = [];
-
 const mainAudio = document.getElementById('mainAudio');
-const playPauseBtn = document.getElementById('playPauseBtn');
-const progressBar = document.getElementById('progressBar');
 
-// --- FONCTIONS PANIER ---
+// --- PANIER ---
 window.addToCart = function(id) {
     const beat = database.find(b => b.id === id);
-    if (!cart.some(item => item.id === id)) {
+    if (!cart.some(i => i.id === id)) {
         cart.push(beat);
-        updateCartUI();
+        updateUI();
     }
     document.getElementById('cartModal').classList.add('active');
 };
 
-function updateCartUI() {
+function updateUI() {
     document.getElementById('cartCount').innerText = cart.length;
     const body = document.getElementById('cartBody');
     const footer = document.getElementById('cartFooter');
     
-    if(cart.length === 0) {
-        body.innerHTML = "<p style='text-align:center;'>Ton panier est vide frérot.</p>";
+    if (cart.length === 0) {
+        body.innerHTML = "<p style='text-align:center; color:#555;'>Panier vide.</p>";
         footer.style.display = "none";
     } else {
         body.innerHTML = cart.map((item, index) => `
             <div class="cart-item">
                 <span>${item.title}</span>
-                <button onclick="removeFromCart(${index})" style="background:none; border:none; color:#ff4444; cursor:pointer;"><i class="fas fa-trash"></i></button>
+                <button onclick="removeFromCart(${index})" style="background:none; border:none; color:red; cursor:pointer;"><i class="fas fa-trash"></i></button>
             </div>
         `).join('');
         
         let total = cart.length * 39.99;
-        let displayTotal = total.toFixed(2);
+        if (cart.length >= 3) total -= 39.99;
         
-        if (cart.length >= 3) {
-            total -= 39.99;
-            displayTotal = `${total.toFixed(2)}€ <span style="color:var(--primary); font-size:0.8rem;">(OFFRE 2+1 APPLIQUÉE)</span>`;
-        } else {
-            displayTotal += "€";
-        }
-        
-        document.getElementById('cartTotalDisplay').innerHTML = `<h4 style="margin-bottom:15px;">TOTAL : ${displayTotal}</h4>`;
+        document.getElementById('cartTotalDisplay').innerHTML = `
+            <div style="margin-top:20px; border-top:1px solid #333; padding-top:10px;">
+                <p style="color:#00ff88">${cart.length >= 3 ? 'PROMO 2+1 ACTIVE' : ''}</p>
+                <h3 style="font-family:Orbitron">TOTAL : ${total.toFixed(2)}€</h3>
+            </div>`;
         footer.style.display = "block";
     }
 }
 
-window.removeFromCart = function(index) {
-    cart.splice(index, 1);
-    updateCartUI();
-};
+window.removeFromCart = function(i) { cart.splice(i, 1); updateUI(); };
 
-// --- LECTEUR AUDIO ---
+// --- LECTEUR ---
 window.playBeat = function(id) {
     const beat = database.find(b => b.id === id);
-    document.getElementById('audioPlayer').style.display = 'block';
+    const player = document.getElementById('audioPlayer');
+    player.style.display = 'block';
     mainAudio.src = beat.audio;
     document.getElementById('playerTitle').innerText = beat.title;
-    document.getElementById('playerImage').src = beat.cover;
     document.getElementById('playerGenre').innerText = beat.genre.toUpperCase();
+    document.getElementById('playerImage').src = beat.cover;
     mainAudio.play();
-    playPauseBtn.innerHTML = '<i class="fas fa-pause"></i>';
+    document.getElementById('playPauseBtn').innerHTML = '<i class="fas fa-pause"></i>';
 };
 
-mainAudio.addEventListener('timeupdate', () => {
-    const progress = (mainAudio.currentTime / mainAudio.duration) * 100;
-    progressBar.value = progress || 0;
+mainAudio.ontimeupdate = () => {
+    const prog = (mainAudio.currentTime / mainAudio.duration) * 100 || 0;
+    document.getElementById('progressBar').value = prog;
     document.getElementById('currentTime').innerText = formatTime(mainAudio.currentTime);
-});
+};
 
-mainAudio.addEventListener('loadedmetadata', () => {
+mainAudio.onloadedmetadata = () => {
     document.getElementById('durationTime').innerText = formatTime(mainAudio.duration);
-});
+};
 
-progressBar.addEventListener('input', () => {
-    const time = (progressBar.value * mainAudio.duration) / 100;
-    mainAudio.currentTime = time;
-});
+document.getElementById('progressBar').oninput = (e) => {
+    mainAudio.currentTime = (e.target.value * mainAudio.duration) / 100;
+};
 
 function formatTime(s) {
-    const min = Math.floor(s/60);
-    const sec = Math.floor(s%60);
-    return `${min}:${sec < 10 ? '0'+sec : sec}`;
+    const m = Math.floor(s/60);
+    const sc = Math.floor(s%60);
+    return `${m}:${sc < 10 ? '0'+sc : sc}`;
 }
 
-// --- BOUTONS ---
-document.getElementById('cartBtn').onclick = () => document.getElementById('cartModal').classList.add('active');
-document.getElementById('cartClose').onclick = () => document.getElementById('cartModal').classList.remove('active');
-document.getElementById('playerClose').onclick = () => { mainAudio.pause(); document.getElementById('audioPlayer').style.display = 'none'; };
-
-playPauseBtn.onclick = () => {
-    if (mainAudio.paused) { mainAudio.play(); playPauseBtn.innerHTML = '<i class="fas fa-pause"></i>'; }
-    else { mainAudio.pause(); playPauseBtn.innerHTML = '<i class="fas fa-play"></i>'; }
+// --- CONTROLES ---
+document.getElementById('playPauseBtn').onclick = () => {
+    if (mainAudio.paused) { mainAudio.play(); document.getElementById('playPauseBtn').innerHTML = '<i class="fas fa-pause"></i>'; }
+    else { mainAudio.pause(); document.getElementById('playPauseBtn').innerHTML = '<i class="fas fa-play"></i>'; }
 };
 
+document.getElementById('cartBtn').onclick = () => document.getElementById('cartModal').classList.add('active');
+document.getElementById('cartClose').onclick = () => document.getElementById('cartModal').classList.remove('active');
+document.getElementById('playerClose').onclick = () => { mainAudio.pause(); document.getElementById('audioPlayer').style.display='none'; };
 document.getElementById('restartBtn').onclick = () => mainAudio.currentTime = 0;
 document.getElementById('forwardBtn').onclick = () => mainAudio.currentTime += 10;
 
 document.getElementById('checkoutWhatsapp').onclick = () => {
-    const msg = `Salut KAIJU 🦖! Je veux commander ces beats : ${cart.map(b => b.title).join(', ')}`;
-    window.open(`https://wa.me/221777694864?text=${encodeURIComponent(msg)}`);
+    const text = `Salut KAIJU 🦖! Je veux ces beats : ${cart.map(b => b.title).join(', ')}`;
+    window.open(`https://wa.me/221777694864?text=${encodeURIComponent(text)}`);
 };
 
-// --- RENDU ---
+// --- RENDER ---
 function render() {
-    const grid = document.getElementById('beatsGrid');
-    grid.innerHTML = database.map(beat => `
+    document.getElementById('beatsGrid').innerHTML = database.map(beat => `
         <div class="beat-card">
-            <div class="beat-img-container">
-                <img src="${beat.cover}" class="beat-img">
-                <button class="play-overlay" onclick="playBeat(${beat.id})"><i class="fas fa-play"></i></button>
+            <div class="img-box">
+                <img src="${beat.cover}">
+                <button class="play-btn-overlay" onclick="playBeat(${beat.id})"><i class="fas fa-play"></i></button>
             </div>
-            <div class="beat-content">
-                <h3 class="beat-title">${beat.title}</h3>
-                <p style="margin-bottom:15px;">${beat.genre.toUpperCase()} | 39.99€</p>
-                <button class="btn-primary" onclick="addToCart(${beat.id})">AJOUTER AU PANIER</button>
+            <div class="beat-info">
+                <h3>${beat.title}</h3>
+                <p>${beat.genre.toUpperCase()} | 39.99€</p>
+                <button class="btn-add" onclick="addToCart(${beat.id})">AJOUTER AU PANIER</button>
             </div>
         </div>
     `).join('');
     document.getElementById('beatsCount').innerText = database.length;
 }
-
-document.addEventListener('DOMContentLoaded', render);
+render();
