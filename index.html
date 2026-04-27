@@ -31,11 +31,31 @@
         <div class="container">
             <div class="section-header">
                 <h2>CATALOGUE (<span id="beatsCount">0</span>)</h2>
-            </div>
-            <div class="beats-grid" id="beatsGrid">
+                
+                <div class="filter-bar">
+                    <div class="search-box">
+                        <i class="fas fa-search"></i>
+                        <input type="text" id="searchInput" placeholder="Chercher un beat...">
+                    </div>
+                    <select id="genreFilter" class="genre-select">
+                        <option value="all">TOUS LES GENRES</option>
+                        <option value="trap">TRAP</option>
+                        <option value="hood-trap">HOOD-TRAP</option>
+                        <option value="jersey">JERSEY</option>
+                        <option value="drill">DRILL</option>
+                        <option value="afro">AFRO</option>
+                        <option value="amapiano">AMAPIANO</option>
+                        <option value="boom-bap">BOOM-BAP</option>
+                        <option value="oriental">ORIENTAL</option>
+                    </select>
                 </div>
+            </div>
+            
+            <div class="beats-grid" id="beatsGrid"></div>
         </div>
     </section>
+
+    <div id="toast" class="toast">Beat ajouté au panier !</div>
 
     <div id="cartModal" class="modal">
         <div class="modal-content">

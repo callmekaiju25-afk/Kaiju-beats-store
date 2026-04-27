@@ -14,9 +14,18 @@ window.addToCart = function(id) {
     if (!cart.some(i => i.id === id)) {
         cart.push(beat);
         updateUI();
+        showToast(`"${beat.title}" ajouté !`);
+    } else {
+        showToast("Déjà dans le panier");
     }
-    document.getElementById('cartModal').classList.add('active');
 };
+
+function showToast(message) {
+    const toast = document.getElementById('toast');
+    toast.innerText = message;
+    toast.style.display = 'block';
+    setTimeout(() => { toast.style.display = 'none'; }, 2000);
+}
 
 function updateUI() {
     document.getElementById('cartCount').innerText = cart.length;
@@ -47,6 +56,20 @@ function updateUI() {
 }
 
 window.removeFromCart = function(i) { cart.splice(i, 1); updateUI(); };
+
+// --- FILTRES ---
+function filterBeats() {
+    const query = document.getElementById('searchInput').value.toLowerCase();
+    const selectedGenre = document.getElementById('genreFilter').value.toLowerCase();
+    
+    const filtered = database.filter(beat => {
+        const matchesSearch = beat.title.toLowerCase().includes(query);
+        const matchesGenre = selectedGenre === 'all' || beat.genre.toLowerCase() === selectedGenre;
+        return matchesSearch && matchesGenre;
+    });
+    
+    render(filtered);
+}
 
 // --- LECTEUR ---
 window.playBeat = function(id) {
@@ -99,8 +122,9 @@ document.getElementById('checkoutWhatsapp').onclick = () => {
 };
 
 // --- RENDER ---
-function render() {
-    document.getElementById('beatsGrid').innerHTML = database.map(beat => `
+function render(items = database) {
+    const grid = document.getElementById('beatsGrid');
+    grid.innerHTML = items.map(beat => `
         <div class="beat-card">
             <div class="img-box">
                 <img src="${beat.cover}">
@@ -113,6 +137,11 @@ function render() {
             </div>
         </div>
     `).join('');
-    document.getElementById('beatsCount').innerText = database.length;
+    document.getElementById('beatsCount').innerText = items.length;
 }
-render();
+
+document.addEventListener('DOMContentLoaded', () => {
+    render();
+    document.getElementById('searchInput').addEventListener('input', filterBeats);
+    document.getElementById('genreFilter').addEventListener('change', filterBeats);
+});
