@@ -21,6 +21,13 @@ const database = [
         cover: "assets/IMAGE/Distancia.png", 
         audio: "assets/MP3/Distancia.mp3"
     },
+    {
+        id: 4,
+        title: "Sunset",
+        genre: "afro",
+        cover: "assets/IMAGE/Sun-Set.png", 
+        audio: "assets/MP3/Sun-Set.mp3"
+    },
 ];
 
 // Éléments du DOM
