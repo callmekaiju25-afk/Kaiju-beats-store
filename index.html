@@ -1,20 +1,19 @@
 <!DOCTYPE html>
 <html lang="fr">
 <head>
-    <div class="bg-glow"></div>
-
-<div class="logo">KAIJU<span class="logo-glow">BEATS</span></div>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>KAIJU BEATS | Store</title>
+    <title>KAIJU BEATS | Premium Store</title>
     <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
+    <div class="bg-glow"></div>
+
     <nav class="navbar">
         <div class="container nav-content">
-            <div class="logo">KAIJU<span class="logo-accent">BEATS</span></div>
+            <div class="logo">KAIJU<span class="logo-glow">BEATS</span></div>
             <div class="nav-menu">
                 <button class="cart-btn" id="cartBtn">
                     <i class="fas fa-shopping-cart"></i> <span id="cartCount">0</span>
@@ -26,7 +25,7 @@
     <header class="hero">
         <div class="container">
             <h1 class="glitch">KAIJU ON THE BEAT</h1>
-            <p>DARK. MINIMALIST. PREMIUM.</p>
+            <p class="hero-sub">DARK . MINIMALIST . PREMIUM</p>
         </div>
     </header>
 
@@ -38,7 +37,7 @@
                 <div class="filter-bar">
                     <div class="search-box">
                         <i class="fas fa-search"></i>
-                        <input type="text" id="searchInput" placeholder="Chercher un beat...">
+                        <input type="text" id="searchInput" placeholder="Chercher un titre...">
                     </div>
                     <select id="genreFilter" class="genre-select">
                         <option value="all">TOUS LES GENRES</option>
@@ -58,7 +57,7 @@
         </div>
     </section>
 
-    <div id="toast" class="toast">Beat ajouté au panier !</div>
+    <div id="toast" class="toast">Ajouté au panier !</div>
 
     <div id="cartModal" class="modal">
         <div class="modal-content">
@@ -85,9 +84,9 @@
             </div>
             <div class="p-controls">
                 <div class="p-btns">
-                    <button id="restartBtn"><i class="fas fa-undo"></i></button>
+                    <button id="restartBtn" class="sub-ctrl"><i class="fas fa-undo"></i></button>
                     <button id="playPauseBtn" class="main-play"><i class="fas fa-play"></i></button>
-                    <button id="forwardBtn"><i class="fas fa-forward"></i></button>
+                    <button id="forwardBtn" class="sub-ctrl"><i class="fas fa-forward"></i></button>
                 </div>
                 <div class="p-progress">
                     <span id="currentTime">0:00</span>
