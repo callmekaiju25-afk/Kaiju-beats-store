@@ -13,7 +13,14 @@ const database = [
         genre: "trap",
         cover: "assets/IMAGE/MIRAGE.jpg", 
         audio: "assets/MP3/MIRAGE.mp3"
-    }
+    },
+     {
+        id: 3,
+        title: "Distancia",
+        genre: "afro",
+        cover: "assets/IMAGE/Distancia.jpg", 
+        audio: "assets/MP3/Distancia.mp3"
+    },
 ];
 
 // Éléments du DOM
