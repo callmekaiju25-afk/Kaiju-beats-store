@@ -107,20 +107,13 @@ function updateCartUI() {
 window.removeItem = (i) => {// TA BASE DE DONNÉES (Ajoute tes beats ici frérot)
 const database = [
     {
-        id: 1,
-        title: "KAIJU DRILL",
-        genre: "drill",
-        cover: "https://via.placeholder.com/300/00ff88/000000?text=DRILL", // Remplace par ton lien image
-        audio: "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3" // Remplace par ton lien MP3
-    },
-    {
-        id: 2,
-        title: "DESERT TRAP",
-        genre: "oriental",
-        cover: "https://via.placeholder.com/300/00ff88/000000?text=TRAP",
-        audio: "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-2.mp3"
-    }
-];
+    id: 3,
+    title: "BERGHAIN",
+    genre: "Hood-Trap",
+    cover: "Rosalia.jpg",
+    audio: "Berghain.mp3"
+},
+
 
 const beatsGrid = document.getElementById('beatsGrid');
 const searchInput = document.getElementById('searchInput');
