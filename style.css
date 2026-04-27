@@ -2,57 +2,59 @@
     --primary: #00ff88;
     --primary-glow: rgba(0, 255, 136, 0.4);
     --bg: #050505;
-    --text: #ffffff;
 }
 
 * { margin: 0; padding: 0; box-sizing: border-box; }
-body { background: var(--bg); color: var(--text); font-family: 'Space Mono', monospace; overflow-x: hidden; }
-.container { max-width: 1200px; margin: 0 auto; padding: 0 20px; }
+body { background: var(--bg); color: white; font-family: 'Space Mono', monospace; }
+.container { max-width: 1100px; margin: 0 auto; padding: 0 20px; }
 
 /* Navbar */
-.navbar { padding: 15px 0; background: rgba(0,0,0,0.9); backdrop-filter: blur(10px); position: sticky; top: 0; z-index: 1000; border-bottom: 1px solid rgba(255,255,255,0.05); }
+.navbar { padding: 15px 0; background: rgba(0,0,0,0.9); border-bottom: 1px solid #222; position: sticky; top: 0; z-index: 1000; }
 .nav-content { display: flex; justify-content: space-between; align-items: center; }
-.logo { font-family: 'Orbitron'; font-weight: 900; font-size: 1.5rem; letter-spacing: 2px; }
-.logo-glow { color: var(--primary); text-shadow: 0 0 10px var(--primary-glow); }
-.nav-link { color: white; text-decoration: none; font-family: 'Orbitron'; font-size: 0.8rem; margin-right: 20px; transition: 0.3s; }
-.nav-link:hover { color: var(--primary); }
+.logo { font-family: 'Orbitron'; font-weight: 900; color: white; }
+.logo-glow { color: var(--primary); }
+.nav-link { color: white; text-decoration: none; font-family: 'Orbitron'; font-size: 0.8rem; margin-right: 15px; }
 
-/* Hero */
-.hero { padding: 80px 0; text-align: center; background: radial-gradient(circle at 50% 50%, #111, #050505); }
-.glitch { font-family: 'Orbitron'; font-size: 3rem; font-weight: 900; letter-spacing: 5px; color: white; }
-.hero-sub { color: var(--primary); margin-top: 10px; letter-spacing: 3px; font-size: 0.9rem; }
+/* Grille des Beats - LE FIX POUR LES IMAGES */
+.beats-grid { 
+    display: grid; 
+    grid-template-columns: repeat(auto-fill, minmax(250px, 1fr)); 
+    gap: 25px; 
+    margin-top: 40px; 
+}
 
-/* Barre de recherche */
-.filter-bar { margin-top: 30px; display: flex; justify-content: center; }
-.search-box { position: relative; width: 100%; max-width: 500px; }
-.search-box i { position: absolute; left: 15px; top: 50%; transform: translateY(-50%); color: #555; }
-.search-box input { width: 100%; padding: 12px 12px 12px 45px; background: #111; border: 1px solid #333; border-radius: 5px; color: white; font-family: 'Space Mono'; }
+.beat-card { 
+    background: #111; 
+    border-radius: 10px; 
+    overflow: hidden; 
+    border: 1px solid #222; 
+    transition: 0.3s; 
+}
 
-/* GRILLE DES BEATS - Pour éviter les images énormes */
-.beats-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 30px; margin-top: 50px; }
-.beat-card { background: #111; border-radius: 12px; overflow: hidden; border: 1px solid #222; transition: 0.3s; }
-.beat-card:hover { transform: translateY(-10px); border-color: var(--primary); }
-.img-box { position: relative; width: 100%; aspect-ratio: 1 / 1; overflow: hidden; }
-.img-box img { width: 100%; height: 100%; object-fit: cover; }
+.img-box { 
+    width: 100%; 
+    aspect-ratio: 1 / 1; /* Force le carré */
+    position: relative; 
+}
 
-/* Popup Contact */
-.modal { position: fixed; inset: 0; background: rgba(0,0,0,0.9); z-index: 2000; display: none; align-items: center; justify-content: center; }
+.img-box img { 
+    width: 100%; 
+    height: 100%; 
+    object-fit: cover; /* Empêche l'image de dépasser */
+}
+
+/* Popups */
+.modal { position: fixed; inset: 0; background: rgba(0,0,0,0.9); display: none; align-items: center; justify-content: center; z-index: 2000; }
 .modal.active { display: flex; }
-.modal-content { background: #080808; padding: 30px; width: 90%; max-width: 400px; border: 1px solid var(--primary); border-radius: 10px; box-shadow: 0 0 30px var(--primary-glow); }
-.contact-card { display: flex; align-items: center; gap: 15px; padding: 15px; background: rgba(255,255,255,0.03); border: 1px solid #222; border-radius: 8px; text-decoration: none; margin-bottom: 10px; transition: 0.3s; }
-.contact-card:hover { border-color: var(--primary); transform: translateX(5px); }
-.contact-card i { color: var(--primary); font-size: 1.5rem; }
+.modal-content { background: #0a0a0a; padding: 25px; border: 1px solid var(--primary); border-radius: 10px; width: 90%; max-width: 400px; }
+.modal-header { display: flex; justify-content: space-between; margin-bottom: 20px; }
+.contact-card { display: flex; align-items: center; gap: 15px; padding: 12px; background: #151515; border-radius: 8px; text-decoration: none; margin-bottom: 10px; color: white; border: 1px solid #222; }
+.contact-card i { color: var(--primary); font-size: 1.2rem; }
 .contact-text span { display: block; font-size: 0.6rem; color: var(--primary); font-family: 'Orbitron'; }
-.contact-text p { color: white; font-size: 0.8rem; }
 
-/* Audio Player */
-.audio-player { position: fixed; bottom: 0; left: 0; width: 100%; background: #000; border-top: 2px solid var(--primary); padding: 10px 0; z-index: 1500; }
+/* Player */
+.audio-player { position: fixed; bottom: 0; left: 0; width: 100%; background: #000; border-top: 2px solid var(--primary); padding: 10px; z-index: 1500; }
 .player-inner { display: flex; align-items: center; gap: 15px; }
-.p-img { width: 50px; height: 50px; object-fit: cover; border-radius: 4px; }
+.p-img { width: 45px; height: 45px; object-fit: cover; border-radius: 4px; }
 .p-controls { flex-grow: 1; }
-.p-btns { display: flex; justify-content: center; gap: 15px; margin-bottom: 5px; }
 .main-play { background: var(--primary); border: none; width: 35px; height: 35px; border-radius: 50%; cursor: pointer; }
-.sub-ctrl { background: none; border: none; color: white; cursor: pointer; }
-.p-progress { display: flex; align-items: center; gap: 10px; font-size: 0.7rem; }
-.p-progress input { flex-grow: 1; accent-color: var(--primary); }
-.toast { position: fixed; bottom: 100px; left: 50%; transform: translateX(-50%); background: var(--primary); color: black; padding: 10px 20px; border-radius: 5px; font-weight: bold; display: none; z-index: 3000; }

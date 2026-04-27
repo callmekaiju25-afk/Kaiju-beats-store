@@ -6,7 +6,7 @@
     <title>KAIJU BEATS | Premium Store</title>
     <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="style.css?v=2">
 </head>
 <body>
     <div class="bg-glow"></div>
@@ -26,21 +26,21 @@
     <header class="hero">
         <div class="container">
             <h1 class="glitch">KAIJU ON THE BEAT</h1>
-            <p class="hero-sub">DAKAR PREMIUM SOUNDS</p>
+            <p class="hero-sub">DAKAR PREMIUM SOUNDS 🇸🇳</p>
         </div>
     </header>
 
     <section id="beats" class="catalog-section">
         <div class="container">
-            <div class="section-header">
-                <h2>CATALOGUE (<span id="beatsCount">0</span>)</h2>
-                <div class="filter-bar">
-                    <div class="search-box">
-                        <i class="fas fa-search"></i>
-                        <input type="text" id="searchInput" placeholder="Chercher un titre...">
-                    </div>
+            <div class="section-header" style="text-align: center; margin-bottom: 40px;">
+                <h2 style="font-family: 'Orbitron'; margin-bottom: 20px;">CATALOGUE (<span id="beatsCount">0</span>)</h2>
+                
+                <div class="search-container" style="max-width: 500px; margin: 0 auto; position: relative;">
+                    <i class="fas fa-search" style="position: absolute; left: 15px; top: 50%; transform: translateY(-50%); color: #555;"></i>
+                    <input type="text" id="searchInput" placeholder="Chercher un beat..." style="width: 100%; padding: 12px 12px 12px 45px; background: #111; border: 1px solid #333; border-radius: 5px; color: white; font-family: 'Space Mono';">
                 </div>
             </div>
+            
             <div class="beats-grid" id="beatsGrid"></div>
         </div>
     </section>
@@ -52,33 +52,21 @@
                 <button id="contactClose"><i class="fas fa-times"></i></button>
             </div>
             <div class="contact-options">
-                <a href="https://instagram.com/kaiju_beats" target="_blank" class="contact-card insta">
+                <a href="https://instagram.com/kaiju_beats" target="_blank" class="contact-card">
                     <i class="fab fa-instagram"></i>
-                    <div class="contact-text">
-                        <span>INSTAGRAM</span>
-                        <p>@kaiju_beats</p>
-                    </div>
+                    <div class="contact-text"><span>INSTAGRAM</span><p>@kaiju_beats</p></div>
                 </a>
-                <a href="mailto:contact@kaijubeats.com" class="contact-card mail">
+                <a href="mailto:contact@kaijubeats.com" class="contact-card">
                     <i class="fas fa-envelope"></i>
-                    <div class="contact-text">
-                        <span>EMAIL</span>
-                        <p>contact@kaijubeats.com</p>
-                    </div>
+                    <div class="contact-text"><span>EMAIL</span><p>contact@kaijubeats.com</p></div>
                 </a>
-                <a href="https://wa.me/221777694864" target="_blank" class="contact-card whatsapp">
+                <a href="https://wa.me/221777694864" target="_blank" class="contact-card">
                     <i class="fab fa-whatsapp"></i>
-                    <div class="contact-text">
-                        <span>WHATSAPP</span>
-                        <p>+221 77 769 48 64</p>
-                    </div>
+                    <div class="contact-text"><span>WHATSAPP</span><p>+221 77 769 48 64</p></div>
                 </a>
             </div>
-            <div class="flag-footer">🇸🇳 DAKAR, SENEGAL 🇸🇳</div>
         </div>
     </div>
-
-    <div id="toast" class="toast">Ajouté !</div>
 
     <div id="cartModal" class="modal">
         <div class="modal-content">
@@ -87,10 +75,10 @@
                 <button id="cartCloseBtn"><i class="fas fa-times"></i></button>
             </div>
             <div id="cartBody" class="modal-body"></div>
-            <div id="cartFooter" class="modal-footer" style="display: none;">
+            <div id="cartFooter" class="modal-footer" style="display: none; padding-top: 20px; border-top: 1px solid #222;">
                 <div id="cartTotalDisplay"></div>
-                <button id="checkoutWhatsapp" class="btn-checkout">
-                    <i class="fab fa-whatsapp"></i> COMMANDER SUR WHATSAPP
+                <button id="checkoutWhatsapp" class="btn-checkout" style="width: 100%; padding: 15px; background: #25D366; border: none; color: black; font-weight: bold; cursor: pointer; margin-top: 15px; border-radius: 5px;">
+                    <i class="fab fa-whatsapp"></i> COMMANDER
                 </button>
             </div>
         </div>
@@ -100,22 +88,17 @@
         <div class="container player-inner">
             <img src="" id="playerImage" class="p-img">
             <div class="p-info">
-                <h4 id="playerTitle">Titre</h4>
-                <p id="playerGenre">Genre</p>
+                <h4 id="playerTitle" style="font-size: 0.9rem;">Titre</h4>
             </div>
             <div class="p-controls">
                 <div class="p-btns">
-                    <button id="restartBtn" class="sub-ctrl"><i class="fas fa-undo"></i></button>
                     <button id="playPauseBtn" class="main-play"><i class="fas fa-play"></i></button>
-                    <button id="forwardBtn" class="sub-ctrl"><i class="fas fa-forward"></i></button>
                 </div>
                 <div class="p-progress">
-                    <span id="currentTime">0:00</span>
-                    <input type="range" id="progressBar" value="0" max="100">
-                    <span id="durationTime">0:00</span>
+                    <input type="range" id="progressBar" value="0" max="100" style="width: 100%; accent-color: #00ff88;">
                 </div>
             </div>
-            <button id="playerClose" class="p-close"><i class="fas fa-times"></i></button>
+            <button id="playerClose" style="background:none; border:none; color: #555;"><i class="fas fa-times"></i></button>
         </div>
         <audio id="mainAudio"></audio>
     </div>

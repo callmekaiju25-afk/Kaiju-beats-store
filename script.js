@@ -1,30 +1,18 @@
 const database = [
-    { id: 1, title: "BERGHAIN", genre: "hood-trap", cover: "assets/IMAGE/Rosalia.jpg", audio: "assets/MP3/Berghain.mp3" },
-    { id: 2, title: "MIRAGE", genre: "trap", cover: "assets/IMAGE/MIRAGE.jpg", audio: "assets/MP3/MIRAGE.mp3" },
-    { id: 3, title: "Distancia", genre: "afro", cover: "assets/IMAGE/Distancia.png", audio: "assets/MP3/Distancia.mp3" },
-    { id: 4, title: "Sunset", genre: "afro", cover: "assets/IMAGE/Sun-Set.png", audio: "assets/MP3/Sun-Set.mp3" }
+    { id: 1, title: "BERGHAIN", cover: "assets/IMAGE/Rosalia.jpg", audio: "assets/MP3/Berghain.mp3" },
+    { id: 2, title: "MIRAGE", cover: "assets/IMAGE/MIRAGE.jpg", audio: "assets/MP3/MIRAGE.mp3" },
+    { id: 3, title: "Distancia", cover: "assets/IMAGE/Distancia.png", audio: "assets/MP3/Distancia.mp3" },
+    { id: 4, title: "Sunset", cover: "assets/IMAGE/Sun-Set.png", audio: "assets/MP3/Sun-Set.mp3" }
 ];
 
 let cart = [];
 const mainAudio = document.getElementById('mainAudio');
 
-// POPUPS
-const contactBtn = document.getElementById('contactBtn');
-const contactModal = document.getElementById('contactModal');
-const contactClose = document.getElementById('contactClose');
-const cartBtn = document.getElementById('cartBtn');
-const cartModal = document.getElementById('cartModal');
-const cartCloseBtn = document.getElementById('cartCloseBtn');
-
-contactBtn.onclick = (e) => { e.preventDefault(); contactModal.classList.add('active'); };
-contactClose.onclick = () => contactModal.classList.remove('active');
-cartBtn.onclick = () => cartModal.classList.add('active');
-cartCloseBtn.onclick = () => cartModal.classList.remove('active');
-
-window.onclick = (e) => {
-    if (e.target == contactModal) contactModal.classList.remove('active');
-    if (e.target == cartModal) cartModal.classList.remove('active');
-};
+// OUVERTURE POPUPS
+document.getElementById('contactBtn').onclick = (e) => { e.preventDefault(); document.getElementById('contactModal').classList.add('active'); };
+document.getElementById('contactClose').onclick = () => document.getElementById('contactModal').classList.remove('active');
+document.getElementById('cartBtn').onclick = () => document.getElementById('cartModal').classList.add('active');
+document.getElementById('cartCloseBtn').onclick = () => document.getElementById('cartModal').classList.remove('active');
 
 // RECHERCHE
 document.getElementById('searchInput').oninput = (e) => {
@@ -39,7 +27,6 @@ window.addToCart = (id) => {
     if (!cart.find(i => i.id === id)) {
         cart.push(beat);
         updateCart();
-        showToast("Ajouté !");
     }
 };
 
@@ -48,7 +35,7 @@ function updateCart() {
     const body = document.getElementById('cartBody');
     const footer = document.getElementById('cartFooter');
     if (cart.length === 0) {
-        body.innerHTML = "<p style='text-align:center; color:#555;'>Vide</p>";
+        body.innerHTML = "<p style='color:#555; text-align:center;'>Vide</p>";
         footer.style.display = "none";
     } else {
         body.innerHTML = cart.map((item, index) => `
@@ -60,17 +47,11 @@ function updateCart() {
         footer.style.display = "block";
         let total = cart.length * 39.99;
         if (cart.length >= 3) total -= 39.99;
-        document.getElementById('cartTotalDisplay').innerHTML = `<h3 style="color:var(--primary)">TOTAL : ${total.toFixed(2)}€</h3>`;
+        document.getElementById('cartTotalDisplay').innerHTML = `<h3 style="color:#00ff88">TOTAL : ${total.toFixed(2)}€</h3>`;
     }
 }
 
 window.removeFromCart = (i) => { cart.splice(i, 1); updateCart(); };
-
-function showToast(m) {
-    const t = document.getElementById('toast');
-    t.innerText = m; t.style.display = "block";
-    setTimeout(() => t.style.display = "none", 2000);
-}
 
 // LECTEUR
 window.playBeat = (id) => {
@@ -95,8 +76,8 @@ function render(data = database) {
                 <button onclick="playBeat(${b.id})" style="position:absolute; inset:0; background:rgba(0,0,0,0.5); border:none; color:white; font-size:2rem; cursor:pointer; opacity:0;" onmouseover="this.style.opacity=1" onmouseout="this.style.opacity=0"><i class="fas fa-play"></i></button>
             </div>
             <div style="padding:15px; text-align:center;">
-                <h3 style="font-family:Orbitron; font-size:0.9rem;">${b.title}</h3>
-                <button onclick="addToCart(${b.id})" style="margin-top:10px; background:none; border:1px solid var(--primary); color:var(--primary); padding:8px; width:100%; cursor:pointer; font-family:Orbitron; font-size:0.7rem;">39.99€</button>
+                <h3 style="font-family:Orbitron; font-size:0.8rem;">${b.title}</h3>
+                <button onclick="addToCart(${b.id})" style="margin-top:10px; background:none; border:1px solid #00ff88; color:#00ff88; padding:8px; width:100%; cursor:pointer; font-family:Orbitron; font-size:0.7rem;">AJOUTER</button>
             </div>
         </div>
     `).join('');
@@ -104,6 +85,7 @@ function render(data = database) {
 }
 
 document.addEventListener('DOMContentLoaded', () => render());
+
 document.getElementById('checkoutWhatsapp').onclick = () => {
     const t = `Salut KAIJU 🦖! Je veux : ${cart.map(b => b.title).join(', ')}`;
     window.open(`https://wa.me/221777694864?text=${encodeURIComponent(t)}`);
