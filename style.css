@@ -11,56 +11,50 @@
 body { background: var(--bg); color: var(--text); font-family: 'Space Mono', monospace; overflow-x: hidden; }
 .container { max-width: 1200px; margin: 0 auto; padding: 0 20px; }
 
-.bg-glow {
-    position: fixed; top: 0; left: 0; width: 100%; height: 100%;
-    background: radial-gradient(circle at 50% 50%, #111 0%, #050505 100%);
-    z-index: -1;
-}
-
-/* Navbar */
+/* Navbar stylée */
 .navbar { padding: 20px 0; background: rgba(0,0,0,0.9); backdrop-filter: blur(10px); position: sticky; top: 0; z-index: 1000; border-bottom: 1px solid rgba(255,255,255,0.05); }
 .nav-content { display: flex; justify-content: space-between; align-items: center; }
-.logo { font-family: 'Orbitron'; font-weight: 900; letter-spacing: 3px; font-size: 1.5rem; }
+.logo { font-family: 'Orbitron'; font-weight: 900; font-size: 1.5rem; letter-spacing: 2px; }
 .logo-glow { color: var(--primary); text-shadow: 0 0 10px var(--primary-glow); }
-.cart-btn { background: transparent; border: 1px solid var(--primary); color: var(--primary); padding: 8px 18px; border-radius: 4px; cursor: pointer; font-family: 'Orbitron'; transition: 0.3s; }
-.cart-btn:hover { background: var(--primary); color: #000; box-shadow: 0 0 15px var(--primary-glow); }
+.nav-link { color: white; text-decoration: none; font-family: 'Orbitron'; font-size: 0.8rem; margin-right: 25px; transition: 0.3s; letter-spacing: 1px; }
+.nav-link:hover { color: var(--primary); text-shadow: 0 0 8px var(--primary-glow); }
 
-/* Hero */
-.hero { padding: 120px 0 80px; text-align: center; }
-.glitch { font-family: 'Orbitron'; font-size: 4rem; letter-spacing: 8px; margin-bottom: 10px; }
-.hero-sub { color: var(--primary); letter-spacing: 4px; font-size: 0.9rem; opacity: 0.8; }
+/* Popup Contact Pro */
+.contact-popup { max-width: 400px !important; border: 2px solid var(--primary) !important; box-shadow: 0 0 30px var(--primary-glow) !important; background: #080808 !important; }
+.contact-options { display: flex; flex-direction: column; gap: 12px; margin-top: 20px; }
+.contact-card { display: flex; align-items: center; gap: 15px; padding: 15px; background: rgba(255, 255, 255, 0.03); border: 1px solid rgba(255, 255, 255, 0.1); border-radius: 8px; text-decoration: none; transition: 0.3s; }
+.contact-card:hover { background: rgba(0, 255, 136, 0.1); border-color: var(--primary); transform: translateX(8px); }
+.contact-card i { font-size: 1.5rem; color: var(--primary); width: 30px; text-align: center; }
+.contact-text span { display: block; font-family: 'Orbitron'; font-size: 0.6rem; color: var(--primary); letter-spacing: 1px; }
+.contact-text p { font-size: 0.85rem; color: white; }
+.flag-footer { margin-top: 20px; text-align: center; font-size: 0.7rem; font-family: 'Orbitron'; color: #444; }
 
-/* Filtres */
-.filter-bar { display: flex; gap: 15px; margin-top: 30px; flex-wrap: wrap; }
-.search-box { flex-grow: 1; position: relative; }
-.search-box i { position: absolute; left: 15px; top: 50%; transform: translateY(-50%); color: var(--primary); }
-.search-box input { width: 100%; background: var(--surface); border: 1px solid rgba(255,255,255,0.1); padding: 12px 12px 12px 45px; color: white; border-radius: 6px; font-family: 'Space Mono'; }
-.genre-select { background: var(--surface); border: 1px solid rgba(255,255,255,0.1); color: white; padding: 12px; border-radius: 6px; font-family: 'Orbitron'; font-size: 0.7rem; cursor: pointer; }
-
-/* Grid & Cards */
-.beats-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 30px; margin-top: 40px; }
-.beat-card { background: var(--card-bg); border-radius: 12px; padding: 15px; border: 1px solid rgba(255,255,255,0.05); transition: 0.3s; }
-.beat-card:hover { border-color: var(--primary); transform: translateY(-5px); background: rgba(40,40,40,0.8); }
-.img-box { position: relative; border-radius: 8px; overflow: hidden; aspect-ratio: 1; margin-bottom: 15px; }
+/* Grid Beats */
+.beats-grid { display: grid; grid-template-columns: repeat(auto-fill, min-minmax(280px, 1fr)); gap: 30px; margin-top: 40px; }
+.beat-card { background: var(--card-bg); border-radius: 15px; overflow: hidden; border: 1px solid rgba(255,255,255,0.05); transition: 0.3s; }
+.beat-card:hover { transform: translateY(-10px); border-color: var(--primary); box-shadow: 0 10px 30px rgba(0,0,0,0.5); }
+.img-box { position: relative; aspect-ratio: 1; }
 .img-box img { width: 100%; height: 100%; object-fit: cover; }
-.play-btn-overlay { position: absolute; inset: 0; background: rgba(0,0,0,0.4); display: flex; justify-content: center; align-items: center; opacity: 0; transition: 0.3s; border: none; cursor: pointer; }
-.beat-card:hover .play-btn-overlay { opacity: 1; }
-.play-btn-overlay i { font-size: 2.5rem; color: var(--primary); }
-.btn-add { width: 100%; background: transparent; border: 1px solid var(--primary); color: var(--primary); padding: 12px; border-radius: 6px; font-family: 'Orbitron'; font-size: 0.7rem; cursor: pointer; transition: 0.3s; margin-top: 10px; }
-.btn-add:hover { background: var(--primary); color: #000; box-shadow: 0 0 15px var(--primary-glow); }
 
-/* Panier & Lecteur */
+/* RESTE DU CSS (Indispensable) */
 .modal { position: fixed; inset: 0; background: rgba(0,0,0,0.9); z-index: 2000; display: none; align-items: center; justify-content: center; }
 .modal.active { display: flex; }
 .modal-content { background: #111; padding: 30px; width: 90%; max-width: 450px; border: 1px solid var(--primary); border-radius: 10px; }
-.toast { position: fixed; bottom: 110px; left: 50%; transform: translateX(-50%); background: var(--primary); color: #000; padding: 12px 25px; border-radius: 50px; font-weight: bold; display: none; z-index: 3000; font-size: 0.8rem; box-shadow: 0 0 20px var(--primary-glow); }
-
+.modal-header { display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid #222; padding-bottom: 15px; margin-bottom: 15px; }
+.modal-header h3 { font-family: 'Orbitron'; color: var(--primary); font-size: 1rem; }
+.modal-header button { background: none; border: none; color: white; font-size: 1.2rem; cursor: pointer; }
+.cart-btn { background: none; border: 1px solid var(--primary); color: var(--primary); padding: 8px 15px; border-radius: 5px; font-family: 'Orbitron'; cursor: pointer; transition: 0.3s; }
+.cart-btn:hover { background: var(--primary); color: black; }
+.btn-add { width: 100%; padding: 12px; background: none; border: 1px solid var(--primary); color: var(--primary); font-family: 'Orbitron'; font-weight: bold; cursor: pointer; transition: 0.3s; margin-top: 15px; border-radius: 5px; }
+.btn-add:hover { background: var(--primary); color: black; }
 .audio-player { position: fixed; bottom: 0; left: 0; width: 100%; background: rgba(0,0,0,0.95); backdrop-filter: blur(15px); border-top: 2px solid var(--primary); padding: 15px 0; z-index: 1500; }
 .player-inner { display: flex; align-items: center; gap: 20px; }
-.p-img { width: 55px; height: 55px; border-radius: 5px; border: 1px solid var(--primary); }
-.p-controls { flex-grow: 1; }
-.p-btns { display: flex; justify-content: center; gap: 25px; margin-bottom: 8px; }
-.p-btns button { background: none; border: none; color: white; cursor: pointer; font-size: 1.1rem; }
-.main-play { color: var(--primary) !important; font-size: 1.6rem !important; }
+.p-img { width: 50px; height: 50px; border-radius: 5px; object-fit: cover; }
+.p-controls { flex-grow: 1; display: flex; flex-direction: column; gap: 5px; }
+.p-btns { display: flex; justify-content: center; gap: 20px; }
+.main-play { background: var(--primary); border: none; width: 40px; height: 40px; border-radius: 50%; cursor: pointer; font-size: 1rem; }
+.sub-ctrl { background: none; border: none; color: white; cursor: pointer; }
 .p-progress { display: flex; align-items: center; gap: 10px; font-size: 0.7rem; }
-#progressBar { flex-grow: 1; accent-color: var(--primary); }
+.p-progress input { flex-grow: 1; accent-color: var(--primary); }
+.p-close { background: none; border: none; color: #555; cursor: pointer; }
+.toast { position: fixed; bottom: 100px; left: 50%; transform: translateX(-50%); background: var(--primary); color: black; padding: 10px 20px; border-radius: 5px; font-weight: bold; display: none; z-index: 3000; }

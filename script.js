@@ -8,6 +8,25 @@ const database = [
 let cart = [];
 const mainAudio = document.getElementById('mainAudio');
 
+// --- GESTION DES POPUPS ---
+const contactBtn = document.getElementById('contactBtn');
+const contactModal = document.getElementById('contactModal');
+const contactClose = document.getElementById('contactClose');
+const cartBtn = document.getElementById('cartBtn');
+const cartModal = document.getElementById('cartModal');
+const cartCloseBtn = document.getElementById('cartCloseBtn');
+
+contactBtn.onclick = (e) => { e.preventDefault(); contactModal.classList.add('active'); };
+contactClose.onclick = () => { contactModal.classList.remove('active'); };
+cartBtn.onclick = () => { cartModal.classList.add('active'); };
+cartCloseBtn.onclick = () => { cartModal.classList.remove('active'); };
+
+window.onclick = (event) => {
+    if (event.target == contactModal) contactModal.classList.remove('active');
+    if (event.target == cartModal) cartModal.classList.remove('active');
+};
+
+// --- PANIER ---
 window.addToCart = function(id) {
     const beat = database.find(b => b.id === id);
     if (!cart.some(i => i.id === id)) {
@@ -36,7 +55,7 @@ function updateUI() {
         footer.style.display = "none";
     } else {
         body.innerHTML = cart.map((item, index) => `
-            <div class="cart-item">
+            <div style="display:flex; justify-content:space-between; margin-bottom:10px; font-family:'Space Mono';">
                 <span>${item.title}</span>
                 <button onclick="removeFromCart(${index})" style="background:none; border:none; color:red; cursor:pointer;"><i class="fas fa-trash"></i></button>
             </div>
@@ -47,7 +66,7 @@ function updateUI() {
         
         document.getElementById('cartTotalDisplay').innerHTML = `
             <div style="margin-top:20px; border-top:1px solid #333; padding-top:10px;">
-                <p style="color:#00ff88">${cart.length >= 3 ? 'PROMO 2+1 ACTIVE' : ''}</p>
+                <p style="color:#00ff88; font-size:0.7rem;">${cart.length >= 3 ? 'PROMO 2+1 ACTIVE' : ''}</p>
                 <h3 style="font-family:Orbitron">TOTAL : ${total.toFixed(2)}€</h3>
             </div>`;
         footer.style.display = "block";
@@ -56,17 +75,7 @@ function updateUI() {
 
 window.removeFromCart = function(i) { cart.splice(i, 1); updateUI(); };
 
-function filterBeats() {
-    const query = document.getElementById('searchInput').value.toLowerCase();
-    const selectedGenre = document.getElementById('genreFilter').value.toLowerCase();
-    const filtered = database.filter(beat => {
-        const matchesSearch = beat.title.toLowerCase().includes(query);
-        const matchesGenre = selectedGenre === 'all' || beat.genre.toLowerCase() === selectedGenre;
-        return matchesSearch && matchesGenre;
-    });
-    render(filtered);
-}
-
+// --- LECTEUR AUDIO ---
 window.playBeat = function(id) {
     const beat = database.find(b => b.id === id);
     const player = document.getElementById('audioPlayer');
@@ -99,8 +108,6 @@ document.getElementById('playPauseBtn').onclick = () => {
     else { mainAudio.pause(); document.getElementById('playPauseBtn').innerHTML = '<i class="fas fa-play"></i>'; }
 };
 
-document.getElementById('cartBtn').onclick = () => document.getElementById('cartModal').classList.add('active');
-document.getElementById('cartClose').onclick = () => document.getElementById('cartModal').classList.remove('active');
 document.getElementById('playerClose').onclick = () => { mainAudio.pause(); document.getElementById('audioPlayer').style.display='none'; };
 document.getElementById('restartBtn').onclick = () => mainAudio.currentTime = 0;
 document.getElementById('forwardBtn').onclick = () => mainAudio.currentTime += 10;
@@ -116,20 +123,16 @@ function render(items = database) {
         <div class="beat-card">
             <div class="img-box">
                 <img src="${beat.cover}">
-                <button class="play-btn-overlay" onclick="playBeat(${beat.id})"><i class="fas fa-play"></i></button>
+                <button onclick="playBeat(${beat.id})" style="position:absolute; inset:0; background:rgba(0,0,0,0.4); border:none; color:white; font-size:2rem; cursor:pointer; opacity:0; transition:0.3s;" onmouseover="this.style.opacity=1" onmouseout="this.style.opacity=0"><i class="fas fa-play"></i></button>
             </div>
-            <div class="beat-info">
-                <h3>${beat.title}</h3>
-                <p>${beat.genre.toUpperCase()} | 39.99€</p>
-                <button class="btn-add" onclick="addToCart(${beat.id})">AJOUTER AU PANIER</button>
+            <div style="padding:15px; text-align:center;">
+                <h3 style="font-family:Orbitron; font-size:0.9rem;">${beat.title}</h3>
+                <p style="font-size:0.7rem; color:#666; margin-top:5px;">${beat.genre.toUpperCase()}</p>
+                <button class="btn-add" onclick="addToCart(${beat.id})">39.99€</button>
             </div>
         </div>
     `).join('');
     document.getElementById('beatsCount').innerText = items.length;
 }
 
-document.addEventListener('DOMContentLoaded', () => {
-    render();
-    document.getElementById('searchInput').addEventListener('input', filterBeats);
-    document.getElementById('genreFilter').addEventListener('change', filterBeats);
-});
+document.addEventListener('DOMContentLoaded', () => { render(); });

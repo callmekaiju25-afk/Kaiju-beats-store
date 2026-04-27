@@ -15,7 +15,7 @@
         <div class="container nav-content">
             <div class="logo">KAIJU<span class="logo-glow">BEATS</span></div>
             <div class="nav-menu">
-                <a href="#contact" class="nav-link">CONTACT</a>
+                <a href="#" class="nav-link" id="contactBtn">CONTACT</a>
                 <button class="cart-btn" id="cartBtn">
                     <i class="fas fa-shopping-cart"></i> <span id="cartCount">0</span>
                 </button>
@@ -39,42 +39,44 @@
                         <i class="fas fa-search"></i>
                         <input type="text" id="searchInput" placeholder="Chercher un titre...">
                     </div>
-                    <select id="genreFilter" class="genre-select">
-                        <option value="all">TOUS LES GENRES</option>
-                        <option value="trap">TRAP</option>
-                        <option value="hood-trap">HOOD-TRAP</option>
-                        <option value="jersey">JERSEY</option>
-                        <option value="drill">DRILL</option>
-                        <option value="afro">AFRO</option>
-                        <option value="amapiano">AMAPIANO</option>
-                        <option value="boom-bap">BOOM-BAP</option>
-                        <option value="oriental">ORIENTAL</option>
-                    </select>
                 </div>
             </div>
             <div class="beats-grid" id="beatsGrid"></div>
         </div>
     </section>
 
-    <section id="contact" class="contact-section">
-        <div class="container">
-            <h2 class="section-title">CONTACT 🇸🇳</h2>
-            <div class="contact-grid">
-                <a href="https://instagram.com/kaiju_beats" target="_blank" class="contact-item">
+    <div id="contactModal" class="modal">
+        <div class="modal-content contact-popup">
+            <div class="modal-header">
+                <h3>KAIJU CONNECT 🇸🇳</h3>
+                <button id="contactClose"><i class="fas fa-times"></i></button>
+            </div>
+            <div class="contact-options">
+                <a href="https://instagram.com/kaiju_beats" target="_blank" class="contact-card insta">
                     <i class="fab fa-instagram"></i>
-                    <span>@kaiju_beats</span>
+                    <div class="contact-text">
+                        <span>INSTAGRAM</span>
+                        <p>@kaiju_beats</p>
+                    </div>
                 </a>
-                <a href="mailto:contact@kaijubeats.com" class="contact-item">
+                <a href="mailto:contact@kaijubeats.com" class="contact-card mail">
                     <i class="fas fa-envelope"></i>
-                    <span>contact@kaijubeats.com</span>
+                    <div class="contact-text">
+                        <span>EMAIL</span>
+                        <p>contact@kaijubeats.com</p>
+                    </div>
                 </a>
-                <a href="https://wa.me/221777694864" target="_blank" class="contact-item">
+                <a href="https://wa.me/221777694864" target="_blank" class="contact-card whatsapp">
                     <i class="fab fa-whatsapp"></i>
-                    <span>+221 77 769 48 64 🇸🇳</span>
+                    <div class="contact-text">
+                        <span>WHATSAPP</span>
+                        <p>+221 77 769 48 64</p>
+                    </div>
                 </a>
             </div>
+            <div class="flag-footer">🇸🇳 DAKAR, SENEGAL 🇸🇳</div>
         </div>
-    </section>
+    </div>
 
     <div id="toast" class="toast">Ajouté au panier !</div>
 
@@ -82,7 +84,7 @@
         <div class="modal-content">
             <div class="modal-header">
                 <h3>VOTRE PANIER</h3>
-                <button id="cartClose"><i class="fas fa-times"></i></button>
+                <button id="cartCloseBtn"><i class="fas fa-times"></i></button>
             </div>
             <div id="cartBody" class="modal-body"></div>
             <div id="cartFooter" class="modal-footer" style="display: none;">
