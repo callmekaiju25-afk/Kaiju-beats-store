@@ -10,7 +10,7 @@ const database = [
       {
         id: 2,
         title: "MIRAGE",
-        genre: "Trap",
+        genre: "trap",
         cover: "assets/IMAGE/MIRAGE.jpg", 
         audio: "assets/MP3/MIRAGE.mp3"
     }
