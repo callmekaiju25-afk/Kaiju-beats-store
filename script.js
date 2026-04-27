@@ -19,7 +19,7 @@ const database = [
         title: "Distancia",
         genre: "afro",
         cover: "assets/IMAGE/Distancia.png", 
-        audio: "assets/IMAGE/Distancia.mp3"
+        audio: "assets/MP3/Distancia.mp3"
     },
 ];
 
