@@ -1,18 +1,24 @@
-// TA BASE DE DONNÉES (Ajoute tes beats ici frérot)
+// TA BASE DE DONNÉES
 const database = [
     {
         id: 1,
         title: "BERGHAIN",
         genre: "hood-trap",
-        cover: "Rosalia.jpg", // Nom exact de ton image
-        audio: "Berghain.mp3"  // Nom exact de ton son
+        cover: "assets/IMAGE/Rosalia.jpg", 
+        audio: "assets/MP3/Berghain.mp3"
     }
 ];
 
+// Éléments du DOM
 const beatsGrid = document.getElementById('beatsGrid');
 const searchInput = document.getElementById('searchInput');
 const genreFilter = document.getElementById('genreFilter');
 const beatsCount = document.getElementById('beatsCount');
+const audioPlayer = document.getElementById('audioPlayer');
+const mainAudio = document.getElementById('mainAudio');
+const playerTitle = document.getElementById('playerTitle');
+const playerImage = document.getElementById('playerImage');
+const playPauseBtn = document.getElementById('playPauseBtn');
 
 // Fonction pour afficher les beats
 function renderBeats(items) {
@@ -57,12 +63,6 @@ function filterBeats() {
 }
 
 // Lecteur Audio
-const audioPlayer = document.getElementById('audioPlayer');
-const mainAudio = document.getElementById('mainAudio');
-const playerTitle = document.getElementById('playerTitle');
-const playerImage = document.getElementById('playerImage');
-const playPauseBtn = document.getElementById('playPauseBtn');
-
 window.playBeat = function(id) {
     const beat = database.find(b => b.id === id);
     if (!beat) return;
@@ -76,6 +76,7 @@ window.playBeat = function(id) {
     playPauseBtn.innerHTML = '<i class="fas fa-pause"></i>';
 };
 
+// Contrôles du lecteur
 if (playPauseBtn) {
     playPauseBtn.addEventListener('click', () => {
         if (mainAudio.paused) {
