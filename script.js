@@ -8,7 +8,6 @@ const database = [
 let cart = [];
 const mainAudio = document.getElementById('mainAudio');
 
-// --- PANIER ---
 window.addToCart = function(id) {
     const beat = database.find(b => b.id === id);
     if (!cart.some(i => i.id === id)) {
@@ -57,21 +56,17 @@ function updateUI() {
 
 window.removeFromCart = function(i) { cart.splice(i, 1); updateUI(); };
 
-// --- FILTRES ---
 function filterBeats() {
     const query = document.getElementById('searchInput').value.toLowerCase();
     const selectedGenre = document.getElementById('genreFilter').value.toLowerCase();
-    
     const filtered = database.filter(beat => {
         const matchesSearch = beat.title.toLowerCase().includes(query);
         const matchesGenre = selectedGenre === 'all' || beat.genre.toLowerCase() === selectedGenre;
         return matchesSearch && matchesGenre;
     });
-    
     render(filtered);
 }
 
-// --- LECTEUR ---
 window.playBeat = function(id) {
     const beat = database.find(b => b.id === id);
     const player = document.getElementById('audioPlayer');
@@ -90,13 +85,8 @@ mainAudio.ontimeupdate = () => {
     document.getElementById('currentTime').innerText = formatTime(mainAudio.currentTime);
 };
 
-mainAudio.onloadedmetadata = () => {
-    document.getElementById('durationTime').innerText = formatTime(mainAudio.duration);
-};
-
-document.getElementById('progressBar').oninput = (e) => {
-    mainAudio.currentTime = (e.target.value * mainAudio.duration) / 100;
-};
+mainAudio.onloadedmetadata = () => { document.getElementById('durationTime').innerText = formatTime(mainAudio.duration); };
+document.getElementById('progressBar').oninput = (e) => { mainAudio.currentTime = (e.target.value * mainAudio.duration) / 100; };
 
 function formatTime(s) {
     const m = Math.floor(s/60);
@@ -104,7 +94,6 @@ function formatTime(s) {
     return `${m}:${sc < 10 ? '0'+sc : sc}`;
 }
 
-// --- CONTROLES ---
 document.getElementById('playPauseBtn').onclick = () => {
     if (mainAudio.paused) { mainAudio.play(); document.getElementById('playPauseBtn').innerHTML = '<i class="fas fa-pause"></i>'; }
     else { mainAudio.pause(); document.getElementById('playPauseBtn').innerHTML = '<i class="fas fa-play"></i>'; }
@@ -121,7 +110,6 @@ document.getElementById('checkoutWhatsapp').onclick = () => {
     window.open(`https://wa.me/221777694864?text=${encodeURIComponent(text)}`);
 };
 
-// --- RENDER ---
 function render(items = database) {
     const grid = document.getElementById('beatsGrid');
     grid.innerHTML = items.map(beat => `
