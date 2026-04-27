@@ -7,12 +7,11 @@ const database = [
 
 let cart = [];
 
-// Éléments
 const mainAudio = document.getElementById('mainAudio');
 const playPauseBtn = document.getElementById('playPauseBtn');
 const progressBar = document.getElementById('progressBar');
 
-// --- PANIER ---
+// --- FONCTIONS PANIER ---
 window.addToCart = function(id) {
     const beat = database.find(b => b.id === id);
     if (!cart.some(item => item.id === id)) {
@@ -28,7 +27,7 @@ function updateCartUI() {
     const footer = document.getElementById('cartFooter');
     
     if(cart.length === 0) {
-        body.innerHTML = "<p>Ton panier est vide frérot.</p>";
+        body.innerHTML = "<p style='text-align:center;'>Ton panier est vide frérot.</p>";
         footer.style.display = "none";
     } else {
         body.innerHTML = cart.map((item, index) => `
@@ -39,12 +38,16 @@ function updateCartUI() {
         `).join('');
         
         let total = cart.length * 39.99;
-        if (cart.length >= 3) { // Offre 2+1
+        let displayTotal = total.toFixed(2);
+        
+        if (cart.length >= 3) {
             total -= 39.99;
-            document.getElementById('cartTotalDisplay').innerHTML = `<p style="color:var(--primary)">Offre 2+1 appliquée !</p><strong>Total : ${total.toFixed(2)}€</strong>`;
+            displayTotal = `${total.toFixed(2)}€ <span style="color:var(--primary); font-size:0.8rem;">(OFFRE 2+1 APPLIQUÉE)</span>`;
         } else {
-            document.getElementById('cartTotalDisplay').innerHTML = `<strong>Total : ${total.toFixed(2)}€</strong>`;
+            displayTotal += "€";
         }
+        
+        document.getElementById('cartTotalDisplay').innerHTML = `<h4 style="margin-bottom:15px;">TOTAL : ${displayTotal}</h4>`;
         footer.style.display = "block";
     }
 }
@@ -61,6 +64,7 @@ window.playBeat = function(id) {
     mainAudio.src = beat.audio;
     document.getElementById('playerTitle').innerText = beat.title;
     document.getElementById('playerImage').src = beat.cover;
+    document.getElementById('playerGenre').innerText = beat.genre.toUpperCase();
     mainAudio.play();
     playPauseBtn.innerHTML = '<i class="fas fa-pause"></i>';
 };
@@ -75,6 +79,11 @@ mainAudio.addEventListener('loadedmetadata', () => {
     document.getElementById('durationTime').innerText = formatTime(mainAudio.duration);
 });
 
+progressBar.addEventListener('input', () => {
+    const time = (progressBar.value * mainAudio.duration) / 100;
+    mainAudio.currentTime = time;
+});
+
 function formatTime(s) {
     const min = Math.floor(s/60);
     const sec = Math.floor(s%60);
@@ -86,22 +95,31 @@ document.getElementById('cartBtn').onclick = () => document.getElementById('cart
 document.getElementById('cartClose').onclick = () => document.getElementById('cartModal').classList.remove('active');
 document.getElementById('playerClose').onclick = () => { mainAudio.pause(); document.getElementById('audioPlayer').style.display = 'none'; };
 
+playPauseBtn.onclick = () => {
+    if (mainAudio.paused) { mainAudio.play(); playPauseBtn.innerHTML = '<i class="fas fa-pause"></i>'; }
+    else { mainAudio.pause(); playPauseBtn.innerHTML = '<i class="fas fa-play"></i>'; }
+};
+
+document.getElementById('restartBtn').onclick = () => mainAudio.currentTime = 0;
+document.getElementById('forwardBtn').onclick = () => mainAudio.currentTime += 10;
+
 document.getElementById('checkoutWhatsapp').onclick = () => {
-    const msg = `Salut KAIJU 🦖! Je veux commander : ${cart.map(b => b.title).join(', ')}`;
+    const msg = `Salut KAIJU 🦖! Je veux commander ces beats : ${cart.map(b => b.title).join(', ')}`;
     window.open(`https://wa.me/221777694864?text=${encodeURIComponent(msg)}`);
 };
 
-// Affichage initial
+// --- RENDU ---
 function render() {
-    document.getElementById('beatsGrid').innerHTML = database.map(beat => `
+    const grid = document.getElementById('beatsGrid');
+    grid.innerHTML = database.map(beat => `
         <div class="beat-card">
             <div class="beat-img-container">
                 <img src="${beat.cover}" class="beat-img">
                 <button class="play-overlay" onclick="playBeat(${beat.id})"><i class="fas fa-play"></i></button>
             </div>
             <div class="beat-content">
-                <h3>${beat.title}</h3>
-                <p>${beat.genre.toUpperCase()} | 39.99€</p>
+                <h3 class="beat-title">${beat.title}</h3>
+                <p style="margin-bottom:15px;">${beat.genre.toUpperCase()} | 39.99€</p>
                 <button class="btn-primary" onclick="addToCart(${beat.id})">AJOUTER AU PANIER</button>
             </div>
         </div>
@@ -109,4 +127,4 @@ function render() {
     document.getElementById('beatsCount').innerText = database.length;
 }
 
-render();
+document.addEventListener('DOMContentLoaded', render);
