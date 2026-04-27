@@ -6,7 +6,7 @@
     <title>KAIJU BEATS | Premium Store</title>
     <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <link rel="stylesheet" href="style.css?v=2">
+    <link rel="stylesheet" href="style.css?v=10">
 </head>
 <body>
     <div class="bg-glow"></div>
@@ -33,11 +33,22 @@
     <section id="beats" class="catalog-section">
         <div class="container">
             <div class="section-header" style="text-align: center; margin-bottom: 40px;">
-                <h2 style="font-family: 'Orbitron'; margin-bottom: 20px;">CATALOGUE (<span id="beatsCount">0</span>)</h2>
+                <h2 style="font-family: 'Orbitron'; margin-bottom: 25px;">CATALOGUE (<span id="beatsCount">0</span>)</h2>
                 
-                <div class="search-container" style="max-width: 500px; margin: 0 auto; position: relative;">
-                    <i class="fas fa-search" style="position: absolute; left: 15px; top: 50%; transform: translateY(-50%); color: #555;"></i>
-                    <input type="text" id="searchInput" placeholder="Chercher un beat..." style="width: 100%; padding: 12px 12px 12px 45px; background: #111; border: 1px solid #333; border-radius: 5px; color: white; font-family: 'Space Mono';">
+                <div class="filter-container" style="display: flex; flex-direction: column; gap: 15px; max-width: 600px; margin: 0 auto;">
+                    <div class="search-box" style="position: relative;">
+                        <i class="fas fa-search" style="position: absolute; left: 15px; top: 50%; transform: translateY(-50%); color: #555;"></i>
+                        <input type="text" id="searchInput" placeholder="Chercher un titre..." style="width: 100%; padding: 12px 12px 12px 45px; background: #111; border: 1px solid #333; border-radius: 5px; color: white; font-family: 'Space Mono';">
+                    </div>
+
+                    <select id="genreFilter" style="width: 100%; padding: 12px; background: #111; border: 1px solid #333; border-radius: 5px; color: #00ff88; font-family: 'Orbitron'; font-size: 0.8rem; cursor: pointer; text-align: center;">
+                        <option value="all">TOUS LES GENRES</option>
+                        <option value="trap">TRAP</option>
+                        <option value="hood-trap">HOOD-TRAP</option>
+                        <option value="afro">AFRO</option>
+                        <option value="drill">DRILL</option>
+                        <option value="oriental">ORIENTAL</option>
+                    </select>
                 </div>
             </div>
             
@@ -52,13 +63,13 @@
                 <button id="contactClose"><i class="fas fa-times"></i></button>
             </div>
             <div class="contact-options">
-                <a href="https://instagram.com/kaiju_beats" target="_blank" class="contact-card">
+                <a href="https://instagram.com/its._kaiju" target="_blank" class="contact-card">
                     <i class="fab fa-instagram"></i>
-                    <div class="contact-text"><span>INSTAGRAM</span><p>@kaiju_beats</p></div>
+                    <div class="contact-text"><span>INSTAGRAM</span><p>@its._kaiju</p></div>
                 </a>
-                <a href="mailto:contact@kaijubeats.com" class="contact-card">
+                <a href="mailto:callmekaiju@gmail.com" class="contact-card">
                     <i class="fas fa-envelope"></i>
-                    <div class="contact-text"><span>EMAIL</span><p>contact@kaijubeats.com</p></div>
+                    <div class="contact-text"><span>EMAIL</span><p>callmekaiju@gmail.com</p></div>
                 </a>
                 <a href="https://wa.me/221777694864" target="_blank" class="contact-card">
                     <i class="fab fa-whatsapp"></i>
@@ -77,8 +88,8 @@
             <div id="cartBody" class="modal-body"></div>
             <div id="cartFooter" class="modal-footer" style="display: none; padding-top: 20px; border-top: 1px solid #222;">
                 <div id="cartTotalDisplay"></div>
-                <button id="checkoutWhatsapp" class="btn-checkout" style="width: 100%; padding: 15px; background: #25D366; border: none; color: black; font-weight: bold; cursor: pointer; margin-top: 15px; border-radius: 5px;">
-                    <i class="fab fa-whatsapp"></i> COMMANDER
+                <button id="checkoutWhatsapp" class="btn-checkout" style="width: 100%; padding: 15px; background: #00ff88; border: none; color: black; font-weight: bold; cursor: pointer; margin-top: 15px; border-radius: 5px; font-family: 'Orbitron';">
+                    COMMANDER VIA WHATSAPP
                 </button>
             </div>
         </div>
@@ -98,10 +109,12 @@
                     <input type="range" id="progressBar" value="0" max="100" style="width: 100%; accent-color: #00ff88;">
                 </div>
             </div>
-            <button id="playerClose" style="background:none; border:none; color: #555;"><i class="fas fa-times"></i></button>
+            <button id="playerClose" style="background:none; border:none; color: #555; cursor: pointer;"><i class="fas fa-times"></i></button>
         </div>
         <audio id="mainAudio"></audio>
     </div>
+
+    <div id="toast" class="toast" style="position: fixed; bottom: 100px; left: 50%; transform: translateX(-50%); background: #00ff88; color: black; padding: 10px 20px; border-radius: 5px; font-weight: bold; display: none; z-index: 3000;">Ajouté !</div>
 
     <script src="script.js"></script>
 </body>

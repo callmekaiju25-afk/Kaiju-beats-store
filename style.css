@@ -5,56 +5,35 @@
 }
 
 * { margin: 0; padding: 0; box-sizing: border-box; }
-body { background: var(--bg); color: white; font-family: 'Space Mono', monospace; }
+body { background: var(--bg); color: white; font-family: 'Space Mono', monospace; overflow-x: hidden; }
 .container { max-width: 1100px; margin: 0 auto; padding: 0 20px; }
 
 /* Navbar */
-.navbar { padding: 15px 0; background: rgba(0,0,0,0.9); border-bottom: 1px solid #222; position: sticky; top: 0; z-index: 1000; }
+.navbar { padding: 15px 0; background: rgba(0,0,0,0.9); border-bottom: 1px solid #222; position: sticky; top: 0; z-index: 1000; backdrop-filter: blur(10px); }
 .nav-content { display: flex; justify-content: space-between; align-items: center; }
-.logo { font-family: 'Orbitron'; font-weight: 900; color: white; }
-.logo-glow { color: var(--primary); }
-.nav-link { color: white; text-decoration: none; font-family: 'Orbitron'; font-size: 0.8rem; margin-right: 15px; }
+.logo { font-family: 'Orbitron'; font-weight: 900; letter-spacing: 2px; }
+.logo-glow { color: var(--primary); text-shadow: 0 0 10px var(--primary-glow); }
+.nav-link { color: white; text-decoration: none; font-family: 'Orbitron'; font-size: 0.8rem; margin-right: 20px; transition: 0.3s; }
+.nav-link:hover { color: var(--primary); }
 
-/* Grille des Beats - LE FIX POUR LES IMAGES */
-.beats-grid { 
-    display: grid; 
-    grid-template-columns: repeat(auto-fill, minmax(250px, 1fr)); 
-    gap: 25px; 
-    margin-top: 40px; 
-}
-
-.beat-card { 
-    background: #111; 
-    border-radius: 10px; 
-    overflow: hidden; 
-    border: 1px solid #222; 
-    transition: 0.3s; 
-}
-
-.img-box { 
-    width: 100%; 
-    aspect-ratio: 1 / 1; /* Force le carré */
-    position: relative; 
-}
-
-.img-box img { 
-    width: 100%; 
-    height: 100%; 
-    object-fit: cover; /* Empêche l'image de dépasser */
-}
+/* Grille Beats */
+.beats-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(260px, 1fr)); gap: 30px; margin-top: 40px; }
+.beat-card { background: #111; border-radius: 12px; overflow: hidden; border: 1px solid #222; transition: 0.3s; }
+.beat-card:hover { transform: translateY(-10px); border-color: var(--primary); }
+.img-box { width: 100%; aspect-ratio: 1/1; position: relative; overflow: hidden; }
+.img-box img { width: 100%; height: 100%; object-fit: cover; }
 
 /* Popups */
 .modal { position: fixed; inset: 0; background: rgba(0,0,0,0.9); display: none; align-items: center; justify-content: center; z-index: 2000; }
 .modal.active { display: flex; }
-.modal-content { background: #0a0a0a; padding: 25px; border: 1px solid var(--primary); border-radius: 10px; width: 90%; max-width: 400px; }
-.modal-header { display: flex; justify-content: space-between; margin-bottom: 20px; }
-.contact-card { display: flex; align-items: center; gap: 15px; padding: 12px; background: #151515; border-radius: 8px; text-decoration: none; margin-bottom: 10px; color: white; border: 1px solid #222; }
-.contact-card i { color: var(--primary); font-size: 1.2rem; }
+.modal-content { background: #0a0a0a; padding: 25px; border: 1px solid var(--primary); border-radius: 10px; width: 95%; max-width: 400px; }
+.contact-card { display: flex; align-items: center; gap: 15px; padding: 15px; background: #151515; border-radius: 8px; text-decoration: none; margin-bottom: 12px; color: white; border: 1px solid #222; transition: 0.3s; }
+.contact-card:hover { border-color: var(--primary); transform: translateX(5px); }
+.contact-card i { color: var(--primary); font-size: 1.3rem; }
 .contact-text span { display: block; font-size: 0.6rem; color: var(--primary); font-family: 'Orbitron'; }
 
 /* Player */
-.audio-player { position: fixed; bottom: 0; left: 0; width: 100%; background: #000; border-top: 2px solid var(--primary); padding: 10px; z-index: 1500; }
-.player-inner { display: flex; align-items: center; gap: 15px; }
-.p-img { width: 45px; height: 45px; object-fit: cover; border-radius: 4px; }
-.p-controls { flex-grow: 1; }
-.main-play { background: var(--primary); border: none; width: 35px; height: 35px; border-radius: 50%; cursor: pointer; }
+.audio-player { position: fixed; bottom: 0; left: 0; width: 100%; background: #000; border-top: 2px solid var(--primary); padding: 12px 0; z-index: 1500; }
+.player-inner { display: flex; align-items: center; gap: 20px; }
+.p-img { width: 50px; height: 50px; object-fit: cover; border-radius: 5px; }
+.main-play { background: var(--primary); border: none; width: 40px; height: 40px; border-radius: 50%; cursor: pointer; font-size: 1rem; }
