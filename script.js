@@ -75,20 +75,42 @@ window.addToCart = (id) => {
         t.style.display = "block"; setTimeout(() => t.style.display = "none", 2000);
     }
 };
-
 function updateCart() {
-    document.getElementById('cartCount').innerText = cart.length;
+    const cartCount = document.getElementById('cartCount');
+    if(cartCount) cartCount.innerText = cart.length;
+    
     const body = document.getElementById('cartBody');
     const footer = document.getElementById('cartFooter');
+    
     if (cart.length === 0) {
-        body.innerHTML = "<p style='text-align:center;'>Vide</p>";
+        body.innerHTML = "<p style='color:#555; text-align:center;'>Panier vide</p>";
         footer.style.display = "none";
     } else {
-        body.innerHTML = cart.map((item, index) => `<div style="display:flex; justify-content:space-between; margin-bottom:10px; border-bottom:1px solid #222; padding-bottom:5px;"><span>${item.title}</span><button onclick="removeFromCart(${index})" style="color:red; background:none; border:none; cursor:pointer;">X</button></div>`).join('');
+        body.innerHTML = cart.map((item, index) => `
+            <div style="display:flex; justify-content:space-between; margin-bottom:10px; padding-bottom:10px; border-bottom:1px solid #222;">
+                <span style="font-family:Orbitron; font-size:0.8rem;">${item.title}</span>
+                <button onclick="removeFromCart(${index})" style="color:#ff4444; background:none; border:none; cursor:pointer;"><i class="fas fa-trash"></i></button>
+            </div>
+        `).join('');
+
         footer.style.display = "block";
-        let total = cart.length * 39.99;
-        if (cart.length >= 3) total -= 39.99;
-        document.getElementById('cartTotalDisplay').innerHTML = `<h3 style="color:#00ff88; font-family:Orbitron;">TOTAL : ${total.toFixed(2)}€</h3>`;
+        
+        // --- LOGIQUE PROMO 2+1 ---
+        let unitPrice = 39.99;
+        let total = 0;
+        
+        // On calcule : chaque groupe de 3, on n'en paie que 2
+        for (let i = 1; i <= cart.length; i++) {
+            if (i % 3 !== 0) { // Si c'est pas le 3ème, le 6ème, etc.
+                total += unitPrice;
+            }
+        }
+
+        let savings = (cart.length >= 3) ? ` <br><span style="font-size:0.7rem; color:#00ff88;">PROMO APPLIQUÉE ✅</span>` : "";
+        
+        document.getElementById('cartTotalDisplay').innerHTML = `
+            <h3 style="color:#00ff88; font-family:Orbitron;">TOTAL : ${total.toFixed(2)}€ ${savings}</h3>
+        `;
     }
 }
 
