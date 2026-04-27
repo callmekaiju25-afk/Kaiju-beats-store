@@ -1,97 +1,42 @@
-<!DOCTYPE html>
-<html lang="fr">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="Kaiju Beats Store - Beats premium par Kaiju.">
-    <title>Kaiju Beats Store | Premium Beats</title>
-    
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <link rel="stylesheet" href="style.css">
-</head>
-<body>
-    <nav class="navbar">
-        <div class="container nav-content">
-            <div class="logo">KAIJU<span class="logo-accent">BEATS</span></div>
-            <div class="nav-menu">
-                <a href="#beats" class="nav-link">Beats</a>
-                <button class="cart-btn" id="cartBtn">
-                    <i class="fas fa-shopping-cart"></i> <span id="cartCount">0</span>
-                </button>
-            </div>
-        </div>
-    </nav>
-
-    <section class="hero">
-        <div class="container">
-            <h1 class="hero-title">PREMIUM <span class="title-main">BEATS</span></h1>
-            <p class="hero-subtitle">Production Pro • 39.99€ / Beat • Livraison Instantanée</p>
-            <a href="#beats" class="btn-primary" style="padding: 15px 30px; text-decoration: none; display: inline-block; margin-top: 20px;">EXPLORER</a>
-        </div>
-    </section>
-
-    <section class="search-section" id="beats">
-        <div class="container">
-            <div class="search-filter-wrapper">
-                <div class="search-bar">
-                    <i class="fas fa-search"></i>
-                    <input type="text" id="searchInput" placeholder="Rechercher un beat...">
-                </div>
-                <div class="filters">
-                    <select id="genreFilter">
-                        <option value="all">Tous les styles</option>
-                        <option value="drill">Drill</option>
-                        <option value="trap">Trap</option>
-                        <option value="afro">Afro</option>
-                        <option value="hood-trap">Hood-trap</option>
-                        <option value="oriental">Oriental</option>
-                        <option value="boom-bap">Boom Bap</option>
-                    </select>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <section class="beats-section">
-        <div class="container">
-            <div class="section-header">
-                <h2 class="section-title">Catalogue (<span id="beatsCount">0</span>)</h2>
-            </div>
-            <div class="beats-grid" id="beatsGrid">
-                </div>
-        </div>
-    </section>
-
-    <footer class="footer" id="contact">
-        <div class="container">
-            <div class="footer-content">
-                <div>
-                    <h3>KAIJU BEATS</h3>
-                    <p>Contact pro : <a href="mailto:callmekaiju25@gmail.com" style="color:var(--primary)">callmekaiju25@gmail.com</a></p>
-                </div>
-                <div class="social-links">
-                    <a href="https://instagram.com/its._kaiju" target="_blank"><i class="fab fa-instagram"></i></a>
-                    <a href="https://wa.me/221777694864" target="_blank"><i class="fab fa-whatsapp"></i></a>
-                </div>
-            </div>
-            <p style="text-align:center; margin-top:40px;">&copy; 2026 KAIJU BEATS STORE</p>
-        </div>
-    </footer>
-
-    <div class="audio-player" id="audioPlayer" style="display: none;">
+<div id="audioPlayer" class="audio-player" style="display: none;">
         <div class="container audio-player-content">
             <img src="" id="playerImage" class="player-image">
             <div class="audio-details">
                 <h4 id="playerTitle">Titre</h4>
                 <p id="playerGenre">Genre</p>
             </div>
-            <button class="player-btn" id="playPauseBtn"><i class="fas fa-play"></i></button>
-            <audio id="mainAudio" src=""></audio>
+            
+            <div class="player-controls-center">
+                <div class="player-btns">
+                    <button id="restartBtn" class="control-btn"><i class="fas fa-undo"></i></button>
+                    <button id="playPauseBtn" class="control-btn play-main"><i class="fas fa-play"></i></button>
+                    <button id="forwardBtn" class="control-btn"><i class="fas fa-forward"></i></button>
+                </div>
+                <div class="progress-bar-container">
+                    <span id="currentTime">0:00</span>
+                    <input type="range" id="progressBar" value="0" max="100">
+                    <span id="durationTime">0:00</span>
+                </div>
+            </div>
+
+            <button id="playerClose" class="close-player"><i class="fas fa-times"></i></button>
         </div>
+        <audio id="mainAudio"></audio>
     </div>
 
-    <script src="script.js"></script>
-</body>
-</html>
+    <div id="cartModal" class="cart-modal">
+        <div class="cart-content">
+            <div class="cart-header">
+                <h3>TON PANIER</h3>
+                <button id="cartClose"><i class="fas fa-times"></i></button>
+            </div>
+            <div id="cartBody" class="cart-body">
+                </div>
+            <div id="cartFooter" class="cart-footer" style="display: none;">
+                <div id="cartTotalDisplay"></div>
+                <button id="checkoutWhatsapp" class="btn-primary">
+                    <i class="fab fa-whatsapp"></i> COMMANDER
+                </button>
+            </div>
+        </div>
+    </div>
