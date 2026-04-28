@@ -75,6 +75,7 @@ window.addToCart = (id) => {
         t.style.display = "block"; setTimeout(() => t.style.display = "none", 2000);
     }
 };
+
 function updateCart() {
     const cartCount = document.getElementById('cartCount');
     if(cartCount) cartCount.innerText = cart.length;
@@ -114,6 +115,7 @@ function updateCart() {
     }
 }
 
+
 window.removeFromCart = (i) => { cart.splice(i, 1); updateCart(); };
 
 document.getElementById('playPauseBtn').onclick = () => {
@@ -125,3 +127,4 @@ document.getElementById('checkoutWhatsapp').onclick = () => {
     const text = `Salut KAIJU 🦖! Je veux commander : ${cart.map(b => b.title).join(', ')}`;
     window.open(`https://wa.me/221777694864?text=${encodeURIComponent(text)}`);
 };
+
