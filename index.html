@@ -6,7 +6,7 @@
     <title>KAIJU BEATS | High-End Studio</title>
     <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <link rel="stylesheet" href="style.css?v=6.0">
+    <link rel="stylesheet" href="style.css?v=10.0">
 </head>
 <body>
     <div class="bg-glow"></div>
@@ -25,7 +25,9 @@
         </div>
     </nav>
 
-    <div class="promo-bar">🔥 2 BEATS ACHETÉS = LE 3ÈME OFFERT (AUTO-APPLIQUÉ) 🔥</div>
+    <div class="promo-container">
+        <div class="promo-bar">🔥 2 BEATS ACHETÉS = LE 3ÈME OFFERT (AUTO-APPLIQUÉ) 🔥</div>
+    </div>
 
     <main class="container">
         <div class="catalog-header">
@@ -51,9 +53,18 @@
             <button class="close-btn" id="closeContact">&times;</button>
             <h2>CONNECT WITH KAIJU</h2>
             <div class="contact-list">
-                <a href="https://wa.me/221777694864" class="c-item"><i class="fab fa-whatsapp"></i> WhatsApp</a>
-                <a href="mailto:callmekaiju@gmail.com" class="c-item"><i class="fas fa-envelope"></i> Email</a>
-                <a href="https://instagram.com/its._kaiju" class="c-item"><i class="fab fa-instagram"></i> Instagram</a>
+                <a href="https://wa.me/221777694864" target="_blank" class="c-item">
+                    <i class="fab fa-whatsapp"></i>
+                    <div class="c-txt"><span>WhatsApp</span><small>Direct Line</small></div>
+                </a>
+                <a href="mailto:callmekaiju@gmail.com" class="c-item">
+                    <i class="fas fa-envelope"></i>
+                    <div class="c-txt"><span>Email</span><small>callmekaiju@gmail.com</small></div>
+                </a>
+                <a href="https://instagram.com/its._kaiju" target="_blank" class="c-item">
+                    <i class="fab fa-instagram"></i>
+                    <div class="c-txt"><span>Instagram</span><small>@its._kaiju</small></div>
+                </a>
             </div>
         </div>
     </div>
@@ -61,7 +72,7 @@
     <div id="cartModal" class="modal">
         <div class="modal-card">
             <button class="close-btn" id="closeCart">&times;</button>
-            <h2>MON PANIER</h2>
+            <h2 class="cart-title">VOTRE PANIER</h2>
             <div id="cartItems" class="cart-scroll"></div>
             <div id="cartTotalArea"></div>
         </div>
@@ -71,15 +82,20 @@
         <div class="container player-grid">
             <div class="p-info">
                 <img src="" id="pCover">
-                <div><h4 id="pTitle">Titre</h4><small>KAIJU PRODUCTIONS</small></div>
+                <div class="p-meta">
+                    <h4 id="pTitle">Titre</h4>
+                    <small class="logo-accent">PROD BY KAIJU</small>
+                </div>
             </div>
             <div class="p-controls">
                 <div class="p-buttons">
+                    <button onclick="changeTime(-10)" class="skip-btn"><i class="fas fa-backward"></i></button>
                     <button id="pPlayPause" class="play-main-btn"><i class="fas fa-play"></i></button>
+                    <button onclick="changeTime(10)" class="skip-btn"><i class="fas fa-forward"></i></button>
                 </div>
                 <div class="p-seeker">
                     <span id="timeCurrent">0:00</span>
-                    <input type="range" id="pProgress" value="0" max="100">
+                    <input type="range" id="pProgress" value="0" max="100" step="0.1">
                     <span id="timeTotal">0:00</span>
                 </div>
             </div>

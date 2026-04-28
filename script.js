@@ -10,6 +10,7 @@ const database = [
 let cart = [];
 const mainAudio = document.getElementById('mainAudio');
 const pBtn = document.getElementById('pPlayPause');
+const progressBar = document.getElementById('pProgress');
 
 // 1. RENDU & FILTRES
 function render(data = database) {
@@ -22,8 +23,8 @@ function render(data = database) {
             </div>
             <div class="beat-meta">
                 <h3>${b.title}</h3>
-                <p>${b.genre.toUpperCase()}</p>
-                <button class="buy-btn" onclick="addToCart(${b.id})">39.99€ - AJOUTER</button>
+                <p style="font-size:0.7rem; color:#555;">${b.genre.toUpperCase()}</p>
+                <button class="buy-btn" onclick="addToCart(${b.id})">39.99€ - AJOUTER AU PANIER</button>
             </div>
         </div>
     `).join('');
@@ -36,16 +37,17 @@ function runFilters() {
     render(filtered);
 }
 
-// 2. AUDIO & VOLUME
+// 2. LOGIQUE AUDIO (Navigation & Skip)
 window.playBeat = (id) => {
     const b = database.find(x => x.id === id);
+    document.getElementById('audioPlayer').style.display = "block";
+
     if(mainAudio.src.includes(b.audio)) {
         toggleAudio();
     } else {
         mainAudio.src = b.audio;
         document.getElementById('pTitle').innerText = b.title;
         document.getElementById('pCover').src = b.cover;
-        document.getElementById('audioPlayer').classList.add('active');
         mainAudio.play();
         pBtn.innerHTML = '<i class="fas fa-pause"></i>';
     }
@@ -63,15 +65,23 @@ function toggleAudio() {
 
 pBtn.onclick = toggleAudio;
 
-document.getElementById('volControl').oninput = (e) => {
-    mainAudio.volume = e.target.value;
+window.changeTime = (amount) => {
+    mainAudio.currentTime += amount;
+};
+
+// Rendre la barre maniable
+progressBar.oninput = (e) => {
+    const seekTime = (e.target.value / 100) * mainAudio.duration;
+    mainAudio.currentTime = seekTime;
 };
 
 mainAudio.ontimeupdate = () => {
-    const prog = (mainAudio.currentTime / mainAudio.duration) * 100;
-    document.getElementById('pProgress').value = prog || 0;
-    document.getElementById('timeCurrent').innerText = formatTime(mainAudio.currentTime);
-    document.getElementById('timeTotal').innerText = formatTime(mainAudio.duration);
+    if (!isNaN(mainAudio.duration)) {
+        const prog = (mainAudio.currentTime / mainAudio.duration) * 100;
+        progressBar.value = prog;
+        document.getElementById('timeCurrent').innerText = formatTime(mainAudio.currentTime);
+        document.getElementById('timeTotal').innerText = formatTime(mainAudio.duration);
+    }
 };
 
 function formatTime(sec) {
@@ -93,36 +103,45 @@ function updateCart() {
     const items = document.getElementById('cartItems');
     const totalArea = document.getElementById('cartTotalArea');
 
-    items.innerHTML = cart.map((b, i) => `
-        <div class="cart-item">
-            <span>${b.title}</span>
-            <button onclick="remove(${i})"><i class="fas fa-trash"></i></button>
-        </div>
-    `).join('');
+    if(cart.length === 0) {
+        items.innerHTML = "<p style='text-align:center; padding:20px;'>Votre panier est vide.</p>";
+        totalArea.innerHTML = "";
+    } else {
+        items.innerHTML = cart.map((b, i) => `
+            <div class="cart-item">
+                <span>${b.title}</span>
+                <button onclick="remove(${i})"><i class="fas fa-trash"></i></button>
+            </div>
+        `).join('');
 
-    let total = 0;
-    for (let i = 1; i <= cart.length; i++) { if (i % 3 !== 0) total += 39.99; }
-    
-    totalArea.innerHTML = `
-        <div class="total-box">
-            <h3>TOTAL : ${total.toFixed(2)}€</h3>
-            <button class="checkout-btn" onclick="checkout()">COMMANDER VIA WHATSAPP</button>
-        </div>
-    `;
+        let total = 0;
+        for (let i = 1; i <= cart.length; i++) { if (i % 3 !== 0) total += 39.99; }
+        
+        totalArea.innerHTML = `
+            <div class="total-box">
+                <h3>TOTAL : ${total.toFixed(2)}€</h3>
+                ${cart.length >= 3 ? '<p style="color:var(--primary); font-size:0.7rem; margin-bottom:10px;">OFFRE 2+1 APPLIQUÉE ✅</p>' : ''}
+                <button class="checkout-btn" onclick="checkout()">COMMANDER SUR WHATSAPP</button>
+            </div>
+        `;
+    }
 }
 
 window.remove = (i) => { cart.splice(i, 1); updateCart(); };
 window.checkout = () => {
-    window.open(`https://wa.me/221777694864?text=Salut Kaiju, je veux : ${cart.map(b => b.title).join(', ')}`);
+    const list = cart.map(b => b.title).join(', ');
+    window.open(`https://wa.me/221777694864?text=Salut Kaiju ! Je veux commander : ${list}`);
 };
 
-// Fermeture des Modals
-document.getElementById('closeCart').onclick = () => document.getElementById('cartModal').classList.remove('active');
-document.getElementById('closeContact').onclick = () => document.getElementById('contactModal').classList.remove('active');
+// Gestion des ouvertures/fermetures
 document.getElementById('cartBtn').onclick = () => document.getElementById('cartModal').classList.add('active');
+document.getElementById('closeCart').onclick = () => document.getElementById('cartModal').classList.remove('active');
 document.getElementById('contactBtn').onclick = () => document.getElementById('contactModal').classList.add('active');
+document.getElementById('closeContact').onclick = () => document.getElementById('contactModal').classList.remove('active');
 
-// Init
+// Volume & Init
+document.getElementById('volControl').oninput = (e) => mainAudio.volume = e.target.value;
+
 document.addEventListener('DOMContentLoaded', () => {
     render();
     document.getElementById('searchInput').oninput = runFilters;
