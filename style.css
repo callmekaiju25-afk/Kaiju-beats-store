@@ -113,3 +113,34 @@ body { background: var(--bg); color: white; font-family: 'Space Mono', monospace
     cursor: pointer;
     font-size: 1.2rem;
 }
+
+/* SECTION VOLUME */
+.volume-container {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-left: 20px;
+}
+
+.volume-btn {
+    background: none;
+    border: none;
+    color: #888;
+    cursor: pointer;
+    font-size: 1rem;
+    transition: 0.3s;
+}
+
+.volume-btn:hover { color: var(--primary); }
+
+.vol-slider {
+    width: 80px; /* Petit et propre */
+    height: 4px;
+    accent-color: var(--primary);
+    cursor: pointer;
+}
+
+/* On cache le volume sur mobile pour pas que ce soit trop chargé */
+@media (max-width: 768px) {
+    .volume-container { display: none; }
+}

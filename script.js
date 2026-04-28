@@ -152,3 +152,29 @@ document.getElementById('progressBar').oninput = (e) => {
     const time = (e.target.value / 100) * mainAudio.duration;
     mainAudio.currentTime = time;
 };
+
+const muteBtn = document.getElementById('muteBtn');
+const volumeSlider = document.getElementById('volumeSlider');
+
+// Changer le volume
+volumeSlider.oninput = (e) => {
+    mainAudio.volume = e.target.value;
+    if (mainAudio.volume === 0) {
+        muteBtn.innerHTML = '<i class="fas fa-volume-mute"></i>';
+    } else {
+        muteBtn.innerHTML = '<i class="fas fa-volume-up"></i>';
+    }
+};
+
+// Bouton Mute rapide
+muteBtn.onclick = () => {
+    if (mainAudio.muted) {
+        mainAudio.muted = false;
+        muteBtn.innerHTML = '<i class="fas fa-volume-up"></i>';
+        volumeSlider.value = mainAudio.volume;
+    } else {
+        mainAudio.muted = true;
+        muteBtn.innerHTML = '<i class="fas fa-volume-mute"></i>';
+        volumeSlider.value = 0;
+    }
+};

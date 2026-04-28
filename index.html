@@ -69,11 +69,11 @@
         </div>
     </div>
 
-   <div class="audio-player" id="audioPlayer" style="display: none;">
+  <div class="audio-player" id="audioPlayer" style="display: none;">
     <div class="container player-inner">
         <img src="" id="playerImage" class="p-img">
         <div class="p-info">
-            <h4 id="playerTitle" style="font-size: 0.8rem; font-family: 'Orbitron'; white-space: nowrap;">Titre</h4>
+            <h4 id="playerTitle" style="font-size: 0.8rem; font-family: 'Orbitron';">Titre</h4>
         </div>
         
         <div class="p-controls-master">
@@ -89,6 +89,16 @@
                 <span id="durationTime" class="time-display">0:00</span>
             </div>
         </div>
+
+        <div class="volume-container">
+            <button id="muteBtn" class="volume-btn"><i class="fas fa-volume-up"></i></button>
+            <input type="range" id="volumeSlider" min="0" max="1" step="0.1" value="1" class="vol-slider">
+        </div>
+
+        <button id="playerClose" class="p-close-btn"><i class="fas fa-times"></i></button>
+    </div>
+    <audio id="mainAudio"></audio>
+</div>
 
         <button id="playerClose" class="p-close-btn"><i class="fas fa-times"></i></button>
     </div>
