@@ -3,10 +3,11 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>KAIJU BEATS | Store</title>
+    <title>KAIJU BEATS | Premium Store</title>
     <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <link rel="stylesheet" href="style.css?v=99"> </head>
+    <link rel="stylesheet" href="style.css?v=2.0">
+</head>
 <body>
     <div class="bg-glow"></div>
 
@@ -24,21 +25,17 @@
         </div>
     </nav>
 
-    <div class="promo-banner">🔥 2 BEATS ACHETÉS = LE 3ÈME OFFERT 🔥</div>
-
-    <header class="hero">
-        <div class="container">
-            <h1 class="glitch">KAIJU ON THE BEAT</h1>
-            <p class="hero-sub">DAKAR PREMIUM SOUNDS 🇸🇳</p>
-        </div>
-    </header>
+    <div class="promo-banner">🔥 OFFRE : 2 BEATS ACHETÉS = LE 3ÈME OFFERT 🔥</div>
 
     <section id="beats" class="catalog-section">
         <div class="container">
             <div class="section-header">
-                <h2 style="font-family:'Orbitron'; margin-bottom:20px; text-align:center;">Écoute, et fais ton choix ! (<span id="beatsCount">0</span>)</h2>
+                <h2 style="font-family:'Orbitron'; text-align:center; margin-bottom:25px;">Écoute, et fais ton choix ! (<span id="beatsCount">0</span>)</h2>
                 <div class="filter-container">
-                    <input type="text" id="searchInput" placeholder="Rechercher...">
+                    <div class="search-box">
+                        <i class="fas fa-search"></i>
+                        <input type="text" id="searchInput" placeholder="Chercher un titre...">
+                    </div>
                     <select id="genreFilter">
                         <option value="all">TOUS LES GENRES</option>
                         <option value="trap">TRAP</option>
@@ -55,56 +52,56 @@
     <div id="contactModal" class="modal">
         <div class="modal-content">
             <div class="modal-header">
-                <h3>KAIJU CONNECT</h3>
+                <h3>KAIJU CONNECT 🇸🇳</h3>
                 <button id="contactClose"><i class="fas fa-times"></i></button>
             </div>
             <div class="contact-options">
                 <a href="https://instagram.com/its._kaiju" target="_blank" class="contact-card">
-                    <i class="fab fa-instagram"></i> @its._kaiju
+                    <i class="fab fa-instagram"></i>
+                    <div class="contact-text"><span>INSTAGRAM</span><p>@its._kaiju</p></div>
                 </a>
                 <a href="mailto:callmekaiju@gmail.com" class="contact-card">
-                    <i class="fas fa-envelope"></i> callmekaiju@gmail.com
+                    <i class="fas fa-envelope"></i>
+                    <div class="contact-text"><span>EMAIL</span><p>callmekaiju@gmail.com</p></div>
+                </a>
+                <a href="https://wa.me/221777694864" target="_blank" class="contact-card">
+                    <i class="fab fa-whatsapp"></i>
+                    <div class="contact-text"><span>WHATSAPP / TEL</span><p>+221 77 769 48 64</p></div>
                 </a>
             </div>
         </div>
     </div>
 
-  <div class="audio-player" id="audioPlayer" style="display: none;">
-    <div class="container player-inner">
-        <img src="" id="playerImage" class="p-img">
-        <div class="p-info">
-            <h4 id="playerTitle" style="font-size: 0.8rem; font-family: 'Orbitron';">Titre</h4>
-        </div>
-        
-        <div class="p-controls-master">
-            <div class="p-buttons">
-                <button onclick="skipTime(-10)" class="skip-btn"><i class="fas fa-backward"></i></button>
-                <button id="playPauseBtn" class="main-play"><i class="fas fa-play"></i></button>
-                <button onclick="skipTime(10)" class="skip-btn"><i class="fas fa-forward"></i></button>
+    <div class="audio-player" id="audioPlayer" style="display: none;">
+        <div class="container player-inner">
+            <img src="" id="playerImage" class="p-img-xl">
+            <div class="p-info">
+                <h4 id="playerTitle">Titre</h4>
             </div>
             
-            <div class="p-progress-container">
-                <span id="currentTime" class="time-display">0:00</span>
-                <input type="range" id="progressBar" value="0" max="100" class="custom-slider">
-                <span id="durationTime" class="time-display">0:00</span>
+            <div class="p-controls-master">
+                <div class="p-buttons">
+                    <button onclick="skipTime(-10)" class="skip-btn"><i class="fas fa-backward"></i></button>
+                    <button id="playPauseBtn" class="main-play-xl"><i class="fas fa-play"></i></button>
+                    <button onclick="skipTime(10)" class="skip-btn"><i class="fas fa-forward"></i></button>
+                </div>
+                <div class="p-progress-container">
+                    <span id="currentTime" class="time-display">0:00</span>
+                    <input type="range" id="progressBar" value="0" max="100" class="custom-slider">
+                    <span id="durationTime" class="time-display">0:00</span>
+                </div>
             </div>
+
+            <div class="volume-container">
+                <button id="muteBtn" class="volume-btn"><i class="fas fa-volume-up"></i></button>
+                <input type="range" id="volumeSlider" min="0" max="1" step="0.1" value="1" class="vol-slider">
+            </div>
+
+            <button id="playerClose" class="p-close-btn"><i class="fas fa-times"></i></button>
         </div>
-
-        <div class="volume-container">
-            <button id="muteBtn" class="volume-btn"><i class="fas fa-volume-up"></i></button>
-            <input type="range" id="volumeSlider" min="0" max="1" step="0.1" value="1" class="vol-slider">
-        </div>
-
-        <button id="playerClose" class="p-close-btn"><i class="fas fa-times"></i></button>
+        <audio id="mainAudio"></audio>
     </div>
-    <audio id="mainAudio"></audio>
-</div>
 
-        <button id="playerClose" class="p-close-btn"><i class="fas fa-times"></i></button>
-    </div>
-    <audio id="mainAudio"></audio>
-</div>
-
-    <script src="script.js?v=99"></script>
+    <script src="script.js?v=2.0"></script>
 </body>
 </html>
