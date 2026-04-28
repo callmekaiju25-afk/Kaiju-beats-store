@@ -20,10 +20,10 @@ function render(data = database) {
                     <i class="fas fa-play"></i>
                 </button>
             </div>
-            <div style="padding:15px; text-align:center;">
-                <h3 style="font-family:Orbitron; font-size:0.8rem; margin-bottom:5px;">${b.title}</h3>
-                <p style="font-size:0.6rem; color:#666; margin-bottom:15px;">${b.genre.toUpperCase()}</p>
-                <button onclick="addToCart(${b.id})" style="width:100%; padding:10px; background:none; border:1px solid #00ff88; color:#00ff88; font-family:Orbitron; font-size:0.7rem; cursor:pointer;">
+            <div style="padding:20px; text-align:center;">
+                <h3 style="font-family:Orbitron; font-size:0.85rem; margin-bottom:8px; letter-spacing:1px;">${b.title}</h3>
+                <p style="font-size:0.6rem; color:#555; margin-bottom:18px; font-family:Orbitron;">${b.genre.toUpperCase()}</p>
+                <button onclick="addToCart(${b.id})" style="width:100%; padding:12px; background:none; border:1px solid var(--primary); color:var(--primary); font-family:Orbitron; font-size:0.7rem; cursor:pointer; transition:0.3s;" onmouseover="this.style.background='var(--primary)'; this.style.color='black'">
                     39.99€ - AJOUTER
                 </button>
             </div>
@@ -32,7 +32,7 @@ function render(data = database) {
     document.getElementById('beatsCount').innerText = data.length;
 }
 
-// --- PLAYER ---
+// Logique Player
 window.playBeat = (id) => {
     const beat = database.find(b => b.id === id);
     document.getElementById('audioPlayer').style.display = "block";
@@ -64,14 +64,14 @@ document.getElementById('progressBar').oninput = (e) => {
     mainAudio.currentTime = (e.target.value / 100) * mainAudio.duration;
 };
 
-// --- VOLUME ---
+// Volume
 document.getElementById('volumeSlider').oninput = (e) => { mainAudio.volume = e.target.value; };
 document.getElementById('muteBtn').onclick = () => {
     mainAudio.muted = !mainAudio.muted;
     document.getElementById('muteBtn').innerHTML = mainAudio.muted ? '<i class="fas fa-volume-mute"></i>' : '<i class="fas fa-volume-up"></i>';
 };
 
-// --- INIT & RECHERCHE ---
+// Recherche
 document.addEventListener('DOMContentLoaded', () => {
     render();
     document.getElementById('searchInput').oninput = () => {
@@ -80,13 +80,6 @@ document.addEventListener('DOMContentLoaded', () => {
         const filtered = database.filter(b => b.title.toLowerCase().includes(val) && (gen === 'all' || b.genre === gen));
         render(filtered);
     };
-    document.getElementById('genreFilter').onchange = () => document.getElementById('searchInput').oninput();
-    
     document.getElementById('contactBtn').onclick = () => document.getElementById('contactModal').classList.add('active');
     document.getElementById('contactClose').onclick = () => document.getElementById('contactModal').classList.remove('active');
-    
-    document.getElementById('playPauseBtn').onclick = () => {
-        if (mainAudio.paused) { mainAudio.play(); document.getElementById('playPauseBtn').innerHTML = '<i class="fas fa-pause"></i>'; }
-        else { mainAudio.pause(); document.getElementById('playPauseBtn').innerHTML = '<i class="fas fa-play"></i>'; }
-    };
 });
