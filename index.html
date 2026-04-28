@@ -3,31 +3,31 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>KAIJU
-     BEATS | Premium Store</title>
+    <title>KAIJU BEATS | Premium Store</title>
     <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <link rel="stylesheet" href="style.css?v=10">
+    <link rel="stylesheet" href="style.css?v=20">
 </head>
 <body>
     <div class="bg-glow"></div>
-<<nav class="navbar">
-    <div class="container nav-content">
-        <div class="logo">
-            <span class="logo-main">KAIJU</span><span class="logo-accent">BEATS</span>
-        </div>
-        <div class="nav-menu">
-            <a href="#" class="nav-link" id="contactBtn">CONTACT</a>
-            <button class="cart-btn" id="cartBtn">
-                <i class="fas fa-shopping-cart"></i> <span id="cartCount">0</span>
-            </button>
-        </div>
-    </div>
-</nav>
 
-<div class="promo-banner">
-    🔥 OFFRE SPÉCIALE : 2 BEATS ACHETÉS = LE 3ÈME OFFERT 🔥
-</div>
+    <nav class="navbar">
+        <div class="container nav-content">
+            <div class="logo">
+                <span class="logo-main">KAIJU</span><span class="logo-accent">BEATS</span>
+            </div>
+            <div class="nav-menu">
+                <a href="#" class="nav-link" id="contactBtn">CONTACT</a>
+                <button class="cart-btn" id="cartBtn">
+                    <i class="fas fa-shopping-cart"></i> <span id="cartCount">0</span>
+                </button>
+            </div>
+        </div>
+    </nav>
+
+    <div class="promo-banner">
+        🔥 OFFRE SPÉCIALE : 2 BEATS ACHETÉS = LE 3ÈME OFFERT 🔥
+    </div>
 
     <header class="hero">
         <div class="container">
@@ -38,16 +38,15 @@
 
     <section id="beats" class="catalog-section">
         <div class="container">
-            <div class="section-header" style="text-align: center; margin-bottom: 40px;">
-                <h2 style="font-family: 'Orbitron'; margin-bottom: 25px;">CATALOGUE (<span id="beatsCount">0</span>)</h2>
+            <div class="section-header">
+                <h2 class="section-title">Écoute, et fais ton choix ! (<span id="beatsCount">0</span>)</h2>
                 
-                <div class="filter-container" style="display: flex; flex-direction: column; gap: 15px; max-width: 600px; margin: 0 auto;">
-                    <div class="search-box" style="position: relative;">
-                        <i class="fas fa-search" style="position: absolute; left: 15px; top: 50%; transform: translateY(-50%); color: #555;"></i>
-                        <input type="text" id="searchInput" placeholder="Chercher un titre..." style="width: 100%; padding: 12px 12px 12px 45px; background: #111; border: 1px solid #333; border-radius: 5px; color: white; font-family: 'Space Mono';">
+                <div class="filter-container">
+                    <div class="search-box">
+                        <i class="fas fa-search"></i>
+                        <input type="text" id="searchInput" placeholder="Chercher un titre...">
                     </div>
-
-                    <select id="genreFilter" style="width: 100%; padding: 12px; background: #111; border: 1px solid #333; border-radius: 5px; color: #00ff88; font-family: 'Orbitron'; font-size: 0.8rem; cursor: pointer; text-align: center;">
+                    <select id="genreFilter">
                         <option value="all">TOUS LES GENRES</option>
                         <option value="trap">TRAP</option>
                         <option value="hood-trap">HOOD-TRAP</option>
@@ -57,13 +56,12 @@
                     </select>
                 </div>
             </div>
-            
             <div class="beats-grid" id="beatsGrid"></div>
         </div>
     </section>
 
     <div id="contactModal" class="modal">
-        <div class="modal-content contact-popup">
+        <div class="modal-content">
             <div class="modal-header">
                 <h3>KAIJU CONNECT 🇸🇳</h3>
                 <button id="contactClose"><i class="fas fa-times"></i></button>
@@ -92,9 +90,9 @@
                 <button id="cartCloseBtn"><i class="fas fa-times"></i></button>
             </div>
             <div id="cartBody" class="modal-body"></div>
-            <div id="cartFooter" class="modal-footer" style="display: none; padding-top: 20px; border-top: 1px solid #222;">
+            <div id="cartFooter" class="modal-footer" style="display: none;">
                 <div id="cartTotalDisplay"></div>
-                <button id="checkoutWhatsapp" class="btn-checkout" style="width: 100%; padding: 15px; background: #00ff88; border: none; color: black; font-weight: bold; cursor: pointer; margin-top: 15px; border-radius: 5px; font-family: 'Orbitron';">
+                <button id="checkoutWhatsapp" class="btn-checkout">
                     COMMANDER VIA WHATSAPP
                 </button>
             </div>
@@ -105,23 +103,22 @@
         <div class="container player-inner">
             <img src="" id="playerImage" class="p-img">
             <div class="p-info">
-                <h4 id="playerTitle" style="font-size: 0.9rem;">Titre</h4>
+                <h4 id="playerTitle">Titre</h4>
             </div>
             <div class="p-controls">
-                <div class="p-btns">
-                    <button id="playPauseBtn" class="main-play"><i class="fas fa-play"></i></button>
-                </div>
-                <div class="p-progress">
-                    <input type="range" id="progressBar" value="0" max="100" style="width: 100%; accent-color: #00ff88;">
+                <button id="playPauseBtn" class="main-play"><i class="fas fa-play"></i></button>
+                <div class="p-progress-area">
+                    <span id="currentTime">0:00</span>
+                    <input type="range" id="progressBar" value="0" max="100">
+                    <span id="durationTime">0:00</span>
                 </div>
             </div>
-            <button id="playerClose" style="background:none; border:none; color: #555; cursor: pointer;"><i class="fas fa-times"></i></button>
+            <button id="playerClose" class="p-close-btn"><i class="fas fa-times"></i></button>
         </div>
         <audio id="mainAudio"></audio>
     </div>
 
-    <div id="toast" class="toast" style="position: fixed; bottom: 100px; left: 50%; transform: translateX(-50%); background: #00ff88; color: black; padding: 10px 20px; border-radius: 5px; font-weight: bold; display: none; z-index: 3000;">Ajouté !</div>
-
+    <div id="toast" class="toast">Ajouté !</div>
     <script src="script.js"></script>
 </body>
 </html>
