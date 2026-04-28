@@ -3,7 +3,7 @@ const database = [
     { id: 2, title: "MIRAGE", genre: "trap", cover: "assets/IMAGE/MIRAGE.jpg", audio: "assets/MP3/MIRAGE.mp3" },
     { id: 3, title: "Distancia", genre: "afro", cover: "assets/IMAGE/Distancia.png", audio: "assets/MP3/Distancia.mp3" },
     { id: 4, title: "Sunset", genre: "afro", cover: "assets/IMAGE/Sun-Set.png", audio: "assets/MP3/Sun-Set.mp3" },
-    { id: 5, title: "BAD", genre: "afro", cover: "assets/IMAGE/BAD.png", audio: "assets/MP3/BAD.mp3" },
+    { id: 5, title: "BAD", genre: "afro", cover: "assets/IMAGE/BAD.png", audio: "assets/MP3/Bad.mp3" },
     { id: 6, title: "Elevation", genre: "trap", cover: "assets/IMAGE/Elevation.png", audio: "assets/MP3/Elevation.mp3" }
 ];
 
@@ -121,4 +121,34 @@ document.addEventListener('DOMContentLoaded', () => {
 document.getElementById('checkoutWhatsapp').onclick = () => {
     const text = `Salut KAIJU 🦖! Je veux commander : ${cart.map(b => b.title).join(', ')}`;
     window.open(`https://wa.me/221777694864?text=${encodeURIComponent(text)}`);
+};
+
+// Fonction pour reculer/avancer de 10 secondes
+window.skipTime = (amount) => {
+    mainAudio.currentTime += amount;
+};
+
+// Mise à jour du minuteur et de la barre
+mainAudio.ontimeupdate = () => {
+    if (!isNaN(mainAudio.duration)) {
+        // Barre de progression
+        const progress = (mainAudio.currentTime / mainAudio.duration) * 100;
+        document.getElementById('progressBar').value = progress;
+
+        // Temps actuel (Minuteur de gauche)
+        const curM = Math.floor(mainAudio.currentTime / 60);
+        const curS = Math.floor(mainAudio.currentTime % 60);
+        document.getElementById('currentTime').innerText = `${curM}:${curS < 10 ? '0' : ''}${curS}`;
+
+        // Durée totale (Minuteur de droite)
+        const durM = Math.floor(mainAudio.duration / 60);
+        const durS = Math.floor(mainAudio.duration % 60);
+        document.getElementById('durationTime').innerText = `${durM}:${durS < 10 ? '0' : ''}${durS}`;
+    }
+};
+
+// Cliquer sur la barre pour naviguer dans le son
+document.getElementById('progressBar').oninput = (e) => {
+    const time = (e.target.value / 100) * mainAudio.duration;
+    mainAudio.currentTime = time;
 };
