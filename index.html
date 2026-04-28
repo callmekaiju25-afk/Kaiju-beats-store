@@ -3,11 +3,10 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>KAIJU BEATS | Premium Store</title>
+    <title>KAIJU BEATS | Store</title>
     <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <link rel="stylesheet" href="style.css?v=20">
-</head>
+    <link rel="stylesheet" href="style.css?v=99"> </head>
 <body>
     <div class="bg-glow"></div>
 
@@ -25,9 +24,7 @@
         </div>
     </nav>
 
-    <div class="promo-banner">
-        🔥 OFFRE SPÉCIALE : 2 BEATS ACHETÉS = LE 3ÈME OFFERT 🔥
-    </div>
+    <div class="promo-banner">🔥 2 BEATS ACHETÉS = LE 3ÈME OFFERT 🔥</div>
 
     <header class="hero">
         <div class="container">
@@ -39,20 +36,15 @@
     <section id="beats" class="catalog-section">
         <div class="container">
             <div class="section-header">
-                <h2 class="section-title">Écoute, et fais ton choix ! (<span id="beatsCount">0</span>)</h2>
-                
+                <h2 style="font-family:'Orbitron'; margin-bottom:20px; text-align:center;">Écoute, et fais ton choix ! (<span id="beatsCount">0</span>)</h2>
                 <div class="filter-container">
-                    <div class="search-box">
-                        <i class="fas fa-search"></i>
-                        <input type="text" id="searchInput" placeholder="Chercher un titre...">
-                    </div>
+                    <input type="text" id="searchInput" placeholder="Rechercher...">
                     <select id="genreFilter">
                         <option value="all">TOUS LES GENRES</option>
                         <option value="trap">TRAP</option>
                         <option value="hood-trap">HOOD-TRAP</option>
                         <option value="afro">AFRO</option>
                         <option value="drill">DRILL</option>
-                        <option value="oriental">ORIENTAL</option>
                     </select>
                 </div>
             </div>
@@ -63,43 +55,21 @@
     <div id="contactModal" class="modal">
         <div class="modal-content">
             <div class="modal-header">
-                <h3>KAIJU CONNECT 🇸🇳</h3>
+                <h3>KAIJU CONNECT</h3>
                 <button id="contactClose"><i class="fas fa-times"></i></button>
             </div>
             <div class="contact-options">
                 <a href="https://instagram.com/its._kaiju" target="_blank" class="contact-card">
-                    <i class="fab fa-instagram"></i>
-                    <div class="contact-text"><span>INSTAGRAM</span><p>@its._kaiju</p></div>
+                    <i class="fab fa-instagram"></i> @its._kaiju
                 </a>
                 <a href="mailto:callmekaiju@gmail.com" class="contact-card">
-                    <i class="fas fa-envelope"></i>
-                    <div class="contact-text"><span>EMAIL</span><p>callmekaiju@gmail.com</p></div>
-                </a>
-                <a href="https://wa.me/221777694864" target="_blank" class="contact-card">
-                    <i class="fab fa-whatsapp"></i>
-                    <div class="contact-text"><span>WHATSAPP</span><p>+221 77 769 48 64</p></div>
+                    <i class="fas fa-envelope"></i> callmekaiju@gmail.com
                 </a>
             </div>
         </div>
     </div>
 
-    <div id="cartModal" class="modal">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h3>VOTRE PANIER</h3>
-                <button id="cartCloseBtn"><i class="fas fa-times"></i></button>
-            </div>
-            <div id="cartBody" class="modal-body"></div>
-            <div id="cartFooter" class="modal-footer" style="display: none;">
-                <div id="cartTotalDisplay"></div>
-                <button id="checkoutWhatsapp" class="btn-checkout">
-                    COMMANDER VIA WHATSAPP
-                </button>
-            </div>
-        </div>
-    </div>
-
-    <div class="audio-player" id="audioPlayer" style="display: none;">
+    <div class="audio-player" id="audioPlayer" style="display:none;">
         <div class="container player-inner">
             <img src="" id="playerImage" class="p-img">
             <div class="p-info">
@@ -118,7 +88,6 @@
         <audio id="mainAudio"></audio>
     </div>
 
-    <div id="toast" class="toast">Ajouté !</div>
-    <script src="script.js"></script>
+    <script src="script.js?v=99"></script>
 </body>
 </html>
