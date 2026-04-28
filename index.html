@@ -6,7 +6,7 @@
     <title>KAIJU BEATS | Premium Store</title>
     <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <link rel="stylesheet" href="style.css?v=3.0">
+    <link rel="stylesheet" href="style.css?v=4.0">
 </head>
 <body>
     <div class="bg-glow"></div>
@@ -25,12 +25,12 @@
         </div>
     </nav>
 
-    <div class="promo-banner">🔥 OFFRE SPÉCIALE : 2 BEATS ACHETÉS = LE 3ÈME OFFERT 🔥</div>
+    <div class="promo-banner">🔥 OFFRE : 2 BEATS ACHETÉS = LE 3ÈME OFFERT 🔥</div>
 
     <section class="catalog-section">
         <div class="container">
             <div class="section-header">
-                <h2>ÉCOUTE, ET FAIS TON CHOIX ! (<span id="beatsCount">0</span>)</h2>
+                <h2>CATALOGUE (<span id="beatsCount">0</span>)</h2>
                 <div class="filter-container">
                     <div class="search-box">
                         <i class="fas fa-search"></i>
@@ -49,24 +49,32 @@
         </div>
     </section>
 
+    <div id="cartModal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3>TON PANIER</h3>
+                <button id="cartCloseBtn" class="close-btn"><i class="fas fa-times"></i></button>
+            </div>
+            <div id="cartBody" class="cart-body">
+                </div>
+            <div class="cart-footer">
+                <button onclick="window.open('https://wa.me/221777694864')" class="buy-btn" style="background: var(--primary); color:black;">COMMANDER VIA WHATSAPP</button>
+            </div>
+        </div>
+    </div>
+
     <div id="contactModal" class="modal">
         <div class="modal-content">
             <div class="modal-header">
-                <h3>KAIJU CONNECT 🇸🇳</h3>
-                <button id="contactClose"><i class="fas fa-times"></i></button>
+                <h3>CONTACT KAIJU 🇸🇳</h3>
+                <button id="contactClose" class="close-btn"><i class="fas fa-times"></i></button>
             </div>
             <div class="contact-options">
                 <a href="https://instagram.com/its._kaiju" target="_blank" class="contact-card">
-                    <i class="fab fa-instagram"></i>
-                    <div class="contact-text"><span>INSTAGRAM</span><p>@its._kaiju</p></div>
+                    <i class="fab fa-instagram"></i> <span>INSTAGRAM</span>
                 </a>
-                <a href="mailto:callmekaiju@gmail.com" class="contact-card">
-                    <i class="fas fa-envelope"></i>
-                    <div class="contact-text"><span>EMAIL</span><p>callmekaiju@gmail.com</p></div>
-                </a>
-                <a href="https://wa.me/221777694864" target="_blank" class="contact-card">
-                    <i class="fab fa-whatsapp"></i>
-                    <div class="contact-text"><span>WHATSAPP</span><p>+221 77 769 48 64</p></div>
+                <a href="https://wa.me/221777694864" class="contact-card">
+                    <i class="fab fa-whatsapp"></i> <span>WHATSAPP</span>
                 </a>
             </div>
         </div>
@@ -74,15 +82,14 @@
 
     <div class="audio-player" id="audioPlayer" style="display: none;">
         <div class="container player-inner">
-            <img src="" id="playerImage" class="p-img-xl">
+            <img src="" id="playerImage" class="p-img">
             <div class="p-info">
                 <h4 id="playerTitle">Titre</h4>
             </div>
-            
             <div class="p-controls-master">
                 <div class="p-buttons">
                     <button onclick="skipTime(-10)" class="skip-btn"><i class="fas fa-backward"></i></button>
-                    <button id="playPauseBtn" class="main-play-xl"><i class="fas fa-play"></i></button>
+                    <button id="playPauseBtn" class="main-play"><i class="fas fa-play"></i></button>
                     <button onclick="skipTime(10)" class="skip-btn"><i class="fas fa-forward"></i></button>
                 </div>
                 <div class="p-progress-container">
@@ -91,12 +98,10 @@
                     <span id="durationTime" class="time-display">0:00</span>
                 </div>
             </div>
-
             <div class="volume-container">
                 <button id="muteBtn" class="volume-btn"><i class="fas fa-volume-up"></i></button>
                 <input type="range" id="volumeSlider" min="0" max="1" step="0.1" value="1" class="vol-slider">
             </div>
-            <button id="playerClose" class="p-close-btn"><i class="fas fa-times"></i></button>
         </div>
         <audio id="mainAudio"></audio>
     </div>
