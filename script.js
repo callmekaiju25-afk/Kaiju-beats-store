@@ -10,7 +10,7 @@ const database = [
     { id: 9, title: "EMPIRE", genre: "trap", cover: "assets/IMAGE/EMPIRE.png", audio: "assets/MP3/EMPIRE.mp3" },
     { id: 10, title: "Renaissance", genre: "Boom bap", cover: "assets/IMAGE/Renaissance.png", audio: "assets/MP3/Renaissance.mp3" },
     { id: 11, title: "MEMORIES", genre: "Drill", cover: "assets/IMAGE/MEMORIES.png", audio: "assets/MP3/MEMORIES.mp3" },
-    { id: 12, title: "SHAKE", genre: "afro", cover: "assets/IMAGE/SHAKE.png", audio: "assets/MP3/SHAKE.mp3" },
+    { id: 12, title: "SHAKE", genre: "Amapiano", cover: "assets/IMAGE/SHAKE.png", audio: "assets/MP3/SHAKE.mp3" },
 ];
 
 let cart = [];
