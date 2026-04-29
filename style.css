@@ -1,152 +1,164 @@
 :root { 
     --primary: #00ff88; 
-    --bg: #050505; 
-    --card: #0d0d0d; 
+    --bg: #030303; 
+    --card: #0a0a0a;
+    --accent-dark: #004d2c;
 }
 
 * { margin: 0; padding: 0; box-sizing: border-box; }
+
 body { 
     background: var(--bg); 
+    /* Petit effet de halo lumineux en haut de page */
+    background-image: radial-gradient(circle at 50% -10%, var(--accent-dark) 0%, var(--bg) 60%);
     color: white; 
     font-family: 'Space Mono', monospace; 
     overflow-x: hidden; 
 }
+
 .container { max-width: 1200px; margin: 0 auto; padding: 0 20px; }
 
-/* NAVBAR - Correction du clic */
+/* NAVBAR - Plus fine et moderne */
 .navbar { 
-    padding: 20px 0; 
-    background: rgba(0,0,0,0.95); 
+    padding: 15px 0; 
+    background: rgba(0,0,0,0.8); 
     position: sticky; 
     top: 0; 
     z-index: 1000; 
-    border-bottom: 1px solid #111; 
-    backdrop-filter: blur(10px); 
+    border-bottom: 1px solid rgba(255,255,255,0.05); 
+    backdrop-filter: blur(15px); 
 }
-.nav-content { display: flex; justify-content: space-between; align-items: center; }
-.logo { font-family: 'Orbitron'; font-weight: 900; font-size: 1.6rem; letter-spacing: 2px; }
-.logo-accent { color: var(--primary); text-shadow: 0 0 10px var(--primary); }
 
+.logo { 
+    font-family: 'Orbitron'; 
+    font-weight: 900; 
+    font-size: 1.4rem; 
+    letter-spacing: 4px; 
+    text-transform: uppercase;
+}
+
+/* BOUTONS NAV - Effet Pill */
 .nav-link-btn { 
-    background: none; 
+    background: rgba(255,255,255,0.05); 
     border: 1px solid rgba(255,255,255,0.1); 
     color: white; 
-    padding: 10px 20px;
-    border-radius: 5px;
+    padding: 8px 20px;
+    border-radius: 50px;
     cursor: pointer; 
     font-family: 'Orbitron'; 
-    margin-right: 20px; 
-    transition: 0.3s; 
+    font-size: 0.7rem;
+    margin-right: 15px; 
+    transition: 0.3s ease; 
 }
-.nav-link-btn:hover { color: var(--primary); border-color: var(--primary); }
+.nav-link-btn:hover { 
+    background: var(--primary); 
+    color: black; 
+    border-color: var(--primary);
+}
 
 .cart-trigger { 
     background: var(--primary); 
     color: black; 
     border: none; 
-    padding: 12px 20px; 
-    border-radius: 5px; 
+    padding: 10px 22px; 
+    border-radius: 50px; 
     cursor: pointer; 
     font-family: 'Orbitron'; 
-    font-weight: 900; 
+    font-weight: 900;
+    box-shadow: 0 4px 15px rgba(0, 255, 136, 0.2);
 }
 
-/* PROMO - Bien centrée */
-.promo-container { width: 100%; display: flex; justify-content: center; padding: 25px 0; }
+/* PROMO - Effet Néon */
+.promo-container { width: 100%; display: flex; justify-content: center; padding: 35px 0; }
 .promo-bar { 
     background: linear-gradient(90deg, transparent, var(--primary), transparent); 
     color: black; 
     font-weight: 900; 
-    padding: 12px 60px; 
+    padding: 10px 100px; 
     font-family: 'Orbitron'; 
     text-align: center; 
-    font-size: 0.8rem; 
-    letter-spacing: 1px; 
+    font-size: 0.75rem; 
+    letter-spacing: 2px;
+    box-shadow: 0 0 30px rgba(0, 255, 136, 0.1);
 }
 
-/* CATALOG & SEARCH */
-.catalog-header { padding: 60px 0 40px; text-align: center; }
-.catalog-header h1 { font-family: 'Orbitron'; font-size: 2.5rem; margin-bottom: 30px; }
-.filter-bar { display: flex; gap: 20px; justify-content: center; flex-wrap: wrap; }
-.search-box { position: relative; width: 350px; }
-.search-box i { position: absolute; left: 15px; top: 50%; transform: translateY(-50%); color: #444; }
+/* SEARCH BOX - Plus "Tech" */
 #searchInput, #genreFilter { 
-    background: var(--card); 
-    border: 1px solid #222; 
+    background: rgba(255,255,255,0.03); 
+    border: 1px solid rgba(255,255,255,0.08); 
     color: white; 
-    padding: 15px; 
-    padding-left: 45px; 
-    border-radius: 8px; 
-    width: 100%; 
-    outline: none; 
+    padding: 16px; 
+    border-radius: 12px; 
+    transition: 0.3s;
 }
-#genreFilter { width: 200px; padding-left: 15px; color: var(--primary); font-family: 'Orbitron'; cursor: pointer; }
+#searchInput:focus {
+    border-color: var(--primary);
+    background: rgba(255,255,255,0.06);
+}
 
-/* BEATS GRID */
-.beats-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 35px; padding-bottom: 180px; }
-.beat-card { background: var(--card); border-radius: 12px; overflow: hidden; border: 1px solid #1a1a1a; transition: 0.4s; }
-.beat-card:hover { border-color: var(--primary); transform: translateY(-10px); }
-.img-box { position: relative; width: 100%; aspect-ratio: 1/1; }
-.img-box img { width: 100%; height: 100%; object-fit: cover; }
-.overlay-play { 
-    position: absolute; inset: 0; background: rgba(0,0,0,0.6); 
-    border: none; color: white; font-size: 4rem; opacity: 0; cursor: pointer; transition: 0.3s; 
-    display: flex; align-items: center; justify-content: center;
+/* BEAT CARDS - Le gros changement */
+.beat-card { 
+    background: var(--card); 
+    border-radius: 20px; 
+    border: 1px solid rgba(255,255,255,0.03); 
+    transition: all 0.4s cubic-bezier(0.165, 0.84, 0.44, 1);
 }
-.beat-card:hover .overlay-play { opacity: 1; }
-.beat-meta { padding: 25px; text-align: center; }
-.beat-meta h3 { font-family: 'Orbitron'; margin-bottom: 5px; }
+.beat-card:hover { 
+    border-color: var(--primary); 
+    transform: translateY(-12px);
+    box-shadow: 0 20px 40px rgba(0,0,0,0.4);
+}
+
+.img-box img { 
+    border-radius: 20px 20px 0 0; 
+    filter: grayscale(20%);
+    transition: 0.5s;
+}
+.beat-card:hover .img-box img { 
+    filter: grayscale(0%) brightness(0.6); 
+}
+
+/* BOUTON ACHAT - Style Cyberpunk */
 .buy-btn { 
-    width: 100%; padding: 15px; background: none; border: 1px solid var(--primary); 
-    color: var(--primary); cursor: pointer; margin-top: 15px; font-family: 'Orbitron'; border-radius: 5px; 
+    border: 1px solid rgba(0,255,136,0.3); 
+    background: rgba(0,255,136,0.02);
+    color: var(--primary);
+    text-transform: uppercase;
+    font-size: 0.7rem;
+    letter-spacing: 1px;
 }
-.buy-btn:hover { background: var(--primary); color: black; }
-
-/* MODALS - Fix pour le clic */
-.modal { 
-    position: fixed; inset: 0; background: rgba(0,0,0,0.95); 
-    display: none; align-items: center; justify-content: center; z-index: 2000; 
-}
-.modal.active { display: flex; }
-.modal-card { 
-    background: #080808; border: 1px solid var(--primary); 
-    padding: 40px; border-radius: 15px; width: 90%; max-width: 450px; position: relative; 
-}
-.close-btn { 
-    position: absolute; top: 15px; right: 20px; background: none; 
-    border: none; color: white; font-size: 2.5rem; cursor: pointer; z-index: 2100;
+.buy-btn:hover {
+    background: var(--primary);
+    color: black;
 }
 
-/* PANIER & CONTACT ITEMS */
-.cart-scroll { max-height: 300px; overflow-y: auto; margin-top: 20px; }
-.cart-item { 
-    display: flex; justify-content: space-between; align-items: center; 
-    padding: 15px; background: #111; margin-bottom: 10px; border-radius: 5px; border-left: 3px solid var(--primary); 
-}
-.c-item { 
-    display: flex; align-items: center; gap: 20px; padding: 15px; 
-    background: #111; margin-bottom: 15px; border-radius: 8px; text-decoration: none; color: white; border: 1px solid #222; 
-}
-.c-item i { font-size: 1.8rem; color: var(--primary); }
-
-/* PLAYER - Correction visuelle XXL */
+/* PLAYER - Look Floating Bar */
 .player-fixed { 
-    position: fixed; bottom: 0; left: 0; width: 100%; 
-    background: #000; border-top: 2px solid var(--primary); 
-    padding: 15px 0; z-index: 1500; display: none; 
+    position: fixed; 
+    bottom: 25px; 
+    left: 50%;
+    transform: translateX(-50%);
+    width: 90%;
+    max-width: 1000px;
+    background: rgba(10,10,10,0.85); 
+    border: 1px solid rgba(255,255,255,0.1); 
+    padding: 12px 25px; 
+    border-radius: 100px;
+    backdrop-filter: blur(20px);
+    box-shadow: 0 15px 35px rgba(0,0,0,0.5);
+    display: none; 
 }
-.player-grid { display: flex; align-items: center; justify-content: space-between; gap: 20px; }
-.p-info { display: flex; align-items: center; gap: 15px; width: 250px; }
-.p-info img { width: 55px; height: 55px; border-radius: 5px; object-fit: cover; }
-.p-controls { flex-grow: 1; display: flex; flex-direction: column; align-items: center; gap: 8px; }
-.p-buttons { display: flex; align-items: center; gap: 25px; }
-.play-main-btn { 
-    background: var(--primary); border: none; width: 45px; height: 45px; 
-    border-radius: 50%; font-size: 1.2rem; cursor: pointer; display: flex; align-items: center; justify-content: center; 
+
+/* Barre de progression plus fine */
+#pProgress {
+    height: 4px;
+    background: rgba(255,255,255,0.1);
 }
-.skip-btn { background: none; border: none; color: #666; font-size: 1.2rem; cursor: pointer; transition: 0.3s; }
-.skip-btn:hover { color: var(--primary); }
-.p-seeker { width: 100%; display: flex; align-items: center; gap: 15px; font-size: 0.75rem; color: #888; }
-#pProgress { flex-grow: 1; accent-color: var(--primary); cursor: pointer; height: 5px; }
-.p-vol { display: flex; align-items: center; gap: 12px; width: 150px; }
-#volControl { width: 80px; accent-color: var(--primary); cursor: pointer; }
+
+/* MODAL - Plus clean */
+.modal-card {
+    background: #080808;
+    border: 1px solid rgba(255,255,255,0.05);
+    border-radius: 25px;
+    padding: 40px;
+}
