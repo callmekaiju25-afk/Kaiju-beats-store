@@ -17,16 +17,12 @@ const database = [
     { id: 17, title: "SOLUNA", genre: "trap", cover: "assets/IMAGE/SOLUNA.jpg", audio: "assets/MP3/SOLUNA.mp3" },
     { id: 18, title: "Ombre", genre: "Drill", cover: "assets/IMAGE/Ombre.png", audio: "assets/MP3/Ombre.mp3" },
     { id: 19, title: "LARME", genre: "Acoustic", cover: "assets/IMAGE/LARME.png", audio: "assets/MP3/LARME.mp3" },
-    { id: 20, title: "TRUTH", genre: "Afro", cover: "assets/IMAGE/TRUTH.png", audio: "assets/MP3/TRUTH.mp3" },
-    { id: 21, title: "Illusion", genre: "Afro", cover: "assets/IMAGE/Illusion.png", audio: "assets/MP3/Illusion.mp3" },
-    { id: 22, title: "Obesession", genre: "Afro", cover: "assets/IMAGE/Obesession.png", audio: "assets/MP3/Obesession.mp3" },
-    { id: 23, title: "ZURA", genre: "Afro", cover: "assets/IMAGE/ZURA.png", audio: "assets/MP3/ZURA.mp3" },
+    { id: 20, title: "TRUTH", genre: "afro", cover: "assets/IMAGE/TRUTH.png", audio: "assets/MP3/TRUTH.mp3" },
+    { id: 21, title: "Illusion", genre: "afro", cover: "assets/IMAGE/Illusion.png", audio: "assets/MP3/Illusion.mp3" },
+    { id: 22, title: "Obesession", genre: "afro", cover: "assets/IMAGE/Obsession.png", audio: "assets/MP3/Obsession.mp3" },
+    { id: 23, title: "ZURA", genre: "afro", cover: "assets/IMAGE/ZURA.png", audio: "assets/MP3/Zura.mp3" },
     { id: 24, title: "ANUBIS", genre: "trap", cover: "assets/IMAGE/Anubis.png", audio: "assets/MP3/Anubis.mp3" },
     
-
-
-
-
 
 ];
 
