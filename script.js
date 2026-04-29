@@ -11,6 +11,16 @@ const database = [
     { id: 10, title: "Renaissance", genre: "Boom bap", cover: "assets/IMAGE/Renaissance.png", audio: "assets/MP3/Renaissance.mp3" },
     { id: 11, title: "MEMORIES", genre: "Drill", cover: "assets/IMAGE/MEMORIES.png", audio: "assets/MP3/MEMORIES.mp3" },
     { id: 12, title: "SHAKE", genre: "Amapiano", cover: "assets/IMAGE/SHAKE.png", audio: "assets/MP3/SHAKE.mp3" },
+    { id: 13, title: "ECLIPSE", genre: "Drill", cover: "assets/IMAGE/ECLIPSE.png", audio: "assets/MP3/ECLIPSE.mp3" },
+    { id: 14, title: "Solitude", genre: "Acoustic", cover: "assets/IMAGE/Solitude.png", audio: "assets/MP3/Solitude.mp3" },
+    { id: 15, title: "Solitude", genre: "Acoustic", cover: "assets/IMAGE/Solitude.png", audio: "assets/MP3/Solitude.mp3" },
+    { id: 16, title: "Aurore", genre: "Acoustic", cover: "assets/IMAGE/Aurore.png", audio: "assets/MP3/Aurore.mp3" },
+    { id: 17, title: "SOLUNA", genre: "trap", cover: "assets/IMAGE/SOLUNA.png", audio: "assets/MP3/SOLUNA.mp3" },
+    { id: 18, title: "Ombre", genre: "Drill", cover: "assets/IMAGE/Ombre.png", audio: "assets/MP3/Ombre.mp3" },
+    { id: 19, title: "LARME", genre: "Acoustic", cover: "assets/IMAGE/LARME.png", audio: "assets/MP3/LARME.mp3" },
+
+
+
 ];
 
 let cart = [];
