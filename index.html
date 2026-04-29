@@ -6,108 +6,190 @@
     <title>KAIJU BEATS | High-End Studio</title>
     <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <link rel="stylesheet" href="style.css?v=10.0">
+    <link rel="stylesheet" href="style.css?v=11.0">
 </head>
 <body>
+    <!-- Effets de fond animés -->
     <div class="bg-glow"></div>
+    <div class="grid-overlay"></div>
+    
+    <!-- Particules flottantes -->
+    <div class="particles">
+        <div class="particle"></div>
+        <div class="particle"></div>
+        <div class="particle"></div>
+        <div class="particle"></div>
+        <div class="particle"></div>
+    </div>
 
     <nav class="navbar">
         <div class="container nav-content">
             <div class="logo">
                 <span class="logo-main">KAIJU</span><span class="logo-accent">BEATS</span>
+                <div class="logo-underline"></div>
             </div>
             <div class="nav-right">
-                <button class="nav-link-btn" id="contactBtn">CONTACT</button>
+                <button class="nav-link-btn" id="contactBtn">
+                    <span>CONTACT</span>
+                    <div class="btn-bg"></div>
+                </button>
                 <button class="cart-trigger" id="cartBtn">
-                    <i class="fas fa-shopping-bag"></i> <span id="cartCount">0</span>
+                    <i class="fas fa-shopping-bag"></i> 
+                    <span class="cart-badge" id="cartCount">0</span>
+                    <div class="ripple"></div>
                 </button>
             </div>
         </div>
     </nav>
 
     <div class="promo-container">
-        <div class="promo-bar">🔥 2 BEATS ACHETÉS = LE 3ÈME OFFERT (AUTO-APPLIQUÉ) 🔥</div>
+        <div class="promo-bar">
+            <i class="fas fa-fire"></i>
+            <span>2 BEATS ACHETÉS = LE 3ÈME OFFERT (AUTO-APPLIQUÉ)</span>
+            <i class="fas fa-fire"></i>
+        </div>
     </div>
 
     <main class="container">
         <div class="catalog-header">
-            <h1>STUDIO CATALOG</h1>
+            <h1>
+                <span class="glitch" data-text="STUDIO CATALOG">STUDIO CATALOG</span>
+            </h1>
             <div class="filter-bar">
                 <div class="search-box">
                     <i class="fas fa-search"></i>
-                    <input type="text" id="searchInput" placeholder="Rechercher...">
+                    <input type="text" id="searchInput" placeholder="Rechercher un beat...">
+                    <div class="search-line"></div>
                 </div>
-                <select id="genreFilter">
-                    <option value="all">TOUS LES STYLES</option>
-                    <option value="afro">AFRO</option>
-                    <option value="Amapiano">AMAPIANO</option>
-                    <option value="Boom bap">BOOM BAP</option>
-                    <option value="Drill">DRILL</option>
-                    <option value="hood-trap">HOOD-TRAP</option>
-                    <option value="Jersey">JERSEY</option>
-                    <option value="Oriental">ORIENTAL</option>
-                    <option value="trap">TRAP</option>       
-                    <option value="Acoustic">ACOUSTIC</option>               
-                </select>
+                <div class="select-wrapper">
+                    <select id="genreFilter">
+                        <option value="all">TOUS LES STYLES</option>
+                        <option value="afro">AFRO</option>
+                        <option value="Amapiano">AMAPIANO</option>
+                        <option value="Boom bap">BOOM BAP</option>
+                        <option value="Drill">DRILL</option>
+                        <option value="hood-trap">HOOD-TRAP</option>
+                        <option value="Jersey">JERSEY</option>
+                        <option value="Oriental">ORIENTAL</option>
+                        <option value="trap">TRAP</option>       
+                        <option value="Acoustic">ACOUSTIC</option>               
+                    </select>
+                    <i class="fas fa-chevron-down select-icon"></i>
+                </div>
             </div>
         </div>
         <div class="beats-grid" id="beatsGrid"></div>
     </main>
 
     <div id="contactModal" class="modal">
+        <div class="modal-overlay"></div>
         <div class="modal-card">
-            <button class="close-btn" id="closeContact">&times;</button>
-            <h2>CONNECT WITH KAIJU</h2>
+            <button class="close-btn" id="closeContact">
+                <i class="fas fa-times"></i>
+            </button>
+            <div class="modal-header">
+                <i class="fas fa-paper-plane modal-icon"></i>
+                <h2>CONNECT WITH KAIJU</h2>
+                <p>Contactez-moi pour vos projets</p>
+            </div>
             <div class="contact-list">
                 <a href="https://wa.me/221777694864" target="_blank" class="c-item">
-                    <i class="fab fa-whatsapp"></i>
-                    <div class="c-txt"><span>WhatsApp</span><small>Direct Line</small></div>
+                    <div class="c-icon">
+                        <i class="fab fa-whatsapp"></i>
+                    </div>
+                    <div class="c-txt">
+                        <span>WhatsApp</span>
+                        <small>Direct Line</small>
+                    </div>
+                    <i class="fas fa-arrow-right c-arrow"></i>
                 </a>
                 <a href="mailto:callmekaiju@gmail.com" class="c-item">
-                    <i class="fas fa-envelope"></i>
-                    <div class="c-txt"><span>Email</span><small>callmekaiju@gmail.com</small></div>
+                    <div class="c-icon">
+                        <i class="fas fa-envelope"></i>
+                    </div>
+                    <div class="c-txt">
+                        <span>Email</span>
+                        <small>callmekaiju@gmail.com</small>
+                    </div>
+                    <i class="fas fa-arrow-right c-arrow"></i>
                 </a>
                 <a href="https://instagram.com/its._kaiju" target="_blank" class="c-item">
-                    <i class="fab fa-instagram"></i>
-                    <div class="c-txt"><span>Instagram</span><small>@its._kaiju</small></div>
+                    <div class="c-icon">
+                        <i class="fab fa-instagram"></i>
+                    </div>
+                    <div class="c-txt">
+                        <span>Instagram</span>
+                        <small>@its._kaiju</small>
+                    </div>
+                    <i class="fas fa-arrow-right c-arrow"></i>
                 </a>
             </div>
         </div>
     </div>
 
     <div id="cartModal" class="modal">
-        <div class="modal-card">
-            <button class="close-btn" id="closeCart">&times;</button>
-            <h2 class="cart-title">VOTRE PANIER</h2>
+        <div class="modal-overlay"></div>
+        <div class="modal-card cart-modal">
+            <button class="close-btn" id="closeCart">
+                <i class="fas fa-times"></i>
+            </button>
+            <div class="modal-header">
+                <i class="fas fa-shopping-cart modal-icon"></i>
+                <h2 class="cart-title">VOTRE PANIER</h2>
+                <p>Beats sélectionnés</p>
+            </div>
             <div id="cartItems" class="cart-scroll"></div>
             <div id="cartTotalArea"></div>
         </div>
     </div>
 
     <div class="player-fixed" id="audioPlayer">
+        <div class="player-progress-bar">
+            <div class="player-progress-fill"></div>
+        </div>
         <div class="container player-grid">
             <div class="p-info">
-                <img src="" id="pCover">
+                <div class="p-cover-wrapper">
+                    <img src="" id="pCover" alt="Cover">
+                    <div class="vinyl-effect"></div>
+                </div>
                 <div class="p-meta">
                     <h4 id="pTitle">Titre</h4>
-                    <small class="logo-accent">PROD BY KAIJU</small>
+                    <small class="logo-accent">
+                        <i class="fas fa-record-vinyl"></i> PROD BY KAIJU
+                    </small>
                 </div>
             </div>
             <div class="p-controls">
                 <div class="p-buttons">
-                    <button onclick="changeTime(-10)" class="skip-btn"><i class="fas fa-backward"></i></button>
-                    <button id="pPlayPause" class="play-main-btn"><i class="fas fa-play"></i></button>
-                    <button onclick="changeTime(10)" class="skip-btn"><i class="fas fa-forward"></i></button>
+                    <button onclick="changeTime(-10)" class="skip-btn" title="Reculer 10s">
+                        <i class="fas fa-backward"></i>
+                    </button>
+                    <button id="pPlayPause" class="play-main-btn">
+                        <i class="fas fa-play"></i>
+                        <div class="play-pulse"></div>
+                    </button>
+                    <button onclick="changeTime(10)" class="skip-btn" title="Avancer 10s">
+                        <i class="fas fa-forward"></i>
+                    </button>
                 </div>
                 <div class="p-seeker">
                     <span id="timeCurrent">0:00</span>
-                    <input type="range" id="pProgress" value="0" max="100" step="0.1">
+                    <div class="progress-container">
+                        <input type="range" id="pProgress" value="0" max="100" step="0.1">
+                        <div class="progress-fill"></div>
+                    </div>
                     <span id="timeTotal">0:00</span>
                 </div>
             </div>
             <div class="p-vol">
-                <i class="fas fa-volume-up"></i>
-                <input type="range" id="volControl" min="0" max="1" step="0.1" value="1">
+                <button class="vol-icon" id="volIcon">
+                    <i class="fas fa-volume-up"></i>
+                </button>
+                <div class="vol-slider-wrapper">
+                    <input type="range" id="volControl" min="0" max="1" step="0.01" value="1">
+                    <div class="vol-fill"></div>
+                </div>
             </div>
         </div>
         <audio id="mainAudio"></audio>
