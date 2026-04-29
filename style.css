@@ -1320,7 +1320,7 @@ body {
   width: 100%; 
   background: linear-gradient(180deg, rgba(10, 10, 10, 0.98) 0%, rgba(5, 5, 5, 0.98) 100%); 
   border-top: 2px solid var(--primary); 
-  padding: 14px 0; 
+  padding: 16px 0; 
   z-index: 1500; 
   display: none;
   box-shadow: 
@@ -1363,12 +1363,13 @@ body {
 
 .p-cover-wrapper {
   position: relative;
-  width: 52px;
-  height: 52px;
+  width: 65px;
+  height: 65px;
   border-radius: 8px;
   overflow: hidden;
   box-shadow: 0 4px 20px rgba(0, 0, 0, 0.5);
   border: 2px solid var(--border);
+  flex-shrink: 0;
 }
 
 .vinyl-effect {
@@ -1639,32 +1640,30 @@ body {
   flex: 1;
   position: relative;
   height: 5px;
-  background: #111;
   border-radius: 3px;
 }
 
 .vol-fill {
-  position: absolute;
-  top: 0;
-  left: 0;
-  height: 100%;
-  width: 100%;
-  background: linear-gradient(90deg, var(--primary), var(--primary-dark));
-  pointer-events: none;
-  box-shadow: 0 0 8px var(--primary);
+  display: none;
 }
 
 #volControl { 
   width: 100%;
-  height: 100%;
+  height: 5px;
   position: relative;
   z-index: 2;
-  accent-color: var(--primary);
   cursor: pointer;
   -webkit-appearance: none;
   appearance: none;
-  background: transparent;
+  background: #111;
+  border-radius: 3px;
   outline: none;
+}
+
+#volControl::-webkit-slider-runnable-track {
+  height: 5px;
+  border-radius: 3px;
+  background: transparent;
 }
 
 #volControl::-webkit-slider-thumb {
@@ -1675,8 +1674,22 @@ body {
   border-radius: 50%;
   background: var(--primary);
   cursor: pointer;
+  margin-top: -4.5px;
   box-shadow: 0 0 10px var(--primary-glow);
   transition: all 0.2s ease;
+}
+
+#volControl::-moz-range-track {
+  height: 5px;
+  border-radius: 3px;
+  background: #111;
+}
+
+#volControl::-moz-range-progress {
+  height: 5px;
+  border-radius: 3px;
+  background: var(--primary);
+  box-shadow: 0 0 8px var(--primary);
 }
 
 #volControl::-moz-range-thumb {
@@ -1693,6 +1706,7 @@ body {
 #volControl:hover::-webkit-slider-thumb {
   width: 18px;
   height: 18px;
+  margin-top: -6.5px;
   box-shadow: 0 0 15px var(--primary);
 }
 

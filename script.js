@@ -161,13 +161,20 @@ document.getElementById('contactBtn').onclick = () => document.getElementById('c
 document.getElementById('closeContact').onclick = () => document.getElementById('contactModal').classList.remove('active');
 
 // Volume & Init
+function updateVolSlider(val) {
+    const pct = val * 100;
+    const volEl = document.getElementById('volControl');
+    volEl.style.background = `linear-gradient(to right, #00ff88 0%, #00ff88 ${pct}%, #111 ${pct}%, #111 100%)`;
+}
+
 document.getElementById('volControl').oninput = (e) => {
     mainAudio.volume = e.target.value;
-    document.querySelector('.vol-fill').style.width = (e.target.value * 100) + '%';
+    updateVolSlider(e.target.value);
 };
 
 document.addEventListener('DOMContentLoaded', () => {
     render();
+    updateVolSlider(1); // volume à 100% par défaut
     document.getElementById('searchInput').oninput = runFilters;
     document.getElementById('genreFilter').onchange = runFilters;
 });
