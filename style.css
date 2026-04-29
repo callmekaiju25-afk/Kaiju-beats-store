@@ -1,3 +1,4 @@
+/* 1. RESET & BASES */
 :root { 
     --primary: #00ff88; 
     --bg: #050505; 
@@ -13,11 +14,16 @@ body {
     overflow-x: hidden; 
 }
 
+/* Force les polices Orbitron sur les titres et boutons */
+h1, h2, h3, .logo, .nav-link-btn, .cart-trigger, .buy-btn, .promo-bar {
+    font-family: 'Orbitron', sans-serif !important;
+}
+
 .container { max-width: 1200px; margin: 0 auto; padding: 0 20px; }
 
-/* NAVBAR */
+/* 2. NAVBAR & BOUTONS */
 .navbar { 
-    padding: 20px 0; 
+    padding: 15px 0; 
     background: rgba(0,0,0,0.95); 
     position: sticky; 
     top: 0; 
@@ -25,114 +31,165 @@ body {
     border-bottom: 1px solid #1a1a1a;
     backdrop-filter: blur(10px);
 }
+
 .nav-content { display: flex; justify-content: space-between; align-items: center; }
-.logo { font-family: 'Orbitron'; font-weight: 900; font-size: 1.6rem; letter-spacing: 2px; }
-.logo-accent { color: var(--primary); text-shadow: 0 0 10px var(--primary); }
 
 .nav-link-btn { 
-    background: none; border: 1px solid rgba(255,255,255,0.1); color: white; 
-    padding: 8px 18px; border-radius: 4px; cursor: pointer; 
-    font-family: 'Orbitron'; margin-right: 15px; transition: 0.3s;
+    background: #111; 
+    border: 1px solid #222; 
+    color: white; 
+    padding: 8px 20px; 
+    border-radius: 4px; 
+    cursor: pointer; 
+    margin-right: 15px; 
+    transition: 0.3s;
 }
 .nav-link-btn:hover { border-color: var(--primary); color: var(--primary); }
 
 .cart-trigger { 
-    background: var(--primary); color: black; border: none; padding: 10px 22px; 
-    border-radius: 4px; cursor: pointer; font-family: 'Orbitron'; font-weight: 900; 
+    background: var(--primary); 
+    color: black; 
+    border: none; 
+    padding: 10px 20px; 
+    border-radius: 4px; 
+    cursor: pointer; 
+    font-weight: 900; 
 }
 
-/* PROMO - Centré & Clean */
-.promo-container { 
-    width: 100%; background: #111; border-bottom: 1px solid var(--primary); 
-    padding: 15px 0; text-align: center;
+/* 3. CATALOGUE - CENTRAGE TOTAL */
+.catalog-header { 
+    padding: 60px 0 40px; 
+    text-align: center; 
+    width: 100%;
 }
-.promo-bar { 
-    color: var(--primary); font-weight: 900; font-family: 'Orbitron'; 
-    font-size: 0.75rem; letter-spacing: 2px; text-transform: uppercase;
-}
-
-/* CATALOGUE - Centrage Corrigé */
-.catalog-header { padding: 60px 0 40px; text-align: center; }
-.catalog-header h1 { font-family: 'Orbitron'; font-size: 2.5rem; margin-bottom: 30px; letter-spacing: 3px; }
 
 .filter-bar { 
-    display: flex; gap: 15px; justify-content: center; align-items: center; 
-    flex-wrap: wrap; margin-bottom: 50px;
+    display: flex; 
+    gap: 15px; 
+    justify-content: center; /* Centre les éléments horizontalement */
+    align-items: center; 
+    width: 100%;
+    margin-top: 20px;
 }
-#searchInput, #genreFilter { 
-    background: #000; border: 1px solid #222; color: white; 
-    padding: 14px 20px; border-radius: 5px; outline: none; font-family: 'Space Mono';
-}
-#searchInput { width: 350px; }
-#genreFilter { color: var(--primary); font-family: 'Orbitron'; font-size: 0.8rem; cursor: pointer; }
 
-/* BEATS GRID */
+#searchInput { 
+    width: 400px; 
+    background: #111; 
+    border: 1px solid #222; 
+    color: white; 
+    padding: 12px 20px; 
+    border-radius: 5px; 
+    outline: none;
+}
+
+#genreFilter { 
+    background: #111; 
+    border: 1px solid #222; 
+    color: var(--primary); 
+    padding: 12px; 
+    border-radius: 5px; 
+    outline: none;
+}
+
+/* 4. GRILLE DE BEATS */
 .beats-grid { 
-    display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); 
-    gap: 40px; padding-bottom: 200px; 
+    display: grid; 
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); 
+    gap: 30px; 
+    padding-bottom: 180px; /* Espace pour pas que le player cache les derniers beats */
 }
+
 .beat-card { 
-    background: var(--card); border: 1px solid #1a1a1a; 
-    border-radius: 8px; overflow: hidden; transition: 0.4s; 
+    background: var(--card); 
+    border: 1px solid #1a1a1a; 
+    border-radius: 8px; 
+    overflow: hidden; 
+    transition: 0.3s;
 }
-.beat-card:hover { border-color: var(--primary); transform: translateY(-8px); }
+.beat-card:hover { border-color: var(--primary); transform: translateY(-5px); }
 
 .img-box { position: relative; width: 100%; aspect-ratio: 1/1; }
 .img-box img { width: 100%; height: 100%; object-fit: cover; }
 
-.overlay-play { 
-    position: absolute; inset: 0; background: rgba(0,0,0,0.4); border: none; 
-    color: var(--primary); font-size: 4rem; opacity: 0; cursor: pointer; 
-    display: flex; align-items: center; justify-content: center; transition: 0.3s;
-}
-.beat-card:hover .overlay-play { opacity: 1; }
-
-.beat-meta { padding: 25px; text-align: center; }
-.beat-meta h3 { font-family: 'Orbitron'; font-size: 1.2rem; margin-bottom: 10px; }
-.beat-meta p { color: #666; font-size: 0.7rem; margin-bottom: 15px; letter-spacing: 1px; }
+.beat-meta { padding: 20px; text-align: center; }
+.beat-meta h3 { margin-bottom: 15px; font-size: 1.1rem; }
 
 .buy-btn { 
-    width: 100%; padding: 14px; background: none; border: 1px solid var(--primary); 
-    color: var(--primary); cursor: pointer; font-family: 'Orbitron'; 
-    border-radius: 4px; transition: 0.3s; font-weight: 700;
+    width: 100%; 
+    padding: 12px; 
+    background: none; 
+    border: 1px solid var(--primary); 
+    color: var(--primary); 
+    cursor: pointer; 
+    border-radius: 4px;
+    font-weight: 700;
 }
 .buy-btn:hover { background: var(--primary); color: black; }
 
-/* PLAYER XXL - Le retour du propre */
+/* 5. PLAYER FIXÉ (CORRECTION MAJEURE) */
 .player-fixed { 
-    position: fixed; bottom: 0; left: 0; width: 100%; background: #000; 
-    border-top: 2px solid var(--primary); padding: 15px 0; z-index: 1500; display: none; 
+    position: fixed; 
+    bottom: 0; 
+    left: 0; 
+    width: 100%; 
+    height: 100px; /* Hauteur fixe pour éviter qu'il prenne tout l'écran */
+    background: #000; 
+    border-top: 2px solid var(--primary); 
+    z-index: 2000; 
+    display: none; /* JS l'affiche en 'block' */
 }
-.player-grid { display: flex; align-items: center; justify-content: space-between; gap: 30px; }
 
-.p-info { display: flex; align-items: center; gap: 15px; width: 280px; }
-.p-info img { width: 55px; height: 55px; border-radius: 4px; object-fit: cover; border: 1px solid #222; }
-.p-meta h4 { font-family: 'Orbitron'; font-size: 0.9rem; color: #fff; margin-bottom: 2px; }
-.p-meta small { color: var(--primary); font-size: 0.7rem; letter-spacing: 1px; }
+.player-grid { 
+    height: 100%;
+    display: flex; 
+    align-items: center; 
+    justify-content: space-between; 
+    gap: 20px;
+}
 
-.p-controls { flex-grow: 1; display: flex; flex-direction: column; align-items: center; gap: 10px; }
-.p-buttons { display: flex; align-items: center; gap: 30px; }
+.p-info { display: flex; align-items: center; gap: 15px; width: 250px; }
+.p-info img { width: 60px; height: 60px; border-radius: 4px; object-fit: cover; }
+.p-meta h4 { font-size: 0.9rem; margin-bottom: 4px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+
+.p-controls { 
+    flex-grow: 1; 
+    display: flex; 
+    flex-direction: column; 
+    align-items: center; 
+    justify-content: center;
+}
+
+.p-buttons { display: flex; align-items: center; gap: 30px; margin-bottom: 8px; }
+.skip-btn { background: none; border: none; color: #666; font-size: 1.5rem; cursor: pointer; }
+.skip-btn:hover { color: var(--primary); }
 
 .play-main-btn { 
-    background: var(--primary); border: none; width: 50px; height: 50px; 
-    border-radius: 50%; cursor: pointer; display: flex; align-items: center; 
-    justify-content: center; font-size: 1.2rem; transition: 0.2s;
+    background: var(--primary); 
+    border: none; 
+    width: 45px; 
+    height: 45px; 
+    border-radius: 50%; 
+    cursor: pointer; 
+    display: flex; 
+    align-items: center; 
+    justify-content: center;
+    font-size: 1.2rem;
 }
-.play-main-btn:hover { transform: scale(1.1); }
 
-.skip-btn { background: none; border: none; color: #666; font-size: 1.4rem; cursor: pointer; transition: 0.3s; }
-.skip-btn:hover { color: white; }
+.p-seeker { width: 100%; max-width: 600px; display: flex; align-items: center; gap: 10px; font-size: 0.7rem; color: #888; }
+#pProgress { flex-grow: 1; accent-color: var(--primary); cursor: pointer; height: 4px; }
 
-.p-seeker { width: 100%; display: flex; align-items: center; gap: 15px; font-size: 0.75rem; color: #666; font-family: 'Space Mono'; }
-#pProgress { flex-grow: 1; accent-color: var(--primary); cursor: pointer; height: 5px; }
+.p-vol { display: flex; align-items: center; gap: 10px; width: 150px; justify-content: flex-end; }
+#volControl { width: 80px; accent-color: var(--primary); cursor: pointer; }
 
-.p-vol { display: flex; align-items: center; gap: 12px; width: 180px; justify-content: flex-end; }
-.p-vol i { color: #666; font-size: 0.9rem; }
-#volControl { width: 100px; accent-color: var(--primary); cursor: pointer; }
-
-/* MODALS */
+/* 6. MODALS */
 .modal-card { 
-    background: #0a0a0a; border: 1px solid var(--primary); padding: 40px; 
-    border-radius: 12px; width: 90%; max-width: 450px; position: relative; 
+    background: #0a0a0a; 
+    border: 1px solid var(--primary); 
+    padding: 30px; 
+    border-radius: 8px; 
+    width: 90%; 
+    max-width: 400px; 
+    position: relative;
 }
-.close-btn { position: absolute; top: 15px; right: 20px; background: none; border: none; color: white; font-size: 2.5rem; cursor: pointer; }
+.close-btn { position: absolute; top: 10px; right: 15px; background: none; border: none; color: white; font-size: 2.2rem; cursor: pointer; }
