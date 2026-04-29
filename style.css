@@ -15,137 +15,120 @@ body {
 
 .container { max-width: 1200px; margin: 0 auto; padding: 0 20px; }
 
-/* NAVBAR - Solide */
+/* NAVBAR */
 .navbar { 
     padding: 20px 0; 
-    background: #000; 
+    background: rgba(0,0,0,0.95); 
     position: sticky; 
     top: 0; 
     z-index: 1000; 
-    border-bottom: 1px solid #1a1a1a; 
+    border-bottom: 1px solid #1a1a1a;
+    backdrop-filter: blur(10px);
 }
-
 .nav-content { display: flex; justify-content: space-between; align-items: center; }
+.logo { font-family: 'Orbitron'; font-weight: 900; font-size: 1.6rem; letter-spacing: 2px; transition: 0.3s; cursor: pointer; }
+.logo:hover { transform: scale(1.05); }
+.logo-accent { color: var(--primary); text-shadow: 0 0 10px var(--primary); }
 
-.logo { 
-    font-family: 'Orbitron'; 
-    font-weight: 900; 
-    font-size: 1.6rem; 
-    letter-spacing: 2px; 
-}
-.logo-accent { color: var(--primary); }
-
+/* BOUTONS NAV */
 .nav-link-btn { 
-    background: none; 
-    border: none; 
-    color: white; 
-    cursor: pointer; 
-    font-family: 'Orbitron'; 
-    margin-right: 25px; 
-    transition: 0.3s;
+    background: none; border: none; color: white; cursor: pointer; 
+    font-family: 'Orbitron'; margin-right: 25px; transition: 0.3s; position: relative;
 }
-.nav-link-btn:hover { color: var(--primary); }
+.nav-link-btn::after {
+    content: ''; position: absolute; width: 0; height: 2px; bottom: -5px; left: 0; 
+    background: var(--primary); transition: 0.3s;
+}
+.nav-link-btn:hover::after { width: 100%; }
 
 .cart-trigger { 
-    background: var(--primary); 
-    color: black; 
-    border: none; 
-    padding: 10px 20px; 
-    border-radius: 4px; 
-    cursor: pointer; 
-    font-family: 'Orbitron'; 
-    font-weight: 900; 
+    background: var(--primary); color: black; border: none; padding: 10px 20px; 
+    border-radius: 4px; cursor: pointer; font-family: 'Orbitron'; font-weight: 900; 
+    transition: 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
 }
+.cart-trigger:hover { transform: translateY(-3px); box-shadow: 0 5px 15px rgba(0,255,136,0.4); }
 
-/* PROMO - Enfin centrée et propre */
+/* PROMO - Animation de pulsation */
 .promo-container { 
-    width: 100%; 
-    background: #111; 
-    border-bottom: 1px solid var(--primary);
-    padding: 12px 0;
-    text-align: center;
+    width: 100%; background: #111; border-bottom: 1px solid var(--primary); padding: 12px 0; text-align: center;
 }
 .promo-bar { 
-    color: var(--primary); 
-    font-weight: 900; 
-    font-family: 'Orbitron'; 
-    font-size: 0.75rem; 
-    letter-spacing: 2px; 
+    color: var(--primary); font-weight: 900; font-family: 'Orbitron'; font-size: 0.75rem; 
+    letter-spacing: 2px; animation: pulse 2s infinite;
+}
+@keyframes pulse {
+    0% { opacity: 0.6; }
+    50% { opacity: 1; text-shadow: 0 0 10px var(--primary); }
+    100% { opacity: 0.6; }
 }
 
-/* CATALOG */
-.catalog-header { padding: 50px 0; text-align: center; }
-.catalog-header h1 { font-family: 'Orbitron'; font-size: 2.2rem; margin-bottom: 25px; }
-
-.filter-bar { display: flex; gap: 15px; justify-content: center; margin-bottom: 40px; }
-#searchInput, #genreFilter { 
-    background: #000; 
-    border: 1px solid #222; 
-    color: white; 
-    padding: 12px; 
-    border-radius: 4px; 
-    outline: none; 
-}
-#searchInput { width: 300px; }
-
-/* BEATS GRID - Alignement parfait */
-.beats-grid { 
-    display: grid; 
-    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); 
-    gap: 30px; 
-    padding-bottom: 150px; 
-}
+/* CARDS - Animation de montée */
+.beats-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 30px; padding-bottom: 150px; }
 
 .beat-card { 
-    background: var(--card); 
-    border: 1px solid #1a1a1a; 
-    transition: 0.3s; 
+    background: var(--card); border: 1px solid #1a1a1a; 
+    transition: 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94); 
 }
-.beat-card:hover { border-color: var(--primary); }
+.beat-card:hover { 
+    border-color: var(--primary); 
+    transform: translateY(-10px); 
+    box-shadow: 0 10px 30px rgba(0,0,0,0.5); 
+}
 
-.img-box { position: relative; width: 100%; aspect-ratio: 1/1; }
-.img-box img { width: 100%; height: 100%; object-fit: cover; }
+.img-box { position: relative; width: 100%; aspect-ratio: 1/1; overflow: hidden; }
+.img-box img { width: 100%; height: 100%; object-fit: cover; transition: 0.6s ease; }
+.beat-card:hover .img-box img { transform: scale(1.1); filter: brightness(0.5); }
 
+/* Play Button Overlay - Animation Scale */
 .overlay-play { 
-    position: absolute; inset: 0; background: rgba(0,0,0,0.5); 
-    border: none; color: white; font-size: 3.5rem; opacity: 0; cursor: pointer; 
-    display: flex; align-items: center; justify-content: center;
+    position: absolute; inset: 0; background: rgba(0,0,0,0.3); border: none; 
+    color: var(--primary); font-size: 3.5rem; opacity: 0; cursor: pointer; 
+    display: flex; align-items: center; justify-content: center; transition: 0.3s;
 }
+.overlay-play i { transform: scale(0.5); transition: 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275); }
 .beat-card:hover .overlay-play { opacity: 1; }
+.beat-card:hover .overlay-play i { transform: scale(1); }
 
-.beat-meta { padding: 20px; text-align: center; }
-.beat-meta h3 { font-family: 'Orbitron'; font-size: 1.1rem; margin-bottom: 10px; }
-
+/* BOUTON ACHAT - Animation Shimmer */
 .buy-btn { 
-    width: 100%; padding: 12px; background: none; 
-    border: 1px solid var(--primary); color: var(--primary); 
-    cursor: pointer; font-family: 'Orbitron'; font-size: 0.8rem;
+    width: 100%; padding: 12px; background: none; border: 1px solid var(--primary); 
+    color: var(--primary); cursor: pointer; font-family: 'Orbitron'; 
+    font-size: 0.8rem; position: relative; overflow: hidden; transition: 0.3s;
 }
-.buy-btn:hover { background: var(--primary); color: black; }
+.buy-btn:hover { background: var(--primary); color: black; font-weight: 900; }
 
-/* PLAYER - Retour au format XXL Solide */
+/* PLAYER - Slide Up Animation */
 .player-fixed { 
-    position: fixed; bottom: 0; left: 0; width: 100%; 
-    background: #000; border-top: 2px solid var(--primary); 
-    padding: 15px 0; z-index: 1500; display: none; 
+    position: fixed; bottom: 0; left: 0; width: 100%; background: #000; 
+    border-top: 2px solid var(--primary); padding: 15px 0; z-index: 1500; 
+    display: none; animation: slideUp 0.5s ease-out;
 }
-.player-grid { display: flex; align-items: center; justify-content: space-between; }
-.p-info { display: flex; align-items: center; gap: 15px; width: 250px; }
-.p-info img { width: 50px; height: 50px; border-radius: 4px; }
+@keyframes slideUp {
+    from { transform: translateY(100%); }
+    to { transform: translateY(0); }
+}
 
-.p-controls { flex-grow: 1; display: flex; flex-direction: column; align-items: center; gap: 10px; }
-.p-buttons { display: flex; align-items: center; gap: 20px; }
-.play-main-btn { background: var(--primary); border: none; width: 45px; height: 45px; border-radius: 50%; cursor: pointer; }
-.skip-btn { background: none; border: none; color: #555; cursor: pointer; font-size: 1.2rem; }
+.play-main-btn { 
+    background: var(--primary); border: none; width: 45px; height: 45px; 
+    border-radius: 50%; cursor: pointer; transition: 0.3s;
+}
+.play-main-btn:hover { transform: scale(1.1); box-shadow: 0 0 15px var(--primary); }
 
-.p-seeker { width: 100%; display: flex; align-items: center; gap: 10px; font-size: 0.7rem; }
-#pProgress { flex-grow: 1; accent-color: var(--primary); height: 4px; cursor: pointer; }
+/* MODALS - Fade In */
+.modal { 
+    position: fixed; inset: 0; background: rgba(0,0,0,0.9); 
+    display: none; align-items: center; justify-content: center; z-index: 2000;
+    backdrop-filter: blur(5px);
+}
+.modal.active { display: flex; animation: fadeIn 0.3s ease; }
+@keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+}
 
-.p-vol { display: flex; align-items: center; gap: 10px; width: 150px; }
-#volControl { width: 80px; accent-color: var(--primary); }
-
-/* MODALS */
-.modal { position: fixed; inset: 0; background: rgba(0,0,0,0.9); display: none; align-items: center; justify-content: center; z-index: 2000; }
-.modal.active { display: flex; }
-.modal-card { background: #0a0a0a; border: 1px solid var(--primary); padding: 30px; width: 90%; max-width: 400px; position: relative; }
-.close-btn { position: absolute; top: 10px; right: 15px; background: none; border: none; color: white; font-size: 2rem; cursor: pointer; }
+.modal-card { 
+    background: #0a0a0a; border: 1px solid var(--primary); padding: 30px; 
+    width: 90%; max-width: 400px; position: relative; 
+    transform: scale(0.9); transition: 0.3s;
+}
+.modal.active .modal-card { transform: scale(1); }
