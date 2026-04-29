@@ -1,165 +1,152 @@
-/* Remplace tout ton style.css par celui-ci */
 :root { 
     --primary: #00ff88; 
     --bg: #050505; 
-    --card: rgba(20, 20, 20, 0.7); 
-    --glass: rgba(255, 255, 255, 0.03);
+    --card: #0d0d0d; 
 }
 
 * { margin: 0; padding: 0; box-sizing: border-box; }
 body { 
     background: var(--bg); 
-    background-image: radial-gradient(circle at 50% -20%, #1a3a2a 0%, var(--bg) 80%);
     color: white; 
     font-family: 'Space Mono', monospace; 
     overflow-x: hidden; 
-    line-height: 1.6;
 }
 .container { max-width: 1200px; margin: 0 auto; padding: 0 20px; }
 
-/* Navbar Ultra-Glass */
+/* NAVBAR - Correction du clic */
 .navbar { 
     padding: 20px 0; 
-    background: rgba(0,0,0,0.8); 
+    background: rgba(0,0,0,0.95); 
     position: sticky; 
     top: 0; 
     z-index: 1000; 
-    border-bottom: 1px solid rgba(255,255,255,0.05); 
-    backdrop-filter: blur(15px); 
+    border-bottom: 1px solid #111; 
+    backdrop-filter: blur(10px); 
 }
 .nav-content { display: flex; justify-content: space-between; align-items: center; }
-.logo { font-family: 'Orbitron'; font-weight: 900; font-size: 1.8rem; letter-spacing: 3px; }
-.logo-accent { color: var(--primary); text-shadow: 0 0 15px var(--primary); }
+.logo { font-family: 'Orbitron'; font-weight: 900; font-size: 1.6rem; letter-spacing: 2px; }
+.logo-accent { color: var(--primary); text-shadow: 0 0 10px var(--primary); }
 
-/* Boutons Navigation */
 .nav-link-btn { 
-    background: var(--glass); 
-    border: 1px solid rgba(255,255,255,0.1);
+    background: none; 
+    border: 1px solid rgba(255,255,255,0.1); 
     color: white; 
     padding: 10px 20px;
-    border-radius: 30px;
+    border-radius: 5px;
     cursor: pointer; 
     font-family: 'Orbitron'; 
-    margin-right: 15px; 
-    transition: 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275); 
+    margin-right: 20px; 
+    transition: 0.3s; 
 }
-.nav-link-btn:hover { background: var(--primary); color: black; transform: scale(1.05); }
+.nav-link-btn:hover { color: var(--primary); border-color: var(--primary); }
 
 .cart-trigger { 
     background: var(--primary); 
     color: black; 
     border: none; 
-    padding: 12px 25px; 
-    border-radius: 30px; 
+    padding: 12px 20px; 
+    border-radius: 5px; 
     cursor: pointer; 
     font-family: 'Orbitron'; 
     font-weight: 900; 
-    box-shadow: 0 5px 15px rgba(0, 255, 136, 0.3);
 }
 
-/* Promo Banner Stylée */
-.promo-container { width: 100%; display: flex; justify-content: center; padding: 30px 0; }
+/* PROMO - Bien centrée */
+.promo-container { width: 100%; display: flex; justify-content: center; padding: 25px 0; }
 .promo-bar { 
     background: linear-gradient(90deg, transparent, var(--primary), transparent); 
-    color: #000; 
+    color: black; 
     font-weight: 900; 
-    padding: 12px 80px; 
+    padding: 12px 60px; 
     font-family: 'Orbitron'; 
     text-align: center; 
-    font-size: 0.85rem; 
-    letter-spacing: 2px;
-    text-transform: uppercase;
+    font-size: 0.8rem; 
+    letter-spacing: 1px; 
 }
 
-/* Catalog Header */
-.catalog-header { padding: 80px 0 60px; text-align: center; }
-.catalog-header h1 { 
-    font-family: 'Orbitron'; 
-    font-size: 3.5rem; 
-    font-weight: 900;
-    margin-bottom: 40px; 
-    background: linear-gradient(to bottom, #fff 30%, #444);
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-}
-
-/* Filtres Modernes */
-.filter-bar { display: flex; gap: 15px; justify-content: center; flex-wrap: wrap; }
-.search-box { position: relative; width: 400px; }
-.search-box i { position: absolute; left: 20px; top: 50%; transform: translateY(-50%); color: var(--primary); }
+/* CATALOG & SEARCH */
+.catalog-header { padding: 60px 0 40px; text-align: center; }
+.catalog-header h1 { font-family: 'Orbitron'; font-size: 2.5rem; margin-bottom: 30px; }
+.filter-bar { display: flex; gap: 20px; justify-content: center; flex-wrap: wrap; }
+.search-box { position: relative; width: 350px; }
+.search-box i { position: absolute; left: 15px; top: 50%; transform: translateY(-50%); color: #444; }
 #searchInput, #genreFilter { 
-    background: rgba(255,255,255,0.03); 
-    border: 1px solid rgba(255,255,255,0.1); 
+    background: var(--card); 
+    border: 1px solid #222; 
     color: white; 
-    padding: 18px; 
-    padding-left: 55px; 
-    border-radius: 50px; 
+    padding: 15px; 
+    padding-left: 45px; 
+    border-radius: 8px; 
     width: 100%; 
     outline: none; 
-    transition: 0.3s;
 }
-#searchInput:focus { border-color: var(--primary); background: rgba(255,255,255,0.07); }
-#genreFilter { width: 220px; padding-left: 20px; appearance: none; cursor: pointer; }
+#genreFilter { width: 200px; padding-left: 15px; color: var(--primary); font-family: 'Orbitron'; cursor: pointer; }
 
-/* Grid & Cards - Le Coeur du Design */
-.beats-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(320px, 1fr)); gap: 40px; padding-bottom: 250px; }
-.beat-card { 
-    background: var(--card); 
-    border-radius: 24px; 
-    overflow: hidden; 
-    border: 1px solid rgba(255,255,255,0.05); 
-    transition: 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275); 
-    backdrop-filter: blur(10px);
-}
-.beat-card:hover { 
-    border-color: var(--primary); 
-    transform: translateY(-15px) scale(1.02); 
-    box-shadow: 0 20px 40px rgba(0,0,0,0.6); 
-}
-.img-box { position: relative; width: 100%; aspect-ratio: 1/1; overflow: hidden; }
-.img-box img { width: 100%; height: 100%; object-fit: cover; transition: 0.6s; }
-.beat-card:hover .img-box img { transform: scale(1.1); filter: brightness(0.4); }
-
+/* BEATS GRID */
+.beats-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 35px; padding-bottom: 180px; }
+.beat-card { background: var(--card); border-radius: 12px; overflow: hidden; border: 1px solid #1a1a1a; transition: 0.4s; }
+.beat-card:hover { border-color: var(--primary); transform: translateY(-10px); }
+.img-box { position: relative; width: 100%; aspect-ratio: 1/1; }
+.img-box img { width: 100%; height: 100%; object-fit: cover; }
 .overlay-play { 
-    position: absolute; inset: 0; background: transparent; border: none; 
-    color: var(--primary); font-size: 4.5rem; opacity: 0; cursor: pointer; 
-    transition: 0.4s; display: flex; align-items: center; justify-content: center;
+    position: absolute; inset: 0; background: rgba(0,0,0,0.6); 
+    border: none; color: white; font-size: 4rem; opacity: 0; cursor: pointer; transition: 0.3s; 
+    display: flex; align-items: center; justify-content: center;
 }
 .beat-card:hover .overlay-play { opacity: 1; }
-
-.beat-meta { padding: 30px; text-align: left; }
-.beat-meta h3 { font-family: 'Orbitron'; font-size: 1.4rem; margin-bottom: 8px; letter-spacing: 1px; }
-.beat-meta p { font-size: 0.75rem; color: #888; letter-spacing: 2px; margin-bottom: 20px; }
-
+.beat-meta { padding: 25px; text-align: center; }
+.beat-meta h3 { font-family: 'Orbitron'; margin-bottom: 5px; }
 .buy-btn { 
-    width: 100%; padding: 16px; background: transparent; 
-    border: 1px solid rgba(255,255,255,0.1); color: white; 
-    cursor: pointer; font-family: 'Orbitron'; border-radius: 12px; 
-    transition: 0.3s; font-weight: 700; font-size: 0.8rem;
+    width: 100%; padding: 15px; background: none; border: 1px solid var(--primary); 
+    color: var(--primary); cursor: pointer; margin-top: 15px; font-family: 'Orbitron'; border-radius: 5px; 
 }
-.buy-btn:hover { background: white; color: black; border-color: white; }
+.buy-btn:hover { background: var(--primary); color: black; }
 
-/* Modal Deluxe */
+/* MODALS - Fix pour le clic */
+.modal { 
+    position: fixed; inset: 0; background: rgba(0,0,0,0.95); 
+    display: none; align-items: center; justify-content: center; z-index: 2000; 
+}
+.modal.active { display: flex; }
 .modal-card { 
-    background: #0a0a0a; border: 1px solid rgba(0,255,136,0.2); 
-    padding: 50px; border-radius: 30px; width: 100%; max-width: 500px; 
-    position: relative; box-shadow: 0 0 50px rgba(0,255,136,0.05); 
+    background: #080808; border: 1px solid var(--primary); 
+    padding: 40px; border-radius: 15px; width: 90%; max-width: 450px; position: relative; 
+}
+.close-btn { 
+    position: absolute; top: 15px; right: 20px; background: none; 
+    border: none; color: white; font-size: 2.5rem; cursor: pointer; z-index: 2100;
 }
 
-/* Player XXL Sophistiqué */
-.player-fixed { 
-    position: fixed; bottom: 20px; left: 50%; transform: translateX(-50%); 
-    width: 95%; max-width: 1100px; 
-    background: rgba(10, 10, 10, 0.9); 
-    border: 1px solid rgba(255,255,255,0.1); 
-    padding: 20px 30px; border-radius: 100px; 
-    z-index: 1500; backdrop-filter: blur(20px);
-    box-shadow: 0 20px 50px rgba(0,0,0,0.5);
-    display: none;
+/* PANIER & CONTACT ITEMS */
+.cart-scroll { max-height: 300px; overflow-y: auto; margin-top: 20px; }
+.cart-item { 
+    display: flex; justify-content: space-between; align-items: center; 
+    padding: 15px; background: #111; margin-bottom: 10px; border-radius: 5px; border-left: 3px solid var(--primary); 
 }
-.player-grid { display: flex; align-items: center; justify-content: space-between; gap: 30px; }
-.p-info img { width: 55px; height: 55px; border-radius: 50%; object-fit: cover; border: 2px solid var(--primary); }
-.p-meta h4 { font-family: 'Orbitron'; font-size: 1rem; color: #fff; }
-.play-main-btn { background: white; color: black; border: none; width: 55px; height: 55px; border-radius: 50%; font-size: 1.4rem; cursor: pointer; transition: 0.3s; }
-.play-main-btn:hover { transform: scale(1.1); background: var(--primary); }
-#pProgress { height: 4px; border-radius: 10px; }
+.c-item { 
+    display: flex; align-items: center; gap: 20px; padding: 15px; 
+    background: #111; margin-bottom: 15px; border-radius: 8px; text-decoration: none; color: white; border: 1px solid #222; 
+}
+.c-item i { font-size: 1.8rem; color: var(--primary); }
+
+/* PLAYER - Correction visuelle XXL */
+.player-fixed { 
+    position: fixed; bottom: 0; left: 0; width: 100%; 
+    background: #000; border-top: 2px solid var(--primary); 
+    padding: 15px 0; z-index: 1500; display: none; 
+}
+.player-grid { display: flex; align-items: center; justify-content: space-between; gap: 20px; }
+.p-info { display: flex; align-items: center; gap: 15px; width: 250px; }
+.p-info img { width: 55px; height: 55px; border-radius: 5px; object-fit: cover; }
+.p-controls { flex-grow: 1; display: flex; flex-direction: column; align-items: center; gap: 8px; }
+.p-buttons { display: flex; align-items: center; gap: 25px; }
+.play-main-btn { 
+    background: var(--primary); border: none; width: 45px; height: 45px; 
+    border-radius: 50%; font-size: 1.2rem; cursor: pointer; display: flex; align-items: center; justify-content: center; 
+}
+.skip-btn { background: none; border: none; color: #666; font-size: 1.2rem; cursor: pointer; transition: 0.3s; }
+.skip-btn:hover { color: var(--primary); }
+.p-seeker { width: 100%; display: flex; align-items: center; gap: 15px; font-size: 0.75rem; color: #888; }
+#pProgress { flex-grow: 1; accent-color: var(--primary); cursor: pointer; height: 5px; }
+.p-vol { display: flex; align-items: center; gap: 12px; width: 150px; }
+#volControl { width: 80px; accent-color: var(--primary); cursor: pointer; }
