@@ -1,77 +1,165 @@
-:root { --primary: #00ff88; --bg: #050505; --card: #0d0d0d; }
+/* Remplace tout ton style.css par celui-ci */
+:root { 
+    --primary: #00ff88; 
+    --bg: #050505; 
+    --card: rgba(20, 20, 20, 0.7); 
+    --glass: rgba(255, 255, 255, 0.03);
+}
+
 * { margin: 0; padding: 0; box-sizing: border-box; }
-body { background: var(--bg); color: white; font-family: 'Space Mono', monospace; overflow-x: hidden; }
+body { 
+    background: var(--bg); 
+    background-image: radial-gradient(circle at 50% -20%, #1a3a2a 0%, var(--bg) 80%);
+    color: white; 
+    font-family: 'Space Mono', monospace; 
+    overflow-x: hidden; 
+    line-height: 1.6;
+}
 .container { max-width: 1200px; margin: 0 auto; padding: 0 20px; }
 
-/* Navbar */
-.navbar { padding: 25px 0; background: rgba(0,0,0,0.9); position: sticky; top: 0; z-index: 1000; border-bottom: 1px solid #111; backdrop-filter: blur(10px); }
+/* Navbar Ultra-Glass */
+.navbar { 
+    padding: 20px 0; 
+    background: rgba(0,0,0,0.8); 
+    position: sticky; 
+    top: 0; 
+    z-index: 1000; 
+    border-bottom: 1px solid rgba(255,255,255,0.05); 
+    backdrop-filter: blur(15px); 
+}
 .nav-content { display: flex; justify-content: space-between; align-items: center; }
-.logo { font-family: 'Orbitron'; font-weight: 900; font-size: 1.6rem; letter-spacing: 2px; }
-.logo-accent { color: var(--primary); text-shadow: 0 0 10px var(--primary); }
-.nav-link-btn { background: none; border: none; color: white; cursor: pointer; font-family: 'Orbitron'; margin-right: 25px; transition: 0.3s; }
-.nav-link-btn:hover { color: var(--primary); }
-.cart-trigger { background: var(--primary); color: black; border: none; padding: 12px 20px; border-radius: 4px; cursor: pointer; font-family: 'Orbitron'; font-weight: 900; }
+.logo { font-family: 'Orbitron'; font-weight: 900; font-size: 1.8rem; letter-spacing: 3px; }
+.logo-accent { color: var(--primary); text-shadow: 0 0 15px var(--primary); }
 
-/* Promo Centrée */
-.promo-container { width: 100%; display: flex; justify-content: center; padding: 20px 0; }
-.promo-bar { background: linear-gradient(90deg, transparent, var(--primary), transparent); color: black; font-weight: 900; padding: 10px 60px; font-family: 'Orbitron'; text-align: center; font-size: 0.8rem; letter-spacing: 1px; }
+/* Boutons Navigation */
+.nav-link-btn { 
+    background: var(--glass); 
+    border: 1px solid rgba(255,255,255,0.1);
+    color: white; 
+    padding: 10px 20px;
+    border-radius: 30px;
+    cursor: pointer; 
+    font-family: 'Orbitron'; 
+    margin-right: 15px; 
+    transition: 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275); 
+}
+.nav-link-btn:hover { background: var(--primary); color: black; transform: scale(1.05); }
 
-/* Catalog & Filtres */
-.catalog-header { padding: 60px 0 40px; text-align: center; }
-.catalog-header h1 { font-family: 'Orbitron'; font-size: 2.5rem; margin-bottom: 30px; }
-.filter-bar { display: flex; gap: 20px; justify-content: center; flex-wrap: wrap; }
-.search-box { position: relative; width: 350px; }
-.search-box i { position: absolute; left: 15px; top: 50%; transform: translateY(-50%); color: #444; }
-#searchInput, #genreFilter { background: var(--card); border: 1px solid #222; color: white; padding: 15px; padding-left: 45px; border-radius: 8px; width: 100%; outline: none; }
-#genreFilter { width: 200px; padding-left: 15px; color: var(--primary); font-family: 'Orbitron'; }
+.cart-trigger { 
+    background: var(--primary); 
+    color: black; 
+    border: none; 
+    padding: 12px 25px; 
+    border-radius: 30px; 
+    cursor: pointer; 
+    font-family: 'Orbitron'; 
+    font-weight: 900; 
+    box-shadow: 0 5px 15px rgba(0, 255, 136, 0.3);
+}
 
-/* Grid Beats */
-.beats-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 35px; padding-bottom: 200px; }
-.beat-card { background: var(--card); border-radius: 12px; overflow: hidden; border: 1px solid #1a1a1a; transition: 0.4s; }
-.beat-card:hover { border-color: var(--primary); transform: translateY(-10px); box-shadow: 0 10px 30px rgba(0,0,0,0.5); }
-.img-box { position: relative; width: 100%; aspect-ratio: 1/1; }
-.img-box img { width: 100%; height: 100%; object-fit: cover; }
-.overlay-play { position: absolute; inset: 0; background: rgba(0,0,0,0.5); border: none; color: white; font-size: 4rem; opacity: 0; cursor: pointer; transition: 0.3s; }
+/* Promo Banner Stylée */
+.promo-container { width: 100%; display: flex; justify-content: center; padding: 30px 0; }
+.promo-bar { 
+    background: linear-gradient(90deg, transparent, var(--primary), transparent); 
+    color: #000; 
+    font-weight: 900; 
+    padding: 12px 80px; 
+    font-family: 'Orbitron'; 
+    text-align: center; 
+    font-size: 0.85rem; 
+    letter-spacing: 2px;
+    text-transform: uppercase;
+}
+
+/* Catalog Header */
+.catalog-header { padding: 80px 0 60px; text-align: center; }
+.catalog-header h1 { 
+    font-family: 'Orbitron'; 
+    font-size: 3.5rem; 
+    font-weight: 900;
+    margin-bottom: 40px; 
+    background: linear-gradient(to bottom, #fff 30%, #444);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+/* Filtres Modernes */
+.filter-bar { display: flex; gap: 15px; justify-content: center; flex-wrap: wrap; }
+.search-box { position: relative; width: 400px; }
+.search-box i { position: absolute; left: 20px; top: 50%; transform: translateY(-50%); color: var(--primary); }
+#searchInput, #genreFilter { 
+    background: rgba(255,255,255,0.03); 
+    border: 1px solid rgba(255,255,255,0.1); 
+    color: white; 
+    padding: 18px; 
+    padding-left: 55px; 
+    border-radius: 50px; 
+    width: 100%; 
+    outline: none; 
+    transition: 0.3s;
+}
+#searchInput:focus { border-color: var(--primary); background: rgba(255,255,255,0.07); }
+#genreFilter { width: 220px; padding-left: 20px; appearance: none; cursor: pointer; }
+
+/* Grid & Cards - Le Coeur du Design */
+.beats-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(320px, 1fr)); gap: 40px; padding-bottom: 250px; }
+.beat-card { 
+    background: var(--card); 
+    border-radius: 24px; 
+    overflow: hidden; 
+    border: 1px solid rgba(255,255,255,0.05); 
+    transition: 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275); 
+    backdrop-filter: blur(10px);
+}
+.beat-card:hover { 
+    border-color: var(--primary); 
+    transform: translateY(-15px) scale(1.02); 
+    box-shadow: 0 20px 40px rgba(0,0,0,0.6); 
+}
+.img-box { position: relative; width: 100%; aspect-ratio: 1/1; overflow: hidden; }
+.img-box img { width: 100%; height: 100%; object-fit: cover; transition: 0.6s; }
+.beat-card:hover .img-box img { transform: scale(1.1); filter: brightness(0.4); }
+
+.overlay-play { 
+    position: absolute; inset: 0; background: transparent; border: none; 
+    color: var(--primary); font-size: 4.5rem; opacity: 0; cursor: pointer; 
+    transition: 0.4s; display: flex; align-items: center; justify-content: center;
+}
 .beat-card:hover .overlay-play { opacity: 1; }
-.beat-meta { padding: 25px; text-align: center; }
-.beat-meta h3 { font-family: 'Orbitron'; margin-bottom: 5px; }
-.buy-btn { width: 100%; padding: 15px; background: none; border: 1px solid var(--primary); color: var(--primary); cursor: pointer; margin-top: 15px; font-family: 'Orbitron'; border-radius: 5px; transition: 0.3s; }
-.buy-btn:hover { background: var(--primary); color: black; }
 
-/* Modals Premium */
-.modal { position: fixed; inset: 0; background: rgba(0,0,0,0.95); display: none; align-items: center; justify-content: center; z-index: 2000; padding: 20px; }
-.modal.active { display: flex; }
-.modal-card { background: #080808; border: 1px solid var(--primary); padding: 40px; border-radius: 20px; width: 100%; max-width: 450px; position: relative; box-shadow: 0 0 30px rgba(0,255,136,0.1); }
-.close-btn { position: absolute; top: 20px; right: 20px; background: none; border: none; color: white; font-size: 2.5rem; cursor: pointer; line-height: 1; }
-.cart-title { font-family: 'Orbitron'; margin-bottom: 25px; text-align: center; color: var(--primary); }
+.beat-meta { padding: 30px; text-align: left; }
+.beat-meta h3 { font-family: 'Orbitron'; font-size: 1.4rem; margin-bottom: 8px; letter-spacing: 1px; }
+.beat-meta p { font-size: 0.75rem; color: #888; letter-spacing: 2px; margin-bottom: 20px; }
 
-/* Panier Style */
-.cart-scroll { max-height: 300px; overflow-y: auto; margin-bottom: 20px; }
-.cart-item { display: flex; justify-content: space-between; align-items: center; padding: 15px; background: #111; margin-bottom: 10px; border-radius: 5px; border-left: 3px solid var(--primary); }
-.cart-item button { background: none; border: none; color: #ff4444; cursor: pointer; }
-.total-box { border-top: 1px solid #222; padding-top: 20px; text-align: center; }
-.total-box h3 { font-family: 'Orbitron'; font-size: 1.6rem; color: var(--primary); margin-bottom: 15px; }
-.checkout-btn { width: 100%; padding: 18px; background: var(--primary); color: black; border: none; font-family: 'Orbitron'; font-weight: 900; border-radius: 8px; cursor: pointer; transition: 0.3s; }
-.checkout-btn:hover { box-shadow: 0 0 20px var(--primary); transform: scale(1.02); }
+.buy-btn { 
+    width: 100%; padding: 16px; background: transparent; 
+    border: 1px solid rgba(255,255,255,0.1); color: white; 
+    cursor: pointer; font-family: 'Orbitron'; border-radius: 12px; 
+    transition: 0.3s; font-weight: 700; font-size: 0.8rem;
+}
+.buy-btn:hover { background: white; color: black; border-color: white; }
 
-/* Contact Style */
-.c-item { display: flex; align-items: center; gap: 20px; padding: 20px; background: #111; margin-bottom: 15px; border-radius: 10px; text-decoration: none; color: white; border: 1px solid #222; transition: 0.3s; }
-.c-item:hover { border-color: var(--primary); background: #151515; }
-.c-item i { font-size: 2rem; color: var(--primary); }
-.c-txt span { display: block; font-weight: 900; font-family: 'Orbitron'; font-size: 0.9rem; }
-.c-txt small { color: #666; }
+/* Modal Deluxe */
+.modal-card { 
+    background: #0a0a0a; border: 1px solid rgba(0,255,136,0.2); 
+    padding: 50px; border-radius: 30px; width: 100%; max-width: 500px; 
+    position: relative; box-shadow: 0 0 50px rgba(0,255,136,0.05); 
+}
 
-/* Player Fixé XXL */
-.player-fixed { position: fixed; bottom: 0; left: 0; width: 100%; background: #000; border-top: 2px solid var(--primary); padding: 15px 0; z-index: 1500; display: none; }
-.player-grid { display: flex; align-items: center; justify-content: space-between; gap: 40px; }
-.p-info { display: flex; align-items: center; gap: 15px; width: 280px; }
-.p-info img { width: 60px; height: 60px; border-radius: 5px; object-fit: cover; }
-.p-controls { flex-grow: 1; display: flex; flex-direction: column; align-items: center; gap: 10px; }
-.p-buttons { display: flex; align-items: center; gap: 25px; }
-.play-main-btn { background: var(--primary); border: none; width: 50px; height: 50px; border-radius: 50%; font-size: 1.2rem; cursor: pointer; display: flex; align-items: center; justify-content: center; }
-.skip-btn { background: none; border: none; color: #555; font-size: 1.3rem; cursor: pointer; transition: 0.3s; }
-.skip-btn:hover { color: var(--primary); }
-.p-seeker { width: 100%; display: flex; align-items: center; gap: 15px; font-size: 0.8rem; color: #666; }
-#pProgress { flex-grow: 1; accent-color: var(--primary); cursor: pointer; height: 6px; }
-.p-vol { display: flex; align-items: center; gap: 10px; width: 180px; }
-#volControl { width: 100px; accent-color: var(--primary); cursor: pointer; }
+/* Player XXL Sophistiqué */
+.player-fixed { 
+    position: fixed; bottom: 20px; left: 50%; transform: translateX(-50%); 
+    width: 95%; max-width: 1100px; 
+    background: rgba(10, 10, 10, 0.9); 
+    border: 1px solid rgba(255,255,255,0.1); 
+    padding: 20px 30px; border-radius: 100px; 
+    z-index: 1500; backdrop-filter: blur(20px);
+    box-shadow: 0 20px 50px rgba(0,0,0,0.5);
+    display: none;
+}
+.player-grid { display: flex; align-items: center; justify-content: space-between; gap: 30px; }
+.p-info img { width: 55px; height: 55px; border-radius: 50%; object-fit: cover; border: 2px solid var(--primary); }
+.p-meta h4 { font-family: 'Orbitron'; font-size: 1rem; color: #fff; }
+.play-main-btn { background: white; color: black; border: none; width: 55px; height: 55px; border-radius: 50%; font-size: 1.4rem; cursor: pointer; transition: 0.3s; }
+.play-main-btn:hover { transform: scale(1.1); background: var(--primary); }
+#pProgress { height: 4px; border-radius: 10px; }
