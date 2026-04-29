@@ -98,6 +98,8 @@ mainAudio.ontimeupdate = () => {
     if (!isNaN(mainAudio.duration)) {
         const prog = (mainAudio.currentTime / mainAudio.duration) * 100;
         progressBar.value = prog;
+        document.querySelector('.progress-fill').style.width = prog + '%';
+        document.querySelector('.player-progress-fill').style.width = prog + '%';
         document.getElementById('timeCurrent').innerText = formatTime(mainAudio.currentTime);
         document.getElementById('timeTotal').innerText = formatTime(mainAudio.duration);
     }
@@ -159,7 +161,10 @@ document.getElementById('contactBtn').onclick = () => document.getElementById('c
 document.getElementById('closeContact').onclick = () => document.getElementById('contactModal').classList.remove('active');
 
 // Volume & Init
-document.getElementById('volControl').oninput = (e) => mainAudio.volume = e.target.value;
+document.getElementById('volControl').oninput = (e) => {
+    mainAudio.volume = e.target.value;
+    document.querySelector('.vol-fill').style.width = (e.target.value * 100) + '%';
+};
 
 document.addEventListener('DOMContentLoaded', () => {
     render();

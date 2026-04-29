@@ -1320,7 +1320,7 @@ body {
   width: 100%; 
   background: linear-gradient(180deg, rgba(10, 10, 10, 0.98) 0%, rgba(5, 5, 5, 0.98) 100%); 
   border-top: 2px solid var(--primary); 
-  padding: 25px 0; 
+  padding: 14px 0; 
   z-index: 1500; 
   display: none;
   box-shadow: 
@@ -1363,9 +1363,9 @@ body {
 
 .p-cover-wrapper {
   position: relative;
-  width: 75px;
-  height: 75px;
-  border-radius: 10px;
+  width: 52px;
+  height: 52px;
+  border-radius: 8px;
   overflow: hidden;
   box-shadow: 0 4px 20px rgba(0, 0, 0, 0.5);
   border: 2px solid var(--border);
@@ -1425,22 +1425,22 @@ body {
   display: flex; 
   flex-direction: column; 
   align-items: center; 
-  gap: 15px; 
+  gap: 10px; 
 }
 
 .p-buttons { 
   display: flex; 
   align-items: center; 
-  gap: 35px; 
+  gap: 20px; 
 }
 
 .play-main-btn { 
   background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%); 
   border: none; 
-  width: 65px; 
-  height: 65px; 
+  width: 48px; 
+  height: 48px; 
   border-radius: 50%; 
-  font-size: 1.5rem; 
+  font-size: 1.1rem; 
   cursor: pointer; 
   display: flex; 
   align-items: center; 
@@ -1490,9 +1490,9 @@ body {
   background: rgba(255, 255, 255, 0.05); 
   border: 1px solid var(--border); 
   color: var(--text-secondary); 
-  width: 45px;
-  height: 45px;
-  font-size: 1.2rem; 
+  width: 36px;
+  height: 36px;
+  font-size: 1rem; 
   cursor: pointer;
   transition: all 0.3s ease;
   padding: 0;
@@ -1530,7 +1530,6 @@ body {
   height: 6px;
   background: #111;
   border-radius: 3px;
-  overflow: hidden;
 }
 
 .progress-fill {
@@ -1642,7 +1641,6 @@ body {
   height: 5px;
   background: #111;
   border-radius: 3px;
-  overflow: hidden;
 }
 
 .vol-fill {
