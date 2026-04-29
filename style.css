@@ -1528,77 +1528,73 @@ body {
 .progress-container {
   flex: 1;
   position: relative;
-  height: 6px;
-  background: #111;
-  border-radius: 3px;
+  display: flex;
+  align-items: center;
 }
 
-.progress-fill {
-  position: absolute;
-  top: 0;
-  left: 0;
-  height: 100%;
-  width: 0%;
-  background: linear-gradient(90deg, var(--primary), var(--primary-dark));
-  pointer-events: none;
-  box-shadow: 0 0 10px var(--primary);
-  transition: width 0.1s linear;
-}
+.progress-fill { display: none; }
 
 #pProgress { 
   width: 100%;
-  height: 100%;
-  position: relative;
-  z-index: 2;
-  accent-color: var(--primary); 
+  height: 5px;
   cursor: pointer;
   -webkit-appearance: none;
   appearance: none;
-  background: transparent;
+  background: #222;
+  border-radius: 3px;
   outline: none;
+  border: none;
+}
+
+#pProgress::-webkit-slider-runnable-track {
+  height: 5px;
+  border-radius: 3px;
 }
 
 #pProgress::-webkit-slider-thumb {
   -webkit-appearance: none;
   appearance: none;
-  width: 16px;
-  height: 16px;
+  width: 15px;
+  height: 15px;
   border-radius: 50%;
   background: var(--primary);
   cursor: pointer;
-  box-shadow: 
-    0 0 5px rgba(0, 0, 0, 0.5),
-    0 0 15px var(--primary-glow);
-  transition: all 0.2s ease;
+  margin-top: -5px;
+  box-shadow: 0 0 8px var(--primary-glow), 0 0 2px rgba(0,0,0,0.5);
+  transition: transform 0.15s ease, box-shadow 0.15s ease;
+}
+
+#pProgress::-moz-range-track {
+  height: 5px;
+  border-radius: 3px;
+  background: #222;
+}
+
+#pProgress::-moz-range-progress {
+  height: 5px;
+  border-radius: 3px;
+  background: var(--primary);
 }
 
 #pProgress::-moz-range-thumb {
-  width: 16px;
-  height: 16px;
+  width: 15px;
+  height: 15px;
   border-radius: 50%;
   background: var(--primary);
   cursor: pointer;
   border: none;
-  box-shadow: 
-    0 0 5px rgba(0, 0, 0, 0.5),
-    0 0 15px var(--primary-glow);
-  transition: all 0.2s ease;
+  box-shadow: 0 0 8px var(--primary-glow);
+  transition: transform 0.15s ease;
 }
 
 #pProgress:hover::-webkit-slider-thumb {
-  width: 20px;
-  height: 20px;
-  box-shadow: 
-    0 0 8px rgba(0, 0, 0, 0.7),
-    0 0 20px var(--primary);
+  transform: scale(1.3);
+  box-shadow: 0 0 14px var(--primary);
 }
 
 #pProgress:hover::-moz-range-thumb {
-  width: 20px;
-  height: 20px;
-  box-shadow: 
-    0 0 8px rgba(0, 0, 0, 0.7),
-    0 0 20px var(--primary);
+  transform: scale(1.3);
+  box-shadow: 0 0 14px var(--primary);
 }
 
 .p-vol { 
@@ -1638,82 +1634,73 @@ body {
 
 .vol-slider-wrapper {
   flex: 1;
-  position: relative;
-  height: 5px;
-  border-radius: 3px;
+  display: flex;
+  align-items: center;
 }
 
-.vol-fill {
-  display: none;
-}
+.vol-fill { display: none; }
 
 #volControl { 
   width: 100%;
   height: 5px;
-  position: relative;
-  z-index: 2;
   cursor: pointer;
   -webkit-appearance: none;
   appearance: none;
-  background: #111;
+  background: #222;
   border-radius: 3px;
   outline: none;
+  border: none;
 }
 
 #volControl::-webkit-slider-runnable-track {
   height: 5px;
   border-radius: 3px;
-  background: transparent;
 }
 
 #volControl::-webkit-slider-thumb {
   -webkit-appearance: none;
   appearance: none;
-  width: 14px;
-  height: 14px;
+  width: 13px;
+  height: 13px;
   border-radius: 50%;
   background: var(--primary);
   cursor: pointer;
-  margin-top: -4.5px;
-  box-shadow: 0 0 10px var(--primary-glow);
-  transition: all 0.2s ease;
+  margin-top: -4px;
+  box-shadow: 0 0 8px var(--primary-glow);
+  transition: transform 0.15s ease;
 }
 
 #volControl::-moz-range-track {
   height: 5px;
   border-radius: 3px;
-  background: #111;
+  background: #222;
 }
 
 #volControl::-moz-range-progress {
   height: 5px;
   border-radius: 3px;
   background: var(--primary);
-  box-shadow: 0 0 8px var(--primary);
 }
 
 #volControl::-moz-range-thumb {
-  width: 14px;
-  height: 14px;
+  width: 13px;
+  height: 13px;
   border-radius: 50%;
   background: var(--primary);
   cursor: pointer;
   border: none;
-  box-shadow: 0 0 10px var(--primary-glow);
-  transition: all 0.2s ease;
+  box-shadow: 0 0 8px var(--primary-glow);
+  transition: transform 0.15s ease;
 }
 
 #volControl:hover::-webkit-slider-thumb {
-  width: 18px;
-  height: 18px;
-  margin-top: -6.5px;
-  box-shadow: 0 0 15px var(--primary);
+  transform: scale(1.3);
+  box-shadow: 0 0 14px var(--primary);
 }
 
 #volControl:hover::-moz-range-thumb {
-  width: 18px;
-  height: 18px;
-  box-shadow: 0 0 15px var(--primary);
+  transform: scale(1.3);
+  box-shadow: 0 0 14px var(--primary);
 }
 
 /* ==================== SCROLLBAR CUSTOM ==================== */

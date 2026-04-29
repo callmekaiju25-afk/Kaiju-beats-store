@@ -88,17 +88,23 @@ window.changeTime = (amount) => {
     mainAudio.currentTime += amount;
 };
 
+// Helper pour mettre à jour le gradient d'une barre
+function updateSliderGradient(el, pct) {
+    el.style.background = `linear-gradient(to right, #00ff88 0%, #00ff88 ${pct}%, #1a1a1a ${pct}%, #1a1a1a 100%)`;
+}
+
 // Rendre la barre maniable
 progressBar.oninput = (e) => {
     const seekTime = (e.target.value / 100) * mainAudio.duration;
     mainAudio.currentTime = seekTime;
+    updateSliderGradient(progressBar, e.target.value);
 };
 
 mainAudio.ontimeupdate = () => {
     if (!isNaN(mainAudio.duration)) {
         const prog = (mainAudio.currentTime / mainAudio.duration) * 100;
         progressBar.value = prog;
-        document.querySelector('.progress-fill').style.width = prog + '%';
+        updateSliderGradient(progressBar, prog);
         document.querySelector('.player-progress-fill').style.width = prog + '%';
         document.getElementById('timeCurrent').innerText = formatTime(mainAudio.currentTime);
         document.getElementById('timeTotal').innerText = formatTime(mainAudio.duration);
@@ -162,9 +168,8 @@ document.getElementById('closeContact').onclick = () => document.getElementById(
 
 // Volume & Init
 function updateVolSlider(val) {
-    const pct = val * 100;
     const volEl = document.getElementById('volControl');
-    volEl.style.background = `linear-gradient(to right, #00ff88 0%, #00ff88 ${pct}%, #111 ${pct}%, #111 100%)`;
+    updateSliderGradient(volEl, val * 100);
 }
 
 document.getElementById('volControl').oninput = (e) => {
