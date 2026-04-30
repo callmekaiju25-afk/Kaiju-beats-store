@@ -2186,3 +2186,187 @@ body {
 .social-tt:hover .c-icon-tt { box-shadow: 0 0 30px rgba(105,201,208,0.5), -3px 0 0 #ff0050, 3px 0 0 #69c9d0 !important; transform: scale(1.1); }
 .social-tt .fa-tiktok { color: #ffffff; }
 .social-tt:hover .c-arrow { color: #69c9d0 !important; }
+
+/* ==================== SHUFFLE BUTTON ==================== */
+.shuffle-btn {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  background: transparent;
+  border: 1px solid rgba(0, 255, 136, 0.3);
+  color: var(--primary);
+  padding: 12px 22px;
+  border-radius: 10px;
+  font-family: 'Orbitron', sans-serif;
+  font-weight: 700;
+  font-size: 0.8rem;
+  letter-spacing: 2px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  position: relative;
+  overflow: hidden;
+  white-space: nowrap;
+}
+
+.shuffle-btn:hover {
+  background: var(--primary);
+  color: black;
+  box-shadow: 0 0 25px rgba(0, 255, 136, 0.5);
+  transform: translateY(-2px);
+}
+
+.shuffle-btn.active {
+  background: var(--primary);
+  color: black;
+  box-shadow: 0 0 30px rgba(0, 255, 136, 0.6);
+}
+
+.shuffle-btn.active .fa-random {
+  animation: spin-random 0.5s ease;
+}
+
+@keyframes spin-random {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+/* ==================== TESTIMONIALS ==================== */
+.testimonials-section {
+  margin-top: 80px;
+  margin-bottom: 160px;
+  position: relative;
+}
+
+.testimonials-header {
+  text-align: center;
+  margin-bottom: 50px;
+}
+
+.testimonials-header h2 {
+  font-family: 'Orbitron', sans-serif;
+  font-size: 2rem;
+  font-weight: 900;
+  letter-spacing: 4px;
+  color: var(--text-primary);
+  margin-bottom: 10px;
+  text-shadow: 0 0 20px rgba(0, 255, 136, 0.3);
+}
+
+.testimonials-header p {
+  color: var(--text-secondary);
+  font-size: 0.8rem;
+  letter-spacing: 2px;
+  font-family: 'Space Mono', monospace;
+}
+
+.testimonials-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 24px;
+}
+
+.testi-card {
+  background: var(--card);
+  border: 1px solid var(--border-light);
+  border-radius: 16px;
+  padding: 30px;
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+  transition: all 0.3s ease;
+  position: relative;
+  overflow: hidden;
+}
+
+.testi-card::before {
+  content: '"';
+  position: absolute;
+  top: -10px;
+  left: 20px;
+  font-size: 8rem;
+  color: rgba(0, 255, 136, 0.05);
+  font-family: Georgia, serif;
+  line-height: 1;
+  pointer-events: none;
+}
+
+.testi-card:hover {
+  border-color: rgba(0, 255, 136, 0.3);
+  transform: translateY(-4px);
+  box-shadow: 0 12px 40px rgba(0, 0, 0, 0.5), 0 0 20px rgba(0, 255, 136, 0.08);
+}
+
+.testi-featured {
+  border-color: rgba(0, 255, 136, 0.25);
+  background: linear-gradient(145deg, #0d0d0d, #0a110e);
+  box-shadow: 0 0 30px rgba(0, 255, 136, 0.08);
+}
+
+.testi-featured:hover {
+  box-shadow: 0 12px 40px rgba(0, 0, 0, 0.5), 0 0 30px rgba(0, 255, 136, 0.15);
+}
+
+.testi-stars {
+  color: var(--primary);
+  font-size: 0.9rem;
+  letter-spacing: 3px;
+  text-shadow: 0 0 10px rgba(0, 255, 136, 0.5);
+}
+
+.testi-text {
+  font-family: 'Space Mono', monospace;
+  font-size: 0.75rem;
+  line-height: 1.9;
+  color: #bbb;
+  flex: 1;
+  font-style: italic;
+}
+
+.testi-author {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  padding-top: 16px;
+  border-top: 1px solid var(--border);
+}
+
+.testi-avatar {
+  width: 42px;
+  height: 42px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, var(--primary), var(--primary-dark));
+  color: black;
+  font-family: 'Orbitron', sans-serif;
+  font-weight: 900;
+  font-size: 1rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 0 15px rgba(0, 255, 136, 0.3);
+  flex-shrink: 0;
+}
+
+.testi-name {
+  display: block;
+  font-family: 'Orbitron', sans-serif;
+  font-size: 0.75rem;
+  font-weight: 700;
+  color: var(--text-primary);
+  letter-spacing: 1px;
+  margin-bottom: 3px;
+}
+
+.testi-author small {
+  font-size: 0.65rem;
+  color: var(--text-secondary);
+  letter-spacing: 1px;
+}
+
+@media (max-width: 900px) {
+  .testimonials-grid {
+    grid-template-columns: 1fr;
+    max-width: 500px;
+    margin: 0 auto;
+  }
+  .testimonials-header h2 { font-size: 1.5rem; }
+}

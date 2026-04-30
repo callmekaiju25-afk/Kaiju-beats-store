@@ -99,34 +99,72 @@
     </div>
 
     <main class="container">
-        <div class="catalog-header">
-            <h1>
-                <span class="glitch" data-text="STUDIO CATALOG">STUDIO CATALOG</span>
-            </h1>
-            <div class="filter-bar">
-                <div class="search-box">
-                    <i class="fas fa-search"></i>
-                    <input type="text" id="searchInput" placeholder="Rechercher un beat...">
-                    <div class="search-line"></div>
+            <div class="catalog-header">
+                <h1>
+                    <span class="glitch" data-text="STUDIO CATALOG">STUDIO CATALOG</span>
+                </h1>
+                <div class="filter-bar">
+                    <div class="search-box">
+                        <i class="fas fa-search"></i>
+                        <input type="text" id="searchInput" placeholder="Rechercher un beat...">
+                        <div class="search-line"></div>
+                    </div>
+                    <div class="select-wrapper">
+                        <select id="genreFilter">
+                            <option value="all">TOUS LES STYLES</option>
+                            <option value="afro">AFRO</option>
+                            <option value="Amapiano">AMAPIANO</option>
+                            <option value="Boom bap">BOOM BAP</option>
+                            <option value="Drill">DRILL</option>
+                            <option value="hood-trap">HOOD-TRAP</option>
+                            <option value="Jersey">JERSEY</option>
+                            <option value="Oriental">ORIENTAL</option>
+                            <option value="trap">TRAP</option>       
+                            <option value="Acoustic">ACOUSTIC</option>               
+                        </select>
+                        <i class="fas fa-chevron-down select-icon"></i>
+                    </div>
+                    <button class="shuffle-btn" id="shuffleBtn">
+                        <i class="fas fa-random"></i>
+                        <span id="shuffleBtnLabel">SHUFFLE</span>
+                    </button>
                 </div>
-                <div class="select-wrapper">
-                    <select id="genreFilter">
-                        <option value="all">TOUS LES STYLES</option>
-                        <option value="afro">AFRO</option>
-                        <option value="Amapiano">AMAPIANO</option>
-                        <option value="Boom bap">BOOM BAP</option>
-                        <option value="Drill">DRILL</option>
-                        <option value="hood-trap">HOOD-TRAP</option>
-                        <option value="Jersey">JERSEY</option>
-                        <option value="Oriental">ORIENTAL</option>
-                        <option value="trap">TRAP</option>       
-                        <option value="Acoustic">ACOUSTIC</option>               
-                    </select>
-                    <i class="fas fa-chevron-down select-icon"></i>
+            </div>
+        <div class="beats-grid" id="beatsGrid"></div>
+
+        <!-- TESTIMONIALS -->
+        <div class="testimonials-section">
+            <div class="testimonials-header">
+                <h2 class="glitch-sm">ILS ONT KIFFÉ</h2>
+                <p id="testimonialsSubtitle">Ce que disent les artistes</p>
+            </div>
+            <div class="testimonials-grid">
+                <div class="testi-card">
+                    <div class="testi-stars">26052605260526052605</div>
+                    <p class="testi-text">"Le beat EMPIRE m2019a donné exactement le son que je cherchais. La prod est cinématique, chaque élément est à sa place."</p>
+                    <div class="testi-author">
+                        <div class="testi-avatar">L</div>
+                        <div><span class="testi-name">Lenzo</span><small>Rappeur – Paris</small></div>
+                    </div>
+                </div>
+                <div class="testi-card testi-featured">
+                    <div class="testi-stars">26052605260526052605</div>
+                    <p class="testi-text">"Kaiju a un vrai sens du détail. CARNAGE c2019est une bête – les 808 sont énormes, l2019ambiance est parfaite. Mon son préféré du moment."</p>
+                    <div class="testi-author">
+                        <div class="testi-avatar">S</div>
+                        <div><span class="testi-name">Senzo</span><small>Artiste – Dakar</small></div>
+                    </div>
+                </div>
+                <div class="testi-card">
+                    <div class="testi-stars">26052605260526052605</div>
+                    <p class="testi-text">"J2019ai pris Distancia pour un projet afro et le résultat est incroyable. La mélodie est accrocheuse, ça sonne très professionnel."</p>
+                    <div class="testi-author">
+                        <div class="testi-avatar">A</div>
+                        <div><span class="testi-name">Amara K.</span><small>Chanteur – Abidjan</small></div>
+                    </div>
                 </div>
             </div>
         </div>
-        <div class="beats-grid" id="beatsGrid"></div>
     </main>
 
     <div id="readmeModal" class="modal">

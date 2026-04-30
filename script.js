@@ -287,3 +287,46 @@ document.addEventListener('DOMContentLoaded', () => {
     document.getElementById('searchInput').oninput = runFilters;
     document.getElementById('genreFilter').onchange = runFilters;
 });
+// ==================== SHUFFLE MODE ====================
+let shuffleMode = false;
+let shuffleQueue = [];
+let shuffleIndex = 0;
+
+function buildShuffleQueue() {
+  shuffleQueue = [...database].sort(() => Math.random() - 0.5);
+  shuffleIndex = 0;
+}
+
+document.getElementById('shuffleBtn').onclick = () => {
+  shuffleMode = !shuffleMode;
+  const btn = document.getElementById('shuffleBtn');
+  btn.classList.toggle('active', shuffleMode);
+
+  if (shuffleMode) {
+    buildShuffleQueue();
+    playBeat(shuffleQueue[0].id);
+  }
+};
+
+// Auto-play next beat in shuffle mode when track ends
+document.getElementById('mainAudio').addEventListener('ended', () => {
+  if (shuffleMode) {
+    shuffleIndex++;
+    if (shuffleIndex >= shuffleQueue.length) buildShuffleQueue();
+    playBeat(shuffleQueue[shuffleIndex].id);
+  }
+});
+
+// Translations for shuffle & testimonials
+const extraTranslations = {
+  fr: { shuffleLabel: "SHUFFLE", testimonialsSubtitle: "Ce que disent les artistes" },
+  en: { shuffleLabel: "SHUFFLE", testimonialsSubtitle: "What artists say" }
+};
+
+const _origSetLang = window.setLang;
+window.setLang = (lang) => {
+  _origSetLang(lang);
+  const ex = extraTranslations[lang];
+  document.getElementById('shuffleBtnLabel') && (document.getElementById('shuffleBtnLabel').textContent = ex.shuffleLabel);
+  document.getElementById('testimonialsSubtitle') && (document.getElementById('testimonialsSubtitle').textContent = ex.testimonialsSubtitle);
+};
