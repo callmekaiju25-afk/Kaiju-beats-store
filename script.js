@@ -39,6 +39,7 @@ const translations = {
         promoBar: "2 BEATS ACHETÉS = LE 3ÈME OFFERT (AUTO-APPLIQUÉ)",
         prodBy: "PROD BY KAIJU",
         beatsSelected: "Beats sélectionnés",
+        socialsSub: "Retrouve-moi sur les réseaux",
     },
     en: {
         search: "Search a beat...",
@@ -53,6 +54,7 @@ const translations = {
         promoBar: "BUY 2 BEATS = GET THE 3RD FREE (AUTO-APPLIED)",
         prodBy: "PROD BY KAIJU",
         beatsSelected: "Selected beats",
+        socialsSub: "Find me on social media",
     }
 };
 
@@ -111,6 +113,7 @@ function applyTranslations(lang) {
     if (allOpt) allOpt.textContent = t.allStyles;
     document.getElementById('cartTitle') && (document.getElementById('cartTitle').textContent = t.cartTitle);
     document.getElementById('cartSub') && (document.getElementById('cartSub').textContent = t.cartSub);
+    document.getElementById('socialsSub') && (document.getElementById('socialsSub').textContent = t.socialsSub);
     document.querySelector('.promo-bar span') && (document.querySelector('.promo-bar span').textContent = t.promoBar);
     document.querySelector('#pCover') && document.querySelector('.p-meta small') && 
         (document.querySelector('.p-meta small').innerHTML = `<i class="fas fa-record-vinyl"></i> ${t.prodBy}`);
@@ -255,6 +258,8 @@ window.checkout = () => {
 };
 
 // Gestion des ouvertures/fermetures
+document.getElementById('socialsBtn').onclick = () => document.getElementById('socialsModal').classList.add('active');
+document.getElementById('closeSocials').onclick = () => document.getElementById('socialsModal').classList.remove('active');
 document.getElementById('cartBtn').onclick = () => document.getElementById('cartModal').classList.add('active');
 document.getElementById('closeCart').onclick = () => document.getElementById('cartModal').classList.remove('active');
 document.getElementById('contactBtn').onclick = () => document.getElementById('contactModal').classList.add('active');

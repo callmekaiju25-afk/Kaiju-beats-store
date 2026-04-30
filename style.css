@@ -2133,3 +2133,56 @@ body {
 .readme-important p strong {
   color: #ffcc00;
 }
+/* ==================== SOCIALS BUTTON ==================== */
+.socials-btn {
+  color: var(--primary) !important;
+  border: 1px solid rgba(0, 255, 136, 0.3) !important;
+  border-radius: 6px;
+}
+.socials-btn .btn-bg { background: var(--primary) !important; }
+.socials-btn:hover { color: black !important; }
+
+/* ==================== SOCIAL ICONS COLORS ==================== */
+/* YouTube */
+.c-icon-yt {
+  background: #FF0000 !important;
+  box-shadow: 0 0 20px rgba(255, 0, 0, 0.4) !important;
+}
+.social-yt { border-color: rgba(255, 0, 0, 0.15) !important; }
+.social-yt:hover {
+  border-color: rgba(255, 0, 0, 0.5) !important;
+  background: rgba(255, 0, 0, 0.05) !important;
+  box-shadow: 0 8px 30px rgba(255, 0, 0, 0.15) !important;
+}
+.social-yt:hover .c-icon-yt { box-shadow: 0 0 30px rgba(255, 0, 0, 0.6) !important; transform: scale(1.1); }
+.social-yt:hover .c-arrow { color: #FF0000 !important; }
+
+/* Instagram */
+.c-icon-ig {
+  background: linear-gradient(135deg, #833ab4, #fd1d1d, #fcb045) !important;
+  box-shadow: 0 0 20px rgba(253, 29, 29, 0.4) !important;
+}
+.social-ig { border-color: rgba(253, 29, 29, 0.15) !important; }
+.social-ig:hover {
+  border-color: rgba(253, 29, 29, 0.5) !important;
+  background: rgba(131, 58, 180, 0.05) !important;
+  box-shadow: 0 8px 30px rgba(253, 29, 29, 0.15) !important;
+}
+.social-ig:hover .c-icon-ig { box-shadow: 0 0 30px rgba(253, 29, 29, 0.6) !important; transform: scale(1.1); }
+.social-ig:hover .c-arrow { color: #fd1d1d !important; }
+
+/* TikTok */
+.c-icon-tt {
+  background: #010101 !important;
+  border: 1px solid rgba(255,255,255,0.1);
+  box-shadow: 0 0 20px rgba(105,201,208,0.3), -3px 0 0 #ff0050, 3px 0 0 #69c9d0 !important;
+}
+.social-tt { border-color: rgba(105,201,208,0.15) !important; }
+.social-tt:hover {
+  border-color: rgba(105,201,208,0.5) !important;
+  background: rgba(105,201,208,0.04) !important;
+  box-shadow: 0 8px 30px rgba(105,201,208,0.15) !important;
+}
+.social-tt:hover .c-icon-tt { box-shadow: 0 0 30px rgba(105,201,208,0.5), -3px 0 0 #ff0050, 3px 0 0 #69c9d0 !important; transform: scale(1.1); }
+.social-tt .fa-tiktok { color: #ffffff; }
+.social-tt:hover .c-arrow { color: #69c9d0 !important; }
