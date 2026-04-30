@@ -2370,3 +2370,48 @@ body {
   }
   .testimonials-header h2 { font-size: 1.5rem; }
 }
+
+/* ==================== FILTRE FLUO ==================== */
+.select-wrapper-fluo {
+  border: 1px solid rgba(0, 255, 136, 0.3) !important;
+  border-radius: 10px;
+  overflow: visible;
+}
+
+.select-wrapper-fluo select {
+  color: var(--primary) !important;
+  font-weight: 700;
+  background: transparent !important;
+}
+
+.select-wrapper-fluo .select-icon {
+  color: var(--primary) !important;
+}
+
+.select-wrapper-fluo:hover {
+  border-color: var(--primary) !important;
+  box-shadow: 0 0 20px rgba(0, 255, 136, 0.2);
+  background: rgba(0, 255, 136, 0.04);
+}
+
+/* Filter bar layout: filtre | search (centre) | shuffle */
+.filter-bar {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+.filter-bar .search-box {
+  flex: 1;
+  min-width: 200px;
+}
+
+.filter-bar .select-wrapper {
+  flex-shrink: 0;
+}
+
+.filter-bar .shuffle-btn {
+  flex-shrink: 0;
+}

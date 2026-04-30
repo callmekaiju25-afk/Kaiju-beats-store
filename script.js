@@ -293,7 +293,12 @@ let shuffleQueue = [];
 let shuffleIndex = 0;
 
 function buildShuffleQueue() {
-  shuffleQueue = [...database].sort(() => Math.random() - 0.5);
+  const g = document.getElementById('genreFilter').value;
+  const s = document.getElementById('searchInput').value.toLowerCase();
+  const pool = database.filter(b =>
+    b.title.toLowerCase().includes(s) && (g === 'all' || b.genre === g)
+  );
+  shuffleQueue = pool.sort(() => Math.random() - 0.5);
   shuffleIndex = 0;
 }
 
@@ -304,9 +309,15 @@ document.getElementById('shuffleBtn').onclick = () => {
 
   if (shuffleMode) {
     buildShuffleQueue();
-    playBeat(shuffleQueue[0].id);
+    if (shuffleQueue.length > 0) playBeat(shuffleQueue[0].id);
   }
 };
+
+// Reset shuffle queue when genre or search changes
+['genreFilter', 'searchInput'].forEach(id => {
+  document.getElementById(id).addEventListener('change', () => { if (shuffleMode) buildShuffleQueue(); });
+  document.getElementById(id).addEventListener('input', () => { if (shuffleMode) buildShuffleQueue(); });
+});
 
 // Auto-play next beat in shuffle mode when track ends
 document.getElementById('mainAudio').addEventListener('ended', () => {
