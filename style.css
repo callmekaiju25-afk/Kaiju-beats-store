@@ -2372,26 +2372,28 @@ body {
 }
 
 /* ==================== FILTRE FLUO ==================== */
-.select-wrapper-fluo {
-  border: 1px solid rgba(0, 255, 136, 0.3) !important;
-  border-radius: 10px;
-  overflow: visible;
-}
-
-.select-wrapper-fluo select {
-  color: var(--primary) !important;
-  font-weight: 700;
-  background: transparent !important;
+.select-wrapper-fluo #genreFilter {
+  color: var(--primary);
+  border-color: rgba(0, 255, 136, 0.4);
+  background: rgba(0, 255, 136, 0.03);
+  box-shadow: 0 0 12px rgba(0, 255, 136, 0.1), inset 0 2px 4px rgba(0, 0, 0, 0.3);
+  text-shadow: 0 0 8px rgba(0, 255, 136, 0.4);
 }
 
 .select-wrapper-fluo .select-icon {
-  color: var(--primary) !important;
+  color: var(--primary);
 }
 
-.select-wrapper-fluo:hover {
-  border-color: var(--primary) !important;
-  box-shadow: 0 0 20px rgba(0, 255, 136, 0.2);
-  background: rgba(0, 255, 136, 0.04);
+.select-wrapper-fluo #genreFilter:hover {
+  border-color: var(--primary);
+  background: rgba(0, 255, 136, 0.06);
+  box-shadow: 0 0 25px rgba(0, 255, 136, 0.25), inset 0 2px 4px rgba(0, 0, 0, 0.3);
+  color: var(--primary);
+}
+
+.select-wrapper-fluo #genreFilter:focus {
+  border-color: var(--primary);
+  box-shadow: 0 0 30px rgba(0, 255, 136, 0.3), inset 0 2px 4px rgba(0, 0, 0, 0.3), 0 0 0 3px rgba(0, 255, 136, 0.15);
 }
 
 /* Filter bar layout: filtre | search (centre) | shuffle */

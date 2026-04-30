@@ -309,7 +309,14 @@ document.getElementById('shuffleBtn').onclick = () => {
 
   if (shuffleMode) {
     buildShuffleQueue();
-    if (shuffleQueue.length > 0) playBeat(shuffleQueue[0].id);
+    if (shuffleQueue.length > 0) {
+      shuffleIndex = 0;
+      playBeat(shuffleQueue[0].id);
+    }
+  } else {
+    // stop shuffle, pause audio
+    document.getElementById('mainAudio').pause();
+    document.getElementById('pPlayPause').innerHTML = '<i class="fas fa-play"></i>';
   }
 };
 
