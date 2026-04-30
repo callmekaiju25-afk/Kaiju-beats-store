@@ -298,32 +298,40 @@ function buildShuffleQueue() {
   const pool = database.filter(b =>
     b.title.toLowerCase().includes(s) && (g === 'all' || b.genre === g)
   );
-  shuffleQueue = pool.sort(() => Math.random() - 0.5);
+  // Fisher-Yates shuffle
+  const arr = [...pool];
+  for (let i = arr.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1));
+    [arr[i], arr[j]] = [arr[j], arr[i]];
+  }
+  shuffleQueue = arr;
   shuffleIndex = 0;
+}
+
+function playShuffle(index) {
+  if (!shuffleQueue.length) return;
+  const b = shuffleQueue[index];
+  document.getElementById('audioPlayer').style.display = 'block';
+  mainAudio.src = b.audio;
+  document.getElementById('pTitle').innerText = b.title;
+  document.getElementById('pCover').src = b.cover;
+  mainAudio.load();
+  mainAudio.play();
+  pBtn.innerHTML = '<i class="fas fa-pause"></i>';
 }
 
 document.getElementById('shuffleBtn').onclick = () => {
   shuffleMode = !shuffleMode;
-  const btn = document.getElementById('shuffleBtn');
-  btn.classList.toggle('active', shuffleMode);
-
+  document.getElementById('shuffleBtn').classList.toggle('active', shuffleMode);
   if (shuffleMode) {
     buildShuffleQueue();
-    if (shuffleQueue.length > 0) {
-      shuffleIndex = 0;
-      playBeat(shuffleQueue[0].id);
-    }
-  } else {
-    // stop shuffle, pause audio
-    document.getElementById('mainAudio').pause();
-    document.getElementById('pPlayPause').innerHTML = '<i class="fas fa-play"></i>';
+    playShuffle(0);
   }
 };
 
-// Reset shuffle queue when genre or search changes
-['genreFilter', 'searchInput'].forEach(id => {
-  document.getElementById(id).addEventListener('change', () => { if (shuffleMode) buildShuffleQueue(); });
-  document.getElementById(id).addEventListener('input', () => { if (shuffleMode) buildShuffleQueue(); });
+// Rebuild queue if genre changes while shuffle is on
+document.getElementById('genreFilter').addEventListener('change', () => {
+  if (shuffleMode) { buildShuffleQueue(); playShuffle(0); }
 });
 
 // Auto-play next beat in shuffle mode when track ends
@@ -331,7 +339,7 @@ document.getElementById('mainAudio').addEventListener('ended', () => {
   if (shuffleMode) {
     shuffleIndex++;
     if (shuffleIndex >= shuffleQueue.length) buildShuffleQueue();
-    playBeat(shuffleQueue[shuffleIndex].id);
+    playShuffle(shuffleIndex);
   }
 });
 
