@@ -19,9 +19,10 @@ const database = [
     { id: 19, title: "LARME", genre: "Acoustic", cover: "assets/IMAGE/LARME.png", audio: "assets/MP3/LARME.mp3" },
     { id: 20, title: "TRUTH", genre: "afro", cover: "assets/IMAGE/TRUTH.png", audio: "assets/MP3/TRUTH.mp3" },
     { id: 21, title: "Illusion", genre: "afro", cover: "assets/IMAGE/Illusion.png", audio: "assets/MP3/Illusion.mp3" },
-    { id: 22, title: "Obesession", genre: "afro", cover: "assets/IMAGE/Obsession.png", audio: "assets/MP3/Obsession.mp3" },
-    { id: 23, title: "ZURA", genre: "afro", cover: "assets/IMAGE/ZURA.png", audio: "assets/MP3/Zura.mp3" },
-    { id: 24, title: "ANUBIS", genre: "trap", cover: "assets/IMAGE/Anubis.png", audio: "assets/MP3/Anubis.mp3" },
+    { id: 22, title: "ZURA", genre: "afro", cover: "assets/IMAGE/ZURA.png", audio: "assets/MP3/Zura.mp3" },
+    { id: 23, title: "ANUBIS", genre: "trap", cover: "assets/IMAGE/Anubis.png", audio: "assets/MP3/Anubis.mp3" },
+    { id: 24, title: "Obsession", genre: "afro", cover: "assets/IMAGE/Obsession.png", audio: "assets/MP3/Obsession.mp3" },
+
 ];
 
 // ==================== LANGUE ====================
