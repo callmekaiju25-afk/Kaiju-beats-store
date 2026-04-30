@@ -104,20 +104,24 @@
                     <span class="glitch" data-text="STUDIO CATALOG">STUDIO CATALOG</span>
                 </h1>
                 <div class="filter-bar">
-                    <div class="select-wrapper select-wrapper-fluo">
-                        <select id="genreFilter">
-                            <option value="all">TOUS LES STYLES</option>
-                            <option value="afro">AFRO</option>
-                            <option value="Amapiano">AMAPIANO</option>
-                            <option value="Boom bap">BOOM BAP</option>
-                            <option value="Drill">DRILL</option>
-                            <option value="hood-trap">HOOD-TRAP</option>
-                            <option value="Jersey">JERSEY</option>
-                            <option value="Oriental">ORIENTAL</option>
-                            <option value="trap">TRAP</option>       
-                            <option value="Acoustic">ACOUSTIC</option>               
-                        </select>
-                        <i class="fas fa-chevron-down select-icon"></i>
+                    <div class="custom-select" id="customSelect">
+                        <button class="custom-select-btn" id="customSelectBtn">
+                            <span id="customSelectLabel">TOUS LES STYLES</span>
+                            <i class="fas fa-chevron-down custom-select-arrow"></i>
+                        </button>
+                        <ul class="custom-select-list" id="customSelectList">
+                            <li class="custom-select-item active" data-value="all">TOUS LES STYLES</li>
+                            <li class="custom-select-item" data-value="afro">AFRO</li>
+                            <li class="custom-select-item" data-value="Amapiano">AMAPIANO</li>
+                            <li class="custom-select-item" data-value="Boom bap">BOOM BAP</li>
+                            <li class="custom-select-item" data-value="Drill">DRILL</li>
+                            <li class="custom-select-item" data-value="hood-trap">HOOD-TRAP</li>
+                            <li class="custom-select-item" data-value="Jersey">JERSEY</li>
+                            <li class="custom-select-item" data-value="Oriental">ORIENTAL</li>
+                            <li class="custom-select-item" data-value="trap">TRAP</li>
+                            <li class="custom-select-item" data-value="Acoustic">ACOUSTIC</li>
+                        </ul>
+                        <input type="hidden" id="genreFilter" value="all">
                     </div>
                     <div class="search-box">
                         <i class="fas fa-search"></i>

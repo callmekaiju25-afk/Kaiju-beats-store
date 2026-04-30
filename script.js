@@ -111,6 +111,14 @@ function applyTranslations(lang) {
     document.getElementById('searchInput').placeholder = t.search;
     const allOpt = document.querySelector('#genreFilter option[value="all"]');
     if (allOpt) allOpt.textContent = t.allStyles;
+    // update custom select label if "all" is selected
+    const customLabel = document.getElementById('customSelectLabel');
+    const hiddenFilter = document.getElementById('genreFilter');
+    if (customLabel && hiddenFilter && hiddenFilter.value === 'all') {
+        customLabel.textContent = t.allStyles;
+        const allItem = document.querySelector('.custom-select-item[data-value="all"]');
+        if (allItem) allItem.textContent = t.allStyles;
+    }
     document.getElementById('cartTitle') && (document.getElementById('cartTitle').textContent = t.cartTitle);
     document.getElementById('cartSub') && (document.getElementById('cartSub').textContent = t.cartSub);
     document.getElementById('socialsSub') && (document.getElementById('socialsSub').textContent = t.socialsSub);
@@ -151,6 +159,46 @@ function runFilters() {
     const filtered = database.filter(b => b.title.toLowerCase().includes(s) && (g === 'all' || b.genre === g));
     render(filtered);
 }
+
+// ==================== CUSTOM SELECT LOGIC ====================
+(function() {
+    const select = document.getElementById('customSelect');
+    const btn = document.getElementById('customSelectBtn');
+    const label = document.getElementById('customSelectLabel');
+    const list = document.getElementById('customSelectList');
+    const hidden = document.getElementById('genreFilter');
+    const items = list.querySelectorAll('.custom-select-item');
+
+    btn.addEventListener('click', (e) => {
+        e.stopPropagation();
+        select.classList.toggle('open');
+    });
+
+    items.forEach(item => {
+        item.addEventListener('click', () => {
+            // update active state
+            items.forEach(i => i.classList.remove('active'));
+            item.classList.add('active');
+            // update label and hidden input
+            label.textContent = item.textContent;
+            hidden.value = item.dataset.value;
+            // close dropdown
+            select.classList.remove('open');
+            // trigger filter
+            runFilters();
+            // rebuild shuffle if active
+            if (typeof shuffleMode !== 'undefined' && shuffleMode) {
+                buildShuffleQueue();
+                playShuffle(0);
+            }
+        });
+    });
+
+    // close on outside click
+    document.addEventListener('click', () => {
+        select.classList.remove('open');
+    });
+})();
 
 // 2. LOGIQUE AUDIO (Navigation & Skip)
 window.playBeat = (id) => {
@@ -298,11 +346,15 @@ function buildShuffleQueue() {
   const pool = database.filter(b =>
     b.title.toLowerCase().includes(s) && (g === 'all' || b.genre === g)
   );
-  // Fisher-Yates shuffle
+  // Fisher-Yates : vrai aléatoire garanti sans répétition
   const arr = [...pool];
   for (let i = arr.length - 1; i > 0; i--) {
     const j = Math.floor(Math.random() * (i + 1));
     [arr[i], arr[j]] = [arr[j], arr[i]];
+  }
+  // Si la première track est la même que celle en cours, on la met à la fin
+  if (arr.length > 1 && mainAudio.src && mainAudio.src.includes(arr[0].audio)) {
+    arr.push(arr.shift());
   }
   shuffleQueue = arr;
   shuffleIndex = 0;
