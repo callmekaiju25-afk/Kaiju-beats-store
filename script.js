@@ -70,6 +70,8 @@ function applyTranslations(lang) {
     document.getElementById('searchInput').placeholder = t.search;
     const allOpt = document.querySelector('#genreFilter option[value="all"]');
     if (allOpt) allOpt.textContent = t.allStyles;
+    document.getElementById('cartTitle') && (document.getElementById('cartTitle').textContent = t.cartTitle);
+    document.getElementById('cartSub') && (document.getElementById('cartSub').textContent = t.cartSub);
     document.querySelector('.promo-bar span') && (document.querySelector('.promo-bar span').textContent = t.promoBar);
     document.querySelector('#pCover') && document.querySelector('.p-meta small') && 
         (document.querySelector('.p-meta small').innerHTML = `<i class="fas fa-record-vinyl"></i> ${t.prodBy}`);
