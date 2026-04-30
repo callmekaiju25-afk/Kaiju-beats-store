@@ -339,21 +339,25 @@ document.addEventListener('DOMContentLoaded', () => {
 let shuffleMode = false;
 let shuffleQueue = [];
 let shuffleIndex = 0;
+let lastPlayedId = null;
 
-function buildShuffleQueue() {
+function fisherYates(arr) {
+  for (let i = arr.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1));
+    [arr[i], arr[j]] = [arr[j], arr[i]];
+  }
+  return arr;
+}
+
+function buildShuffleQueue(currentId = null) {
   const g = document.getElementById('genreFilter').value;
   const s = document.getElementById('searchInput').value.toLowerCase();
   const pool = database.filter(b =>
     b.title.toLowerCase().includes(s) && (g === 'all' || b.genre === g)
   );
-  // Fisher-Yates : vrai aléatoire garanti sans répétition
-  const arr = [...pool];
-  for (let i = arr.length - 1; i > 0; i--) {
-    const j = Math.floor(Math.random() * (i + 1));
-    [arr[i], arr[j]] = [arr[j], arr[i]];
-  }
-  // Si la première track est la même que celle en cours, on la met à la fin
-  if (arr.length > 1 && mainAudio.src && mainAudio.src.includes(arr[0].audio)) {
+  let arr = fisherYates([...pool]);
+  // Garantit que la track en cours ne revient pas en 1er
+  if (currentId && arr.length > 1 && arr[0].id === currentId) {
     arr.push(arr.shift());
   }
   shuffleQueue = arr;
@@ -363,36 +367,42 @@ function buildShuffleQueue() {
 function playShuffle(index) {
   if (!shuffleQueue.length) return;
   const b = shuffleQueue[index];
+  lastPlayedId = b.id;
   document.getElementById('audioPlayer').style.display = 'block';
-  mainAudio.src = b.audio;
   document.getElementById('pTitle').innerText = b.title;
   document.getElementById('pCover').src = b.cover;
-  mainAudio.load();
-  mainAudio.play();
   pBtn.innerHTML = '<i class="fas fa-pause"></i>';
+  // On assigne src et on attend canplaythrough avant de lancer
+  mainAudio.src = b.audio;
+  mainAudio.load();
+  const onReady = () => {
+    mainAudio.play().catch(() => {});
+    mainAudio.removeEventListener('canplaythrough', onReady);
+  };
+  mainAudio.addEventListener('canplaythrough', onReady);
 }
 
 document.getElementById('shuffleBtn').onclick = () => {
   shuffleMode = !shuffleMode;
   document.getElementById('shuffleBtn').classList.toggle('active', shuffleMode);
   if (shuffleMode) {
-    buildShuffleQueue();
+    buildShuffleQueue(lastPlayedId);
     playShuffle(0);
   }
 };
 
-// Rebuild queue if genre changes while shuffle is on
+// Rebuild queue si genre change pendant shuffle
 document.getElementById('genreFilter').addEventListener('change', () => {
-  if (shuffleMode) { buildShuffleQueue(); playShuffle(0); }
+  if (shuffleMode) { buildShuffleQueue(lastPlayedId); playShuffle(0); }
 });
 
-// Auto-play next beat in shuffle mode when track ends
+// Auto-play next beat quand la track se termine
 document.getElementById('mainAudio').addEventListener('ended', () => {
-  if (shuffleMode) {
-    shuffleIndex++;
-    if (shuffleIndex >= shuffleQueue.length) buildShuffleQueue();
-    playShuffle(shuffleIndex);
-  }
+  if (!shuffleMode) return;
+  shuffleIndex++;
+  // Fin de la queue : on remélanges en évitant la dernière prod jouée
+  if (shuffleIndex >= shuffleQueue.length) buildShuffleQueue(lastPlayedId);
+  playShuffle(shuffleIndex);
 });
 
 // Translations for shuffle & testimonials
