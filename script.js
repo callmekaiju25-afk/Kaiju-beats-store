@@ -61,7 +61,7 @@ let currentLang = 'fr';
 const readmeContent = {
     fr: `
         <div class="readme-warn">⚠️</div>
-        <h2>ATTENTION – CONDITIONS D'UTILISATION ⚠️</h2>
+        <h2>ATTENTION – CONDITIONS D'UTILISATION </h2>
         <div class="readme-block">
             <p>L'utilisation <strong>gratuite</strong> de cette prod est autorisée uniquement sur <span class="highlight">YouTube</span>, y compris pour les vidéos monétisées, à condition de créditer correctement le producteur.</p>
         </div>
@@ -78,7 +78,7 @@ const readmeContent = {
     `,
     en: `
         <div class="readme-warn">⚠️</div>
-        <h2>WARNING – USAGE TERMS ⚠️</h2>
+        <h2>WARNING – USAGE TERMS </h2>
         <div class="readme-block">
             <p><strong>Free use</strong> of this beat is permitted on <span class="highlight">YouTube</span> only, including monetized videos, provided proper credit is given to the producer.</p>
         </div>
