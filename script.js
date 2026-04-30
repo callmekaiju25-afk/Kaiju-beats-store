@@ -22,6 +22,7 @@ const database = [
     { id: 22, title: "Obesession", genre: "afro", cover: "assets/IMAGE/Obsession.png", audio: "assets/MP3/Obsession.mp3" },
     { id: 23, title: "ZURA", genre: "afro", cover: "assets/IMAGE/ZURA.png", audio: "assets/MP3/Zura.mp3" },
     { id: 24, title: "ANUBIS", genre: "trap", cover: "assets/IMAGE/Anubis.png", audio: "assets/MP3/Anubis.mp3" },
+    { id: 25, title: "BROOKLYN 1964", genre: "trap", cover: "assets/IMAGE/BROOKLYN_1964.png", audio: "assets/MP3/BROOKLYN_1964.mp3" },
     
 
 ];
