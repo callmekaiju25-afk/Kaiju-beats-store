@@ -22,10 +22,60 @@ const database = [
     { id: 22, title: "Obesession", genre: "afro", cover: "assets/IMAGE/Obsession.png", audio: "assets/MP3/Obsession.mp3" },
     { id: 23, title: "ZURA", genre: "afro", cover: "assets/IMAGE/ZURA.png", audio: "assets/MP3/Zura.mp3" },
     { id: 24, title: "ANUBIS", genre: "trap", cover: "assets/IMAGE/Anubis.png", audio: "assets/MP3/Anubis.mp3" },
-    { id: 25, title: "BROOKLYN 1964", genre: "trap", cover: "assets/IMAGE/BROOKLYN_1964.png", audio: "assets/MP3/BROOKLYN_1964.mp3" },
-    
-
 ];
+
+// ==================== LANGUE ====================
+const translations = {
+    fr: {
+        search: "Rechercher un beat...",
+        allStyles: "TOUS LES STYLES",
+        addToCart: "39.99€ - AJOUTER AU PANIER",
+        cartTitle: "VOTRE PANIER",
+        cartSub: "Beats sélectionnés",
+        cartEmpty: "Votre panier est vide.",
+        promo: "OFFRE 2+1 APPLIQUÉE ✅",
+        checkout: "COMMANDER SUR WHATSAPP",
+        contactSub: "Contactez-moi pour vos projets",
+        promoBar: "2 BEATS ACHETÉS = LE 3ÈME OFFERT (AUTO-APPLIQUÉ)",
+        prodBy: "PROD BY KAIJU",
+        beatsSelected: "Beats sélectionnés",
+    },
+    en: {
+        search: "Search a beat...",
+        allStyles: "ALL STYLES",
+        addToCart: "39.99€ - ADD TO CART",
+        cartTitle: "YOUR CART",
+        cartSub: "Selected beats",
+        cartEmpty: "Your cart is empty.",
+        promo: "2+1 DEAL APPLIED ✅",
+        checkout: "ORDER ON WHATSAPP",
+        contactSub: "Contact me for your projects",
+        promoBar: "BUY 2 BEATS = GET THE 3RD FREE (AUTO-APPLIED)",
+        prodBy: "PROD BY KAIJU",
+        beatsSelected: "Selected beats",
+    }
+};
+
+let currentLang = 'fr';
+
+window.setLang = (lang) => {
+    currentLang = lang;
+    const modal = document.getElementById('langModal');
+    modal.classList.add('hidden');
+    applyTranslations(lang);
+};
+
+function applyTranslations(lang) {
+    const t = translations[lang];
+    document.getElementById('searchInput').placeholder = t.search;
+    const allOpt = document.querySelector('#genreFilter option[value="all"]');
+    if (allOpt) allOpt.textContent = t.allStyles;
+    document.querySelector('.promo-bar span') && (document.querySelector('.promo-bar span').textContent = t.promoBar);
+    document.querySelector('#pCover') && document.querySelector('.p-meta small') && 
+        (document.querySelector('.p-meta small').innerHTML = `<i class="fas fa-record-vinyl"></i> ${t.prodBy}`);
+    // Re-render pour mettre à jour les boutons
+    render();
+}
 
 let cart = [];
 const mainAudio = document.getElementById('mainAudio');
@@ -34,6 +84,7 @@ const progressBar = document.getElementById('pProgress');
 
 // 1. RENDU & FILTRES
 function render(data = database) {
+    const t = translations[currentLang];
     const grid = document.getElementById('beatsGrid');
     grid.innerHTML = data.map(b => `
         <div class="beat-card">
@@ -44,7 +95,7 @@ function render(data = database) {
             <div class="beat-meta">
                 <h3>${b.title}</h3>
                 <p style="font-size:0.7rem; color:#555;">${b.genre.toUpperCase()}</p>
-                <button class="buy-btn" onclick="addToCart(${b.id})">39.99€ - AJOUTER AU PANIER</button>
+                <button class="buy-btn" onclick="addToCart(${b.id})">${t.addToCart}</button>
             </div>
         </div>
     `).join('');
@@ -127,12 +178,13 @@ window.addToCart = (id) => {
 };
 
 function updateCart() {
+    const t = translations[currentLang];
     document.getElementById('cartCount').innerText = cart.length;
     const items = document.getElementById('cartItems');
     const totalArea = document.getElementById('cartTotalArea');
 
     if(cart.length === 0) {
-        items.innerHTML = "<p style='text-align:center; padding:20px;'>Votre panier est vide.</p>";
+        items.innerHTML = `<p style='text-align:center; padding:20px;'>${t.cartEmpty}</p>`;
         totalArea.innerHTML = "";
     } else {
         items.innerHTML = cart.map((b, i) => `
@@ -148,8 +200,8 @@ function updateCart() {
         totalArea.innerHTML = `
             <div class="total-box">
                 <h3>TOTAL : ${total.toFixed(2)}€</h3>
-                ${cart.length >= 3 ? '<p style="color:var(--primary); font-size:0.7rem; margin-bottom:10px;">OFFRE 2+1 APPLIQUÉE ✅</p>' : ''}
-                <button class="checkout-btn" onclick="checkout()">COMMANDER SUR WHATSAPP</button>
+                ${cart.length >= 3 ? `<p style="color:var(--primary); font-size:0.7rem; margin-bottom:10px;">${t.promo}</p>` : ''}
+                <button class="checkout-btn" onclick="checkout()">${t.checkout}</button>
             </div>
         `;
     }

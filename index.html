@@ -9,6 +9,46 @@
     <link rel="stylesheet" href="style.css?v=11.0">
 </head>
 <body>
+    <!-- MODALE CHOIX DE LANGUE -->
+    <div id="langModal" class="lang-modal">
+        <div class="lang-backdrop"></div>
+        <div class="lang-card">
+            <div class="lang-logo">
+                <span class="logo-main">KAIJU</span><span class="logo-accent">BEATS</span>
+            </div>
+            <div class="lang-title">
+                <span class="lang-line en-line">CHOOSE YOUR LANGUAGE</span>
+                <div class="lang-divider"><span></span></div>
+                <span class="lang-line fr-line">CHOISIS TA LANGUE</span>
+            </div>
+            <div class="lang-options">
+                <button class="lang-btn" onclick="setLang('fr')">
+                    <div class="flag flag-fr">
+                        <span class="flag-stripe blue"></span>
+                        <span class="flag-stripe white"></span>
+                        <span class="flag-stripe red"></span>
+                    </div>
+                    <span class="lang-name">FRANÇAIS</span>
+                    <div class="lang-btn-glow"></div>
+                </button>
+                <button class="lang-btn" onclick="setLang('en')">
+                    <div class="flag flag-us">
+                        <div class="flag-us-inner">
+                            <div class="us-stripes">
+                                <span></span><span></span><span></span><span></span><span></span><span></span><span></span>
+                            </div>
+                            <div class="us-canton">
+                                <div class="us-stars">★ ★ ★<br>★ ★<br>★ ★ ★</div>
+                            </div>
+                        </div>
+                    </div>
+                    <span class="lang-name">ENGLISH</span>
+                    <div class="lang-btn-glow"></div>
+                </button>
+            </div>
+        </div>
+    </div>
+
     <!-- Effets de fond animés -->
     <div class="bg-glow"></div>
     <div class="grid-overlay"></div>
@@ -64,7 +104,6 @@
                 <div class="select-wrapper">
                     <select id="genreFilter">
                         <option value="all">TOUS LES STYLES</option>
-                        <option value="Acoustic">ACOUSTIC</option> 
                         <option value="afro">AFRO</option>
                         <option value="Amapiano">AMAPIANO</option>
                         <option value="Boom bap">BOOM BAP</option>
@@ -72,7 +111,8 @@
                         <option value="hood-trap">HOOD-TRAP</option>
                         <option value="Jersey">JERSEY</option>
                         <option value="Oriental">ORIENTAL</option>
-                        <option value="trap">TRAP</option>                   
+                        <option value="trap">TRAP</option>       
+                        <option value="Acoustic">ACOUSTIC</option>               
                     </select>
                     <i class="fas fa-chevron-down select-icon"></i>
                 </div>
@@ -103,13 +143,13 @@
                     </div>
                     <i class="fas fa-arrow-right c-arrow"></i>
                 </a>
-                <a href="mailto:callmekaiju25@gmail.com" class="c-item">
+                <a href="mailto:callmekaiju@gmail.com" class="c-item">
                     <div class="c-icon">
                         <i class="fas fa-envelope"></i>
                     </div>
                     <div class="c-txt">
                         <span>Email</span>
-                        <small>callmekaiju25@gmail.com</small>
+                        <small>callmekaiju@gmail.com</small>
                     </div>
                     <i class="fas fa-arrow-right c-arrow"></i>
                 </a>
