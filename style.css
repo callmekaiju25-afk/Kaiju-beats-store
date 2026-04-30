@@ -2041,3 +2041,95 @@ body {
   letter-spacing: 2px;
   text-align: center;
 }
+
+/* ==================== README MODAL ==================== */
+.readme-btn {
+  color: #ffcc00 !important;
+  border: 1px solid rgba(255, 204, 0, 0.3) !important;
+  border-radius: 6px;
+}
+
+.readme-btn .btn-bg {
+  background: #ffcc00 !important;
+}
+
+.readme-btn:hover {
+  color: black !important;
+}
+
+.readme-modal-card {
+  max-width: 640px !important;
+  max-height: 80vh;
+  overflow-y: auto;
+  padding: 40px 45px !important;
+}
+
+.readme-content h2 {
+  font-family: 'Orbitron', sans-serif;
+  font-size: 1rem;
+  letter-spacing: 2px;
+  color: #ffcc00;
+  text-align: center;
+  margin-bottom: 28px;
+  text-shadow: 0 0 15px rgba(255, 204, 0, 0.4);
+}
+
+.readme-warn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  font-size: 1.3rem;
+  margin-bottom: 10px;
+}
+
+.readme-block {
+  background: rgba(255, 204, 0, 0.04);
+  border: 1px solid rgba(255, 204, 0, 0.15);
+  border-radius: 12px;
+  padding: 22px 26px;
+  margin-bottom: 16px;
+}
+
+.readme-block p {
+  font-family: 'Space Mono', monospace;
+  font-size: 0.78rem;
+  line-height: 1.8;
+  color: #ccc;
+}
+
+.readme-block p strong {
+  color: #ffcc00;
+  font-weight: 700;
+}
+
+.readme-block p .highlight {
+  color: var(--primary);
+  font-weight: 700;
+}
+
+.readme-divider {
+  width: 100%;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, rgba(255,204,0,0.3), transparent);
+  margin: 20px 0;
+}
+
+.readme-important {
+  background: rgba(255, 204, 0, 0.08);
+  border: 1px solid rgba(255, 204, 0, 0.35);
+  border-radius: 10px;
+  padding: 16px 22px;
+  margin-top: 4px;
+}
+
+.readme-important p {
+  font-family: 'Space Mono', monospace;
+  font-size: 0.78rem;
+  line-height: 1.8;
+  color: #eee;
+}
+
+.readme-important p strong {
+  color: #ffcc00;
+}

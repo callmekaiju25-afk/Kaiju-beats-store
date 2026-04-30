@@ -58,10 +58,49 @@ const translations = {
 
 let currentLang = 'fr';
 
+const readmeContent = {
+    fr: `
+        <div class="readme-warn">⚠️</div>
+        <h2>ATTENTION – CONDITIONS D'UTILISATION ⚠️</h2>
+        <div class="readme-block">
+            <p>L'utilisation <strong>gratuite</strong> de cette prod est autorisée uniquement sur <span class="highlight">YouTube</span>, y compris pour les vidéos monétisées, à condition de créditer correctement le producteur.</p>
+        </div>
+        <div class="readme-block">
+            <p>Toute <strong>utilisation commerciale</strong>, incluant la distribution sur des plateformes de streaming telles que <span class="highlight">Spotify, Apple Music</span> ou autres, nécessite l'achat d'une <strong>licence</strong>.</p>
+        </div>
+        <div class="readme-block">
+            <p>Il est <strong>strictement interdit</strong> d'enregistrer un morceau utilisant cette prod auprès d'organismes de gestion de droits <span class="highlight">(BMI, ASCAP, OMPI, etc.)</span> ou d'activer un système de <strong>Content ID</strong> sans avoir acquis une licence exclusive.</p>
+        </div>
+        <div class="readme-divider"></div>
+        <div class="readme-important">
+            <p><strong>Important :</strong><br>En cas d'utilisation gratuite, vous devez obligatoirement mentionner <span class="highlight">"prod. Kaiju"</span> et inclure le lien du beat dans la description.</p>
+        </div>
+    `,
+    en: `
+        <div class="readme-warn">⚠️</div>
+        <h2>WARNING – USAGE TERMS ⚠️</h2>
+        <div class="readme-block">
+            <p><strong>Free use</strong> of this beat is permitted on <span class="highlight">YouTube</span> only, including monetized videos, provided proper credit is given to the producer.</p>
+        </div>
+        <div class="readme-block">
+            <p>Any <strong>commercial use</strong>, including distribution on streaming platforms such as <span class="highlight">Spotify, Apple Music</span>, or others, requires the purchase of a <strong>license</strong>.</p>
+        </div>
+        <div class="readme-block">
+            <p>It is <strong>strictly prohibited</strong> to register any song using this beat with performing rights organizations <span class="highlight">(BMI, ASCAP, WIPO, etc.)</span> or to apply <strong>Content ID</strong> without obtaining an exclusive license.</p>
+        </div>
+        <div class="readme-divider"></div>
+        <div class="readme-important">
+            <p><strong>Important:</strong><br>If you use the free version, you must credit <span class="highlight">"prod. Kaiju"</span> and include the beat link in the video description.</p>
+        </div>
+    `
+};
+
 window.setLang = (lang) => {
     currentLang = lang;
     const modal = document.getElementById('langModal');
     modal.classList.add('hidden');
+    // Mettre à jour le label du bouton README
+    document.getElementById('readmeBtnLabel').textContent = lang === 'fr' ? 'LIS MOI' : 'READ ME';
     applyTranslations(lang);
 };
 
@@ -220,6 +259,11 @@ document.getElementById('cartBtn').onclick = () => document.getElementById('cart
 document.getElementById('closeCart').onclick = () => document.getElementById('cartModal').classList.remove('active');
 document.getElementById('contactBtn').onclick = () => document.getElementById('contactModal').classList.add('active');
 document.getElementById('closeContact').onclick = () => document.getElementById('contactModal').classList.remove('active');
+document.getElementById('readmeBtn').onclick = () => {
+    document.getElementById('readmeContent').innerHTML = readmeContent[currentLang];
+    document.getElementById('readmeModal').classList.add('active');
+};
+document.getElementById('closeReadme').onclick = () => document.getElementById('readmeModal').classList.remove('active');
 
 // Volume & Init
 function updateVolSlider(val) {

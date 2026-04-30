@@ -69,6 +69,10 @@
                 <div class="logo-underline"></div>
             </div>
             <div class="nav-right">
+                <button class="nav-link-btn readme-btn" id="readmeBtn">
+                    <span id="readmeBtnLabel">LIS MOI</span>
+                    <div class="btn-bg"></div>
+                </button>
                 <button class="nav-link-btn" id="contactBtn">
                     <span>CONTACT</span>
                     <div class="btn-bg"></div>
@@ -120,6 +124,18 @@
         </div>
         <div class="beats-grid" id="beatsGrid"></div>
     </main>
+
+    <div id="readmeModal" class="modal">
+        <div class="modal-overlay"></div>
+        <div class="modal-card readme-modal-card">
+            <button class="close-btn" id="closeReadme">
+                <i class="fas fa-times"></i>
+            </button>
+            <div class="readme-content" id="readmeContent">
+                <!-- Rempli dynamiquement par JS selon la langue -->
+            </div>
+        </div>
+    </div>
 
     <div id="contactModal" class="modal">
         <div class="modal-overlay"></div>
