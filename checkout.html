@@ -49,11 +49,24 @@
         .success-card p { font-family: 'Space Mono', monospace; font-size: 0.8rem; color: #aaa; line-height: 1.8; }
         .success-card .go-back { display: inline-block; margin-top: 24px; padding: 14px 30px; background: var(--primary); color: black; font-family: 'Orbitron', sans-serif; font-weight: 700; font-size: 0.8rem; letter-spacing: 2px; border-radius: 10px; text-decoration: none; transition: all 0.3s; }
         .success-card .go-back:hover { box-shadow: 0 0 25px rgba(0,255,136,0.5); transform: translateY(-2px); }
-        @media (max-width: 768px) { .checkout-wrapper { grid-template-columns: 1fr; } .checkout-right { order: -1; } }
-        .paypalme-btn { width: 100%; padding: 16px; background: #0070ba; border: none; border-radius: 12px; color: white; font-family: 'Orbitron', sans-serif; font-weight: 700; font-size: 0.8rem; letter-spacing: 2px; cursor: pointer; transition: all 0.3s ease; display: flex; align-items: center; justify-content: center; }
+        .paypalme-btn { width: 100%; padding: 16px; background: #0070ba; border: none; border-radius: 12px; color: white; font-family: 'Orbitron', sans-serif; font-weight: 700; font-size: 0.8rem; letter-spacing: 2px; cursor: pointer; transition: all 0.3s ease; display: flex; align-items: center; justify-content: center; gap: 10px; }
         .paypalme-btn:hover { background: #005ea6; box-shadow: 0 0 25px rgba(0,112,186,0.5); transform: translateY(-2px); }
-        .paid-btn { width: 100%; padding: 16px; background: var(--primary); border: none; border-radius: 12px; color: black; font-family: 'Orbitron', sans-serif; font-weight: 900; font-size: 0.8rem; letter-spacing: 2px; cursor: pointer; transition: all 0.3s ease; display: flex; align-items: center; justify-content: center; gap: 10px; margin-top: 12px; }
-        .paid-btn:hover { box-shadow: 0 0 25px rgba(0,255,136,0.5); transform: translateY(-2px); }
+        .action-btn { width: 100%; padding: 16px; background: var(--primary); border: none; border-radius: 12px; color: black; font-family: 'Orbitron', sans-serif; font-weight: 900; font-size: 0.8rem; letter-spacing: 2px; cursor: pointer; transition: all 0.3s ease; display: flex; align-items: center; justify-content: center; gap: 10px; margin-top: 12px; }
+        .action-btn:hover { box-shadow: 0 0 25px rgba(0,255,136,0.5); transform: translateY(-2px); }
+        .action-btn:disabled { opacity: 0.5; cursor: not-allowed; transform: none; }
+        .step-box { background: rgba(0,255,136,0.04); border: 1px solid rgba(0,255,136,0.15); border-radius: 14px; padding: 20px; margin-top: 16px; }
+        .step-title { font-family: 'Orbitron', sans-serif; font-size: 0.72rem; color: var(--primary); letter-spacing: 2px; margin-bottom: 10px; }
+        .step-desc { font-family: 'Space Mono', monospace; font-size: 0.68rem; color: #888; line-height: 1.7; margin-bottom: 14px; }
+        .step-input { width: 100%; background: rgba(0,255,136,0.03); border: 1px solid rgba(0,255,136,0.3); border-radius: 10px; padding: 13px 16px; color: #fff; font-family: 'Space Mono', monospace; font-size: 0.8rem; outline: none; box-sizing: border-box; margin-bottom: 12px; transition: all 0.3s; letter-spacing: 2px; }
+        .step-input:focus { border-color: var(--primary); box-shadow: 0 0 15px rgba(0,255,136,0.15); }
+        .error-msg { font-size: 0.65rem; color: #ff4444; font-family: 'Space Mono', monospace; text-align: center; margin-top: 8px; display: none; }
+        .warning-box { background: rgba(255,200,0,0.05); border: 1px solid rgba(255,200,0,0.2); border-radius: 10px; padding: 14px 16px; margin-top: 12px; }
+        .warning-box p { font-family: 'Space Mono', monospace; font-size: 0.68rem; color: #ffcc00; line-height: 1.7; }
+        .steps-indicator { display: flex; align-items: center; gap: 8px; margin-bottom: 20px; }
+        .step-dot { width: 8px; height: 8px; border-radius: 50%; background: #333; transition: all 0.3s; }
+        .step-dot.active { background: var(--primary); box-shadow: 0 0 10px rgba(0,255,136,0.5); }
+        .step-dot.done { background: var(--primary); opacity: 0.5; }
+        @media (max-width: 768px) { .checkout-wrapper { grid-template-columns: 1fr; } .checkout-right { order: -1; } }
     </style>
 </head>
 <body>
@@ -73,8 +86,8 @@
     <div class="success-overlay" id="successOverlay">
         <div class="success-card">
             <div class="success-icon">🎵</div>
-            <h2 id="successTitle">PAIEMENT CONFIRMÉ !</h2>
-            <p id="successMsg">Merci pour ta confiance !<br>Tes beats ont été envoyés à ton adresse mail.<br>Vérifie ta boîte de réception 📧</p>
+            <h2 id="successTitle">COMMANDE ENVOYÉE !</h2>
+            <p id="successMsg">Merci pour ta confiance !<br>Vérifie ta boîte mail dans quelques instants 📧</p>
             <a href="index.html" class="go-back" id="successBtn">RETOUR AU CATALOGUE</a>
         </div>
     </div>
@@ -93,7 +106,7 @@
         </div>
 
         <div class="checkout-wrapper" id="checkoutWrapper">
-            <!-- LEFT : FORMULAIRE -->
+            <!-- LEFT -->
             <div class="checkout-left">
                 <div class="checkout-card">
                     <h2><i class="fas fa-user"></i> <span id="formTitle">TES INFORMATIONS</span></h2>
@@ -106,17 +119,27 @@
                         <input type="email" id="custEmail" placeholder="Ex: lenzo@gmail.com" required>
                     </div>
                     <p style="font-size:0.65rem; color:#555; font-family:'Space Mono',monospace; line-height:1.6;" id="emailNote">
-                        📧 Tes beats seront envoyés à cette adresse après paiement.
+                        📧 Tes beats seront envoyés à cette adresse après vérification du paiement.
                     </p>
                 </div>
 
                 <div class="checkout-card">
                     <h2><i class="fas fa-credit-card"></i> <span id="payTitle">PAIEMENT SÉCURISÉ</span></h2>
+                    
+                    <!-- Steps indicator -->
+                    <div class="steps-indicator">
+                        <div class="step-dot active" id="dot1"></div>
+                        <div style="flex:1; height:1px; background:#222;"></div>
+                        <div class="step-dot" id="dot2"></div>
+                        <div style="flex:1; height:1px; background:#222;"></div>
+                        <div class="step-dot" id="dot3"></div>
+                    </div>
+
                     <div id="paypal-button-container"></div>
                 </div>
             </div>
 
-            <!-- RIGHT : RECAP -->
+            <!-- RIGHT -->
             <div class="checkout-right">
                 <div class="checkout-card">
                     <h2><i class="fas fa-shopping-bag"></i> <span id="recapTitle">RÉCAP DE COMMANDE</span></h2>
@@ -134,14 +157,13 @@
     </main>
 
     <script>
-    // ==================== CONFIG ====================
     const EMAILJS_PUBLIC_KEY  = '7E6XV-vYEiZ0_WpyD';
     const EMAILJS_SERVICE_ID  = 'service_j2kw8w9';
     const EMAILJS_TEMPLATE_FR = 'template_rbznd3c';
     const EMAILJS_TEMPLATE_EN = 'template_ekgt4yq';
     const PAYPALME_LINK       = 'https://paypal.me/ItsKaiju09';
+    const KAIJU_WHATSAPP      = '221777694864';
 
-    // ==================== DRIVE LINKS ====================
     const driveLinks = {
         'ANUBIS':        'https://drive.google.com/file/d/1JYRJo2K1-ySQAh664mjrXrbLi6dUNyM9/view',
         'Aurore':        'https://drive.google.com/file/d/1jjTBGBzLyFbukDTbX9L_qhIysr_hRDES/view',
@@ -168,47 +190,69 @@
         'ZURA':          'https://drive.google.com/file/d/16RReB9RJfMjuoBqXdfmQrubnRSP32OLv/view',
     };
 
-    // ==================== TRANSLATIONS ====================
     const t = {
         fr: {
             backLabel: 'RETOUR AU CATALOGUE',
             formTitle: 'TES INFORMATIONS',
             labelName: 'TON PRÉNOM',
             labelEmail: 'TON EMAIL',
-            emailNote: '📧 Tes beats seront envoyés à cette adresse après paiement.',
+            emailNote: '📧 Tes beats seront envoyés à cette adresse après vérification du paiement.',
             payTitle: 'PAIEMENT SÉCURISÉ',
             recapTitle: 'RÉCAP DE COMMANDE',
             promoTxt: '✅ OFFRE 2+1 APPLIQUÉE — Le 3ème beat est offert !',
             emptyMsg: 'TON PANIER EST VIDE',
-            successTitle: 'PAIEMENT CONFIRMÉ !',
-            successMsg: 'Merci pour ta confiance !<br>Tes beats ont été envoyés à ton adresse mail.<br>Vérifie ta boîte de réception 📧',
+            successTitle: 'COMMANDE ENVOYÉE !',
+            successMsg: 'Merci pour ta confiance !<br>Vérifie ta boîte mail dans quelques instants 📧',
             successBtn: 'RETOUR AU CATALOGUE',
             errorName: 'Entre ton prénom pour continuer.',
             errorEmail: 'Entre ton email pour recevoir tes beats.',
+            errorTx: '⚠️ Entre ton numéro de transaction pour continuer.',
+            errorCode: '⚠️ Code invalide. Vérifie le code reçu sur WhatsApp.',
+            step1Title: 'ÉTAPE 1 — PAYER VIA PAYPAL',
+            step2Title: '✅ ÉTAPE 2 — CONFIRMER LE PAIEMENT',
+            step2Desc: 'Sur PayPal, copie ton numéro de transaction (ex: 4XY12345AB678) et colle-le ci-dessous. On va vérifier ton paiement.',
+            step2Placeholder: 'Numéro de transaction PayPal...',
+            step2Btn: 'ENVOYER POUR VÉRIFICATION',
+            step3Title: '🔐 ÉTAPE 3 — ENTRER LE CODE',
+            step3Desc: 'Kaiju va vérifier ton paiement et t\'envoyer un code par WhatsApp. Entre ce code ci-dessous pour recevoir tes beats.',
+            step3Placeholder: 'Code reçu sur WhatsApp...',
+            step3Btn: 'RECEVOIR MES BEATS 🎵',
+            warningMsg: '⏳ Kaiju a bien reçu ta demande sur WhatsApp. Dès que ton paiement est vérifié, tu recevras un code pour débloquer tes beats. Ça prend généralement quelques minutes !',
         },
         en: {
             backLabel: 'BACK TO CATALOG',
             formTitle: 'YOUR INFORMATION',
             labelName: 'YOUR FIRST NAME',
             labelEmail: 'YOUR EMAIL',
-            emailNote: '📧 Your beats will be sent to this address after payment.',
+            emailNote: '📧 Your beats will be sent to this address after payment verification.',
             payTitle: 'SECURE PAYMENT',
             recapTitle: 'ORDER SUMMARY',
             promoTxt: '✅ 2+1 DEAL APPLIED — Your 3rd beat is on me!',
             emptyMsg: 'YOUR CART IS EMPTY',
-            successTitle: 'PAYMENT CONFIRMED!',
-            successMsg: 'Thank you for your trust!<br>Your beats have been sent to your email.<br>Check your inbox 📧',
+            successTitle: 'ORDER SENT!',
+            successMsg: 'Thank you for your trust!<br>Check your inbox in a few moments 📧',
             successBtn: 'BACK TO CATALOG',
             errorName: 'Please enter your name to continue.',
             errorEmail: 'Please enter your email to receive your beats.',
+            errorTx: '⚠️ Please enter your transaction ID to continue.',
+            errorCode: '⚠️ Invalid code. Check the code you received on WhatsApp.',
+            step1Title: 'STEP 1 — PAY VIA PAYPAL',
+            step2Title: '✅ STEP 2 — CONFIRM PAYMENT',
+            step2Desc: 'On PayPal, copy your transaction ID (e.g. 4XY12345AB678) and paste it below. We\'ll verify your payment.',
+            step2Placeholder: 'PayPal transaction ID...',
+            step2Btn: 'SEND FOR VERIFICATION',
+            step3Title: '🔐 STEP 3 — ENTER THE CODE',
+            step3Desc: 'Kaiju will verify your payment and send you a code via WhatsApp. Enter this code below to receive your beats.',
+            step3Placeholder: 'Code received on WhatsApp...',
+            step3Btn: 'RECEIVE MY BEATS 🎵',
+            warningMsg: '⏳ Kaiju received your request on WhatsApp. Once your payment is verified, you\'ll receive a code to unlock your beats. This usually takes a few minutes!',
         }
     };
 
-    // ==================== INIT ====================
+    // Init
     const lang = localStorage.getItem('kaijuLang') || 'fr';
     const tx = t[lang];
 
-    // Apply translations
     document.getElementById('backLabel').textContent    = tx.backLabel;
     document.getElementById('formTitle').textContent    = tx.formTitle;
     document.getElementById('labelName').textContent    = tx.labelName;
@@ -221,7 +265,8 @@
     document.getElementById('successMsg').innerHTML     = tx.successMsg;
     document.getElementById('successBtn').textContent   = tx.successBtn;
 
-    // Load cart
+    emailjs.init({ publicKey: EMAILJS_PUBLIC_KEY });
+
     const cart = JSON.parse(localStorage.getItem('kaijuCart') || '[]');
 
     if (cart.length === 0) {
@@ -229,7 +274,7 @@
         document.getElementById('emptyCart').style.display = 'block';
     } else {
         renderRecap();
-        initPayPal();
+        initSteps();
     }
 
     function calcTotal(items) {
@@ -242,7 +287,6 @@
         const container = document.getElementById('recapItems');
         const total = calcTotal(cart);
         let html = '';
-
         cart.forEach((b, i) => {
             const isFree = (i + 1) % 3 === 0;
             html += `
@@ -252,120 +296,158 @@
                         <h4>${b.title}</h4>
                         <small>${b.genre ? b.genre.toUpperCase() : 'BEAT'} • PROD BY KAIJU</small>
                     </div>
-                    ${isFree
-                        ? `<span class="recap-free">OFFERT 🎁</span>`
-                        : `<span class="recap-price">39.99€</span>`
-                    }
-                </div>
-            `;
+                    ${isFree ? `<span class="recap-free">OFFERT 🎁</span>` : `<span class="recap-price">39.99€</span>`}
+                </div>`;
         });
-
         container.innerHTML = html;
-
         if (cart.length >= 3) {
-            document.getElementById('promoLine').innerHTML =
-                `<div class="promo-line">${tx.promoTxt}</div>`;
+            document.getElementById('promoLine').innerHTML = `<div class="promo-line">${tx.promoTxt}</div>`;
         }
-
-        document.getElementById('recapTotal').textContent = total + '€';
+        document.getElementById('recapTotal').textContent = calcTotal(cart) + '€';
     }
 
-    function initPayPal() {
+    // Generate a random 6-digit unlock code
+    function generateCode() {
+        return Math.floor(100000 + Math.random() * 900000).toString();
+    }
+
+    let unlockCode = '';
+
+    function setDot(step) {
+        ['dot1','dot2','dot3'].forEach((id, i) => {
+            const dot = document.getElementById(id);
+            dot.className = 'step-dot';
+            if (i + 1 < step) dot.classList.add('done');
+            if (i + 1 === step) dot.classList.add('active');
+        });
+    }
+
+    function initSteps() {
         const total = calcTotal(cart);
-        const paypalUrl = `${PAYPALME_LINK}/${total}EUR`;
         const isFr = lang === 'fr';
 
+        // STEP 1 — PayPal button
         document.getElementById('paypal-button-container').innerHTML = `
-            <!-- STEP 1: Pay button -->
-            <div id="step1">
+            <div id="step1Div">
+                <p class="step-title">${tx.step1Title}</p>
                 <button class="paypalme-btn" id="paypalMeBtn">
-                    <img src="https://www.paypalobjects.com/webstatic/mktg/Logo/pp-logo-100px.png" alt="PayPal" style="height:22px; vertical-align:middle; margin-right:10px;">
+                    <img src="https://www.paypalobjects.com/webstatic/mktg/Logo/pp-logo-100px.png" alt="PayPal" style="height:20px;">
                     <span>${isFr ? `PAYER ${total}€ VIA PAYPAL` : `PAY ${total}€ VIA PAYPAL`}</span>
                 </button>
-                <p style="font-size:0.65rem; color:#555; font-family:'Space Mono',monospace; text-align:center; margin-top:10px; line-height:1.6;">
-                    🔒 ${isFr ? 'Paiement sécurisé via PayPal' : 'Secure payment via PayPal'}
+                <p style="font-size:0.63rem; color:#444; font-family:'Space Mono',monospace; text-align:center; margin-top:10px;">
+                    🔒 ${isFr ? 'Redirection sécurisée vers PayPal' : 'Secure redirect to PayPal'}
                 </p>
             </div>
 
-            <!-- STEP 2: Transaction ID (shown after clicking PayPal) -->
-            <div id="step2" style="display:none; margin-top:16px;">
-                <div style="background:rgba(0,255,136,0.05); border:1px solid rgba(0,255,136,0.2); border-radius:12px; padding:20px;">
-                    <p style="font-size:0.72rem; color:#00ff88; font-family:'Orbitron',sans-serif; letter-spacing:2px; margin-bottom:12px;">
-                        ${isFr ? '✅ PAIEMENT EFFECTUÉ ?' : '✅ PAYMENT DONE?'}
-                    </p>
-                    <p style="font-size:0.68rem; color:#888; font-family:'Space Mono',monospace; line-height:1.7; margin-bottom:14px;">
-                        ${isFr
-                            ? 'Sur PayPal, copie ton <strong style="color:#fff">numéro de transaction</strong> (ex: <span style="color:#00ff88">4XY12345AB678</span>) et colle-le ci-dessous.'
-                            : 'On PayPal, copy your <strong style="color:#fff">transaction ID</strong> (e.g. <span style="color:#00ff88">4XY12345AB678</span>) and paste it below.'
-                        }
-                    </p>
-                    <input type="text" id="transactionId" placeholder="${isFr ? 'Numéro de transaction PayPal...' : 'PayPal transaction ID...'}"
-                        style="width:100%; background:rgba(0,255,136,0.03); border:1px solid rgba(0,255,136,0.3); border-radius:10px; padding:13px 16px; color:#fff; font-family:'Space Mono',monospace; font-size:0.8rem; outline:none; box-sizing:border-box; margin-bottom:12px; transition:all 0.3s;">
-                    <button class="paid-btn" id="confirmBtn">
-                        <i class="fas fa-check-circle"></i>
-                        <span>${isFr ? 'CONFIRMER ET RECEVOIR MES BEATS' : 'CONFIRM AND RECEIVE MY BEATS'}</span>
-                    </button>
-                    <p id="txError" style="display:none; font-size:0.65rem; color:#ff4444; font-family:'Space Mono',monospace; text-align:center; margin-top:8px;">
-                        ${isFr ? '⚠️ Entre ton numéro de transaction pour continuer.' : '⚠️ Please enter your transaction ID to continue.'}
-                    </p>
+            <div id="step2Div" class="step-box" style="display:none;">
+                <p class="step-title">${tx.step2Title}</p>
+                <p class="step-desc">${tx.step2Desc}</p>
+                <input type="text" class="step-input" id="transactionId" placeholder="${tx.step2Placeholder}">
+                <button class="action-btn" id="sendVerifBtn">
+                    <i class="fas fa-paper-plane"></i> ${tx.step2Btn}
+                </button>
+                <p class="error-msg" id="txError">${tx.errorTx}</p>
+            </div>
+
+            <div id="step3Div" class="step-box" style="display:none;">
+                <p class="step-title">${tx.step3Title}</p>
+                <div class="warning-box" style="margin-bottom:14px;">
+                    <p>${tx.warningMsg}</p>
                 </div>
+                <p class="step-desc">${tx.step3Desc}</p>
+                <input type="text" class="step-input" id="unlockInput" placeholder="${tx.step3Placeholder}" maxlength="6">
+                <button class="action-btn" id="unlockBtn">
+                    <i class="fas fa-unlock"></i> ${tx.step3Btn}
+                </button>
+                <p class="error-msg" id="codeError">${tx.errorCode}</p>
             </div>
         `;
 
-        // Step 1: Open PayPal → show step 2
+        // STEP 1 → STEP 2
         document.getElementById('paypalMeBtn').onclick = () => {
             const name = document.getElementById('custName').value.trim();
             const email = document.getElementById('custEmail').value.trim();
             if (!name) { alert(tx.errorName); return; }
             if (!email || !email.includes('@')) { alert(tx.errorEmail); return; }
-            window.open(paypalUrl, '_blank');
+            window.open(`${PAYPALME_LINK}/${total}EUR`, '_blank');
             setTimeout(() => {
-                document.getElementById('step2').style.display = 'block';
-                document.getElementById('transactionId').focus();
+                document.getElementById('step2Div').style.display = 'block';
+                setDot(2);
             }, 1500);
         };
 
-        // Step 2: Confirm transaction ID → send email + notify WhatsApp
-        document.getElementById('paypal-button-container').addEventListener('click', (e) => {
-            if (e.target.closest('#confirmBtn')) {
-                const txId = document.getElementById('transactionId').value.trim();
-                if (!txId || txId.length < 6) {
-                    document.getElementById('txError').style.display = 'block';
-                    return;
-                }
-                document.getElementById('txError').style.display = 'none';
-                sendEmail(txId);
+        // STEP 2 → STEP 3: Send WhatsApp to Kaiju with transaction ID + unlock code
+        document.getElementById('sendVerifBtn').onclick = () => {
+            const name  = document.getElementById('custName').value.trim();
+            const email = document.getElementById('custEmail').value.trim();
+            const txId  = document.getElementById('transactionId').value.trim();
+            if (!txId || txId.length < 4) {
+                document.getElementById('txError').style.display = 'block';
+                return;
             }
-        });
+            document.getElementById('txError').style.display = 'none';
+
+            // Generate unlock code
+            unlockCode = generateCode();
+
+            const beatList = cart.map(b => b.title).join(', ');
+            const waMsg = encodeURIComponent(
+                `💰 NOUVELLE COMMANDE KAIJU BEATS\n` +
+                `👤 Client: ${name}\n` +
+                `📧 Email: ${email}\n` +
+                `🎵 Beats: ${beatList}\n` +
+                `💵 Total: ${total}€\n` +
+                `🧾 Transaction PayPal: ${txId}\n\n` +
+                `🔐 CODE À ENVOYER AU CLIENT: ${unlockCode}\n\n` +
+                `⚠️ Vérifie le paiement sur PayPal avant d'envoyer le code !`
+            );
+            window.open(`https://wa.me/${KAIJU_WHATSAPP}?text=${waMsg}`, '_blank');
+
+            // Show step 3
+            setTimeout(() => {
+                document.getElementById('step3Div').style.display = 'block';
+                document.getElementById('unlockInput').focus();
+                setDot(3);
+            }, 1000);
+        };
+
+        // STEP 3 → Send email with beats
+        document.getElementById('unlockBtn').onclick = () => {
+            const inputCode = document.getElementById('unlockInput').value.trim();
+            if (inputCode !== unlockCode) {
+                document.getElementById('codeError').style.display = 'block';
+                return;
+            }
+            document.getElementById('codeError').style.display = 'none';
+            document.getElementById('unlockBtn').disabled = true;
+            document.getElementById('unlockBtn').innerHTML = '<i class="fas fa-spinner fa-spin"></i> Envoi en cours...';
+            sendBeats();
+        };
     }
 
-    // Init EmailJS v4
-    emailjs.init({ publicKey: EMAILJS_PUBLIC_KEY });
-
-    function sendEmail(txId = "") {
+    function sendBeats() {
         const name  = document.getElementById('custName').value.trim();
         const email = document.getElementById('custEmail').value.trim();
         const total = calcTotal(cart);
 
-        // Build download links text
         const downloadLinks = cart.map((b, i) => {
             const isFree = (i + 1) % 3 === 0;
             const link = driveLinks[b.title] || '#';
-            const tag = isFree ? ' 🎁 OFFERT' : '';
+            const tag = isFree ? (lang === 'fr' ? ' 🎁 OFFERT' : ' 🎁 FREE') : '';
             return `🎵 ${b.title}${tag}\n${link}`;
         }).join('\n\n');
 
-        emailjs.send(EMAILJS_SERVICE_ID, lang === 'fr' ? EMAILJS_TEMPLATE_FR : EMAILJS_TEMPLATE_EN, {
-            customer_name:  name,
-            customer_email: email,
-            download_links: downloadLinks,
-            total:          total,
-        }).then(() => {
+        emailjs.send(
+            EMAILJS_SERVICE_ID,
+            lang === 'fr' ? EMAILJS_TEMPLATE_FR : EMAILJS_TEMPLATE_EN,
+            {
+                customer_name:  name,
+                customer_email: email,
+                download_links: downloadLinks,
+                total:          total,
+            }
+        ).then(() => {
             localStorage.removeItem('kaijuCart');
-            // Notify Kaiju on WhatsApp with transaction ID
-            const beatList = cart.map(b => b.title).join(', ');
-            const waMsg = encodeURIComponent(`💰 Nouvelle commande !\nClient: ${name}\nEmail: ${email}\nBeats: ${beatList}\nTotal: ${total}€\nTransaction PayPal: ${txId}`);
-            window.open(`https://wa.me/221777694864?text=${waMsg}`, '_blank');
             document.getElementById('successOverlay').classList.add('show');
         }).catch(err => {
             console.error('EmailJS error:', err);
