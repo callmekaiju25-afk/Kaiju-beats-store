@@ -50,6 +50,10 @@
         .success-card .go-back { display: inline-block; margin-top: 24px; padding: 14px 30px; background: var(--primary); color: black; font-family: 'Orbitron', sans-serif; font-weight: 700; font-size: 0.8rem; letter-spacing: 2px; border-radius: 10px; text-decoration: none; transition: all 0.3s; }
         .success-card .go-back:hover { box-shadow: 0 0 25px rgba(0,255,136,0.5); transform: translateY(-2px); }
         @media (max-width: 768px) { .checkout-wrapper { grid-template-columns: 1fr; } .checkout-right { order: -1; } }
+        .paypalme-btn { width: 100%; padding: 16px; background: #0070ba; border: none; border-radius: 12px; color: white; font-family: 'Orbitron', sans-serif; font-weight: 700; font-size: 0.8rem; letter-spacing: 2px; cursor: pointer; transition: all 0.3s ease; display: flex; align-items: center; justify-content: center; }
+        .paypalme-btn:hover { background: #005ea6; box-shadow: 0 0 25px rgba(0,112,186,0.5); transform: translateY(-2px); }
+        .paid-btn { width: 100%; padding: 16px; background: var(--primary); border: none; border-radius: 12px; color: black; font-family: 'Orbitron', sans-serif; font-weight: 900; font-size: 0.8rem; letter-spacing: 2px; cursor: pointer; transition: all 0.3s ease; display: flex; align-items: center; justify-content: center; gap: 10px; margin-top: 12px; }
+        .paid-btn:hover { box-shadow: 0 0 25px rgba(0,255,136,0.5); transform: translateY(-2px); }
     </style>
 </head>
 <body>
@@ -135,7 +139,7 @@
     const EMAILJS_SERVICE_ID  = 'service_j2kw8w9';
     const EMAILJS_TEMPLATE_FR = 'template_rbznd3c';
     const EMAILJS_TEMPLATE_EN = 'template_ekgt4yq';
-    const PAYPAL_CLIENT_ID    = 'AeZAJ8_H6x4Kvv0-k6iwiwxAPtpapCSluIznnDPdkwQHcoVpgbTRJ36AAIBKj7OK7Rb_oj0c6PFFcVPm';
+    const PAYPALME_LINK       = 'https://paypal.me/ItsKaiju09';
 
     // ==================== DRIVE LINKS ====================
     const driveLinks = {
@@ -267,32 +271,43 @@
     }
 
     function initPayPal() {
-        const script = document.createElement('script');
-        script.src = `https://www.paypal.com/sdk/js?client-id=${PAYPAL_CLIENT_ID}&currency=EUR`;
-        script.onload = () => {
-            paypal.Buttons({
-                style: { layout: 'vertical', color: 'black', shape: 'rect', label: 'pay' },
-                createOrder: (data, actions) => {
-                    const name = document.getElementById('custName').value.trim();
-                    const email = document.getElementById('custEmail').value.trim();
-                    if (!name) { alert(tx.errorName); return; }
-                    if (!email || !email.includes('@')) { alert(tx.errorEmail); return; }
-                    const total = calcTotal(cart);
-                    return actions.order.create({
-                        purchase_units: [{
-                            amount: { value: total.toString(), currency_code: 'EUR' },
-                            description: 'KAIJU BEATS — ' + cart.map(b => b.title).join(', ')
-                        }]
-                    });
-                },
-                onApprove: async (data, actions) => {
-                    await actions.order.capture();
-                    sendEmail();
-                },
-                onError: (err) => { console.error('PayPal error:', err); }
-            }).render('#paypal-button-container');
+        const total = calcTotal(cart);
+        const paypalUrl = `${PAYPALME_LINK}/${total}EUR`;
+        document.getElementById('paypal-button-container').innerHTML = `
+            <button class="paypalme-btn" id="paypalMeBtn">
+                <img src="https://www.paypalobjects.com/webstatic/mktg/Logo/pp-logo-100px.png" alt="PayPal" style="height:22px; vertical-align:middle; margin-right:10px;">
+                <span id="payBtnLabel">PAYER ${total}€ VIA PAYPAL</span>
+            </button>
+            <p style="font-size:0.65rem; color:#555; font-family:'Space Mono',monospace; text-align:center; margin-top:12px; line-height:1.6;" id="payNote">
+                🔒 Paiement sécurisé via PayPal — Après paiement clique sur "J'ai payé" pour recevoir tes beats.
+            </p>
+            <button class="paid-btn" id="paidBtn" style="display:none;">
+                <i class="fas fa-check"></i> <span id="paidBtnLabel">J'AI PAYÉ — RECEVOIR MES BEATS</span>
+            </button>
+        `;
+
+        document.getElementById('paypalMeBtn').onclick = () => {
+            const name = document.getElementById('custName').value.trim();
+            const email = document.getElementById('custEmail').value.trim();
+            if (!name) { alert(tx.errorName); return; }
+            if (!email || !email.includes('@')) { alert(tx.errorEmail); return; }
+            window.open(paypalUrl, '_blank');
+            // Show "J'ai payé" button after opening PayPal
+            setTimeout(() => {
+                document.getElementById('paidBtn').style.display = 'flex';
+                if (lang === 'en') {
+                    document.getElementById('payBtnLabel').textContent = `PAY ${total}€ VIA PAYPAL`;
+                    document.getElementById('payNote').textContent = '🔒 Secure payment via PayPal — After payment click "I have paid" to receive your beats.';
+                    document.getElementById('paidBtnLabel').textContent = 'I HAVE PAID — RECEIVE MY BEATS';
+                }
+            }, 1500);
         };
-        document.head.appendChild(script);
+
+        document.getElementById('paypal-button-container').addEventListener('click', (e) => {
+            if (e.target.closest('#paidBtn')) {
+                sendEmail();
+            }
+        });
     }
 
     function sendEmail() {
