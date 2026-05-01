@@ -2528,10 +2528,11 @@ body {
   display: inline-block;
   overflow: hidden;
   border-radius: 4px;
+  padding: 2px 6px;
 }
 
 .logo-img {
-  height: 55px;
+  height: 70px;
   width: auto;
   object-fit: contain;
   position: relative;
