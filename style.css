@@ -2537,11 +2537,11 @@ body {
   position: relative;
   z-index: 2;
   transition: transform 0.3s ease;
-  mix-blend-mode: screen;
+  filter: drop-shadow(0 0 8px rgba(0,255,136,0.6));
 }
 
 .lang-logo-img {
-  mix-blend-mode: screen;
+  filter: drop-shadow(0 0 12px rgba(0,255,136,0.6));
 }
 
 .logo-wrapper::before {
