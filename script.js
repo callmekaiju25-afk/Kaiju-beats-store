@@ -101,9 +101,9 @@ const readmeContent = {
 
 window.setLang = (lang) => {
     currentLang = lang;
+    localStorage.setItem('kaijuLang', lang);
     const modal = document.getElementById('langModal');
     modal.classList.add('hidden');
-    // Mettre à jour le label du bouton README
     document.getElementById('readmeBtnLabel').textContent = lang === 'fr' ? 'LIS MOI' : 'READ ME';
     applyTranslations(lang);
 };

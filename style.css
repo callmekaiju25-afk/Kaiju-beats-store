@@ -2509,3 +2509,25 @@ body {
   background: var(--primary);
   color: black;
 }
+/* ==================== LOGO IMAGE ==================== */
+.logo-img {
+  height: 42px;
+  width: auto;
+  object-fit: contain;
+  filter: drop-shadow(0 0 12px rgba(0, 255, 136, 0.4));
+  transition: all 0.3s ease;
+}
+
+.logo:hover .logo-img, 
+a.logo:hover .logo-img {
+  filter: drop-shadow(0 0 20px rgba(0, 255, 136, 0.7));
+  transform: scale(1.05);
+}
+
+.lang-logo-img {
+  height: 80px;
+  width: auto;
+  object-fit: contain;
+  filter: drop-shadow(0 0 20px rgba(0, 255, 136, 0.5));
+  margin-bottom: 10px;
+}
