@@ -268,6 +268,7 @@ window.addToCart = (id) => {
     const b = database.find(x => x.id === id);
     if(!cart.find(item => item.id === id)) cart.push(b);
     updateCart();
+    saveCart();
     document.getElementById('cartModal').classList.add('active');
 };
 
@@ -303,9 +304,13 @@ function updateCart() {
 
 window.remove = (i) => { cart.splice(i, 1); updateCart(); saveCart(); };
 window.checkout = () => {
-    const list = cart.map(b => b.title).join(', ');
-    window.open(`https://wa.me/221777694864?text=Salut Kaiju ! Je veux commander : ${list}`);
+    saveCart();
+    window.location.href = 'checkout.html';
 };
+
+function saveCart() {
+    localStorage.setItem('kaijuCart', JSON.stringify(cart));
+}
 
 // Gestion des ouvertures/fermetures
 document.getElementById('socialsBtn').onclick = () => document.getElementById('socialsModal').classList.add('active');
