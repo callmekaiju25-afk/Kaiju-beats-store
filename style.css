@@ -2550,12 +2550,14 @@ body {
 }
 
 .logo-img {
-  height: 70px;
+  height: 90px;
   width: auto;
   object-fit: contain;
   animation: logo-glow-pulse 2.5s ease-in-out infinite, logo-float 3s ease-in-out infinite;
   position: relative;
   z-index: 2;
+  mix-blend-mode: screen;
+  background: transparent;
 }
 
 .logo-wrapper::before {
@@ -2595,7 +2597,7 @@ a.logo:hover .logo-img {
 
 /* Lang modal logo */
 .lang-logo-img {
-  height: 120px;
+  height: 160px;
   width: auto;
   object-fit: contain;
   animation: logo-glow-pulse 2.5s ease-in-out infinite, logo-float 3s ease-in-out infinite;
