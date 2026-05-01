@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>KAIJU BEATS | Send Beats</title>
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="style.css?v=11.0">
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
+    <style>
+        .send-page { min-height: 100vh; display: flex; align-items: center; justify-content: center; padding: 20px; }
+        .send-card { background: var(--card); border: 1px solid var(--border-light); border-radius: 24px; padding: 50px 40px; max-width: 560px; width: 100%; text-align: center; }
+        .send-card h1 { font-family: 'Orbitron', sans-serif; font-size: 1.1rem; font-weight: 900; letter-spacing: 3px; color: var(--primary); margin-bottom: 8px; }
+        .send-card p { font-family: 'Space Mono', monospace; font-size: 0.78rem; color: #888; line-height: 1.8; margin-bottom: 24px; }
+        .order-info { background: rgba(0,255,136,0.04); border: 1px solid rgba(0,255,136,0.15); border-radius: 14px; padding: 20px; margin-bottom: 28px; text-align: left; }
+        .info-row { display: flex; justify-content: space-between; padding: 8px 0; border-bottom: 1px solid rgba(255,255,255,0.04); font-family: 'Space Mono', monospace; font-size: 0.72rem; }
+        .info-row:last-child { border-bottom: none; }
+        .info-row span:first-child { color: #666; }
+        .info-row span:last-child { color: #fff; font-weight: bold; }
+        .beats-list { text-align: left; margin-bottom: 28px; }
+        .beat-row { display: flex; align-items: center; gap: 10px; padding: 10px 0; border-bottom: 1px solid rgba(255,255,255,0.04); font-family: 'Space Mono', monospace; font-size: 0.72rem; color: #aaa; }
+        .beat-row i { color: var(--primary); }
+        .send-btn { width: 100%; padding: 18px; background: var(--primary); border: none; border-radius: 14px; color: black; font-family: 'Orbitron', sans-serif; font-weight: 900; font-size: 0.9rem; letter-spacing: 3px; cursor: pointer; transition: all 0.3s; display: flex; align-items: center; justify-content: center; gap: 12px; }
+        .send-btn:hover { box-shadow: 0 0 30px rgba(0,255,136,0.5); transform: translateY(-2px); }
+        .send-btn:disabled { opacity: 0.5; cursor: not-allowed; transform: none; }
+        .status-msg { font-family: 'Space Mono', monospace; font-size: 0.78rem; margin-top: 16px; padding: 14px; border-radius: 10px; display: none; }
+        .status-msg.success { background: rgba(0,255,136,0.08); border: 1px solid rgba(0,255,136,0.2); color: var(--primary); }
+        .status-msg.error { background: rgba(255,68,68,0.08); border: 1px solid rgba(255,68,68,0.2); color: #ff4444; }
+        .invalid-page { text-align: center; padding: 60px 20px; }
+        .invalid-page i { font-size: 3rem; color: #333; display: block; margin-bottom: 20px; }
+        .invalid-page h2 { font-family: 'Orbitron', sans-serif; color: #555; letter-spacing: 3px; font-size: 1rem; }
+    </style>
+</head>
+<body>
+    <div class="bg-glow"></div>
+    <div class="grid-overlay"></div>
+
+    <nav class="navbar">
+        <div class="container nav-content">
+            <a href="index.html" class="logo" style="text-decoration:none">
+                <span class="logo-main">KAIJU</span><span class="logo-accent">BEATS</span>
+                <div class="logo-underline"></div>
+            </a>
+        </div>
+    </nav>
+
+    <main class="send-page container" id="mainContent">
+        <!-- Filled by JS -->
+    </main>
+
+    <script>
+    const EMAILJS_PUBLIC_KEY  = '7E6XV-vYEiZ0_WpyD';
+    const EMAILJS_SERVICE_ID  = 'service_j2kw8w9';
+    const EMAILJS_TEMPLATE_FR = 'template_rbznd3c';
+    const EMAILJS_TEMPLATE_EN = 'template_ekgt4yq';
+
+    emailjs.init({ publicKey: EMAILJS_PUBLIC_KEY });
+
+    // Parse URL params
+    const params = new URLSearchParams(window.location.search);
+    const raw = params.get('d');
+
+    if (!raw) {
+        document.getElementById('mainContent').innerHTML = `
+            <div class="invalid-page">
+                <i class="fas fa-exclamation-triangle"></i>
+                <h2>LIEN INVALIDE</h2>
+            </div>`;
+    } else {
+        try {
+            const data = JSON.parse(decodeURIComponent(raw));
+            const { customer_name, customer_email, download_links, total, lang } = data;
+
+            const beats = download_links.split('\n').filter(l => l.trim());
+            let beatsHTML = '';
+            beats.forEach(line => {
+                if (line.startsWith('🎵')) {
+                    beatsHTML += `<div class="beat-row"><i class="fas fa-music"></i> ${line.replace('🎵 ', '')}</div>`;
+                }
+            });
+
+            document.getElementById('mainContent').innerHTML = `
+                <div class="send-card">
+                    <h1>🎵 ENVOYER LES BEATS</h1>
+                    <p>Vérifie les infos ci-dessous puis clique le bouton pour envoyer les beats au client.</p>
+
+                    <div class="order-info">
+                        <div class="info-row"><span>CLIENT</span><span>${customer_name}</span></div>
+                        <div class="info-row"><span>EMAIL</span><span>${customer_email}</span></div>
+                        <div class="info-row"><span>TOTAL</span><span>${total}€</span></div>
+                    </div>
+
+                    <div class="beats-list">${beatsHTML}</div>
+
+                    <button class="send-btn" id="sendBtn">
+                        <i class="fas fa-paper-plane"></i> ENVOYER LES BEATS
+                    </button>
+                    <div class="status-msg" id="statusMsg"></div>
+                </div>
+            `;
+
+            document.getElementById('sendBtn').onclick = () => {
+                const btn = document.getElementById('sendBtn');
+                btn.disabled = true;
+                btn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Envoi en cours...';
+
+                emailjs.send(
+                    EMAILJS_SERVICE_ID,
+                    lang === 'fr' ? EMAILJS_TEMPLATE_FR : EMAILJS_TEMPLATE_EN,
+                    { customer_name, customer_email, download_links, total }
+                ).then(() => {
+                    const msg = document.getElementById('statusMsg');
+                    msg.className = 'status-msg success';
+                    msg.textContent = '✅ Beats envoyés avec succès à ' + customer_email + ' !';
+                    msg.style.display = 'block';
+                    btn.innerHTML = '<i class="fas fa-check"></i> ENVOYÉ !';
+                }).catch(err => {
+                    const msg = document.getElementById('statusMsg');
+                    msg.className = 'status-msg error';
+                    msg.textContent = '❌ Erreur : ' + err.text;
+                    msg.style.display = 'block';
+                    btn.disabled = false;
+                    btn.innerHTML = '<i class="fas fa-paper-plane"></i> RÉESSAYER';
+                });
+            };
+
+        } catch(e) {
+            document.getElementById('mainContent').innerHTML = `
+                <div class="invalid-page">
+                    <i class="fas fa-exclamation-triangle"></i>
+                    <h2>LIEN INVALIDE</h2>
+                </div>`;
+        }
+    }
+    </script>
+</body>
+</html>
