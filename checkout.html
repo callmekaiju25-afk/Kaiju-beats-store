@@ -273,39 +273,68 @@
     function initPayPal() {
         const total = calcTotal(cart);
         const paypalUrl = `${PAYPALME_LINK}/${total}EUR`;
+        const isFr = lang === 'fr';
+
         document.getElementById('paypal-button-container').innerHTML = `
-            <button class="paypalme-btn" id="paypalMeBtn">
-                <img src="https://www.paypalobjects.com/webstatic/mktg/Logo/pp-logo-100px.png" alt="PayPal" style="height:22px; vertical-align:middle; margin-right:10px;">
-                <span id="payBtnLabel">PAYER ${total}€ VIA PAYPAL</span>
-            </button>
-            <p style="font-size:0.65rem; color:#555; font-family:'Space Mono',monospace; text-align:center; margin-top:12px; line-height:1.6;" id="payNote">
-                🔒 Paiement sécurisé via PayPal — Après paiement clique sur "J'ai payé" pour recevoir tes beats.
-            </p>
-            <button class="paid-btn" id="paidBtn" style="display:none;">
-                <i class="fas fa-check"></i> <span id="paidBtnLabel">J'AI PAYÉ — RECEVOIR MES BEATS</span>
-            </button>
+            <!-- STEP 1: Pay button -->
+            <div id="step1">
+                <button class="paypalme-btn" id="paypalMeBtn">
+                    <img src="https://www.paypalobjects.com/webstatic/mktg/Logo/pp-logo-100px.png" alt="PayPal" style="height:22px; vertical-align:middle; margin-right:10px;">
+                    <span>${isFr ? `PAYER ${total}€ VIA PAYPAL` : `PAY ${total}€ VIA PAYPAL`}</span>
+                </button>
+                <p style="font-size:0.65rem; color:#555; font-family:'Space Mono',monospace; text-align:center; margin-top:10px; line-height:1.6;">
+                    🔒 ${isFr ? 'Paiement sécurisé via PayPal' : 'Secure payment via PayPal'}
+                </p>
+            </div>
+
+            <!-- STEP 2: Transaction ID (shown after clicking PayPal) -->
+            <div id="step2" style="display:none; margin-top:16px;">
+                <div style="background:rgba(0,255,136,0.05); border:1px solid rgba(0,255,136,0.2); border-radius:12px; padding:20px;">
+                    <p style="font-size:0.72rem; color:#00ff88; font-family:'Orbitron',sans-serif; letter-spacing:2px; margin-bottom:12px;">
+                        ${isFr ? '✅ PAIEMENT EFFECTUÉ ?' : '✅ PAYMENT DONE?'}
+                    </p>
+                    <p style="font-size:0.68rem; color:#888; font-family:'Space Mono',monospace; line-height:1.7; margin-bottom:14px;">
+                        ${isFr
+                            ? 'Sur PayPal, copie ton <strong style="color:#fff">numéro de transaction</strong> (ex: <span style="color:#00ff88">4XY12345AB678</span>) et colle-le ci-dessous.'
+                            : 'On PayPal, copy your <strong style="color:#fff">transaction ID</strong> (e.g. <span style="color:#00ff88">4XY12345AB678</span>) and paste it below.'
+                        }
+                    </p>
+                    <input type="text" id="transactionId" placeholder="${isFr ? 'Numéro de transaction PayPal...' : 'PayPal transaction ID...'}"
+                        style="width:100%; background:rgba(0,255,136,0.03); border:1px solid rgba(0,255,136,0.3); border-radius:10px; padding:13px 16px; color:#fff; font-family:'Space Mono',monospace; font-size:0.8rem; outline:none; box-sizing:border-box; margin-bottom:12px; transition:all 0.3s;">
+                    <button class="paid-btn" id="confirmBtn">
+                        <i class="fas fa-check-circle"></i>
+                        <span>${isFr ? 'CONFIRMER ET RECEVOIR MES BEATS' : 'CONFIRM AND RECEIVE MY BEATS'}</span>
+                    </button>
+                    <p id="txError" style="display:none; font-size:0.65rem; color:#ff4444; font-family:'Space Mono',monospace; text-align:center; margin-top:8px;">
+                        ${isFr ? '⚠️ Entre ton numéro de transaction pour continuer.' : '⚠️ Please enter your transaction ID to continue.'}
+                    </p>
+                </div>
+            </div>
         `;
 
+        // Step 1: Open PayPal → show step 2
         document.getElementById('paypalMeBtn').onclick = () => {
             const name = document.getElementById('custName').value.trim();
             const email = document.getElementById('custEmail').value.trim();
             if (!name) { alert(tx.errorName); return; }
             if (!email || !email.includes('@')) { alert(tx.errorEmail); return; }
             window.open(paypalUrl, '_blank');
-            // Show "J'ai payé" button after opening PayPal
             setTimeout(() => {
-                document.getElementById('paidBtn').style.display = 'flex';
-                if (lang === 'en') {
-                    document.getElementById('payBtnLabel').textContent = `PAY ${total}€ VIA PAYPAL`;
-                    document.getElementById('payNote').textContent = '🔒 Secure payment via PayPal — After payment click "I have paid" to receive your beats.';
-                    document.getElementById('paidBtnLabel').textContent = 'I HAVE PAID — RECEIVE MY BEATS';
-                }
+                document.getElementById('step2').style.display = 'block';
+                document.getElementById('transactionId').focus();
             }, 1500);
         };
 
+        // Step 2: Confirm transaction ID → send email + notify WhatsApp
         document.getElementById('paypal-button-container').addEventListener('click', (e) => {
-            if (e.target.closest('#paidBtn')) {
-                sendEmail();
+            if (e.target.closest('#confirmBtn')) {
+                const txId = document.getElementById('transactionId').value.trim();
+                if (!txId || txId.length < 6) {
+                    document.getElementById('txError').style.display = 'block';
+                    return;
+                }
+                document.getElementById('txError').style.display = 'none';
+                sendEmail(txId);
             }
         });
     }
@@ -313,7 +342,7 @@
     // Init EmailJS v4
     emailjs.init({ publicKey: EMAILJS_PUBLIC_KEY });
 
-    function sendEmail() {
+    function sendEmail(txId = "") {
         const name  = document.getElementById('custName').value.trim();
         const email = document.getElementById('custEmail').value.trim();
         const total = calcTotal(cart);
@@ -333,6 +362,10 @@
             total:          total,
         }).then(() => {
             localStorage.removeItem('kaijuCart');
+            // Notify Kaiju on WhatsApp with transaction ID
+            const beatList = cart.map(b => b.title).join(', ');
+            const waMsg = encodeURIComponent(`💰 Nouvelle commande !\nClient: ${name}\nEmail: ${email}\nBeats: ${beatList}\nTotal: ${total}€\nTransaction PayPal: ${txId}`);
+            window.open(`https://wa.me/221777694864?text=${waMsg}`, '_blank');
             document.getElementById('successOverlay').classList.add('show');
         }).catch(err => {
             console.error('EmailJS error:', err);
