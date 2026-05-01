@@ -101,9 +101,9 @@ const readmeContent = {
 
 window.setLang = (lang) => {
     currentLang = lang;
-    localStorage.setItem('kaijuLang', lang);
     const modal = document.getElementById('langModal');
     modal.classList.add('hidden');
+    // Mettre à jour le label du bouton README
     document.getElementById('readmeBtnLabel').textContent = lang === 'fr' ? 'LIS MOI' : 'READ ME';
     applyTranslations(lang);
 };
@@ -425,3 +425,118 @@ window.setLang = (lang) => {
   document.getElementById('shuffleBtnLabel') && (document.getElementById('shuffleBtnLabel').textContent = ex.shuffleLabel);
   document.getElementById('testimonialsSubtitle') && (document.getElementById('testimonialsSubtitle').textContent = ex.testimonialsSubtitle);
 };
+// ==================== PREMIUM UPGRADES ====================
+
+// Custom cursor
+const cursor = document.getElementById('cursor');
+const cursorRing = document.getElementById('cursorRing');
+
+if (cursor && cursorRing) {
+    let mouseX = 0, mouseY = 0;
+    let ringX = 0, ringY = 0;
+
+    document.addEventListener('mousemove', (e) => {
+        mouseX = e.clientX;
+        mouseY = e.clientY;
+        cursor.style.left = mouseX + 'px';
+        cursor.style.top = mouseY + 'px';
+    });
+
+    // Smooth ring follow
+    function animateRing() {
+        ringX += (mouseX - ringX) * 0.12;
+        ringY += (mouseY - ringY) * 0.12;
+        cursorRing.style.left = ringX + 'px';
+        cursorRing.style.top = ringY + 'px';
+        requestAnimationFrame(animateRing);
+    }
+    animateRing();
+
+    // Hover effects on interactive elements
+    const hoverEls = document.querySelectorAll('button, a, .beat-card, .nav-link-btn, .cart-trigger, .lang-btn, .custom-select-btn, input, select');
+    hoverEls.forEach(el => {
+        el.addEventListener('mouseenter', () => {
+            cursor.classList.add('hover');
+            cursorRing.classList.add('hover');
+        });
+        el.addEventListener('mouseleave', () => {
+            cursor.classList.remove('hover');
+            cursorRing.classList.remove('hover');
+        });
+    });
+}
+
+// Scroll reveal
+const revealEls = document.querySelectorAll('.reveal, .reveal-left, .reveal-right');
+const revealObserver = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+        if (entry.isIntersecting) {
+            entry.target.classList.add('visible');
+        }
+    });
+}, { threshold: 0.1 });
+
+revealEls.forEach(el => revealObserver.observe(el));
+
+// Beat cards animated entry on scroll
+const cardObserver = new IntersectionObserver((entries) => {
+    entries.forEach((entry, i) => {
+        if (entry.isIntersecting) {
+            setTimeout(() => {
+                entry.target.classList.add('animated');
+            }, i * 60);
+            cardObserver.unobserve(entry.target);
+        }
+    });
+}, { threshold: 0.05 });
+
+function observeCards() {
+    document.querySelectorAll('.beat-card').forEach(card => {
+        cardObserver.observe(card);
+    });
+    // Also add hover cursor effect to new cards
+    if (cursor) {
+        document.querySelectorAll('.beat-card').forEach(card => {
+            card.addEventListener('mouseenter', () => { cursor.classList.add('hover'); cursorRing.classList.add('hover'); });
+            card.addEventListener('mouseleave', () => { cursor.classList.remove('hover'); cursorRing.classList.remove('hover'); });
+        });
+    }
+}
+
+// Override render to add waveform + genre badge + scroll animation
+const _origRender = window.render || function(){};
+const origRenderFn = render;
+
+function render(data = database) {
+    const t = translations[currentLang];
+    const grid = document.getElementById('beatsGrid');
+    grid.innerHTML = data.map(b => `
+        <div class="beat-card">
+            <div class="img-box">
+                <img src="${b.cover}" loading="lazy">
+                <button class="overlay-play" onclick="playBeat(${b.id})"><i class="fas fa-play"></i></button>
+            </div>
+            <div class="beat-meta">
+                <div class="waveform">
+                    <div class="wave-bar"></div><div class="wave-bar"></div><div class="wave-bar"></div>
+                    <div class="wave-bar"></div><div class="wave-bar"></div><div class="wave-bar"></div>
+                    <div class="wave-bar"></div>
+                </div>
+                <h3>${b.title}</h3>
+                <div class="genre-badge">${b.genre.toUpperCase()}</div>
+                <button class="buy-btn" onclick="addToCart(${b.id})">${t.addToCart}</button>
+            </div>
+        </div>
+    `).join('');
+    setTimeout(observeCards, 50);
+}
+
+// Re-render with upgrades
+render();
+
+// Navbar scroll effect
+window.addEventListener('scroll', () => {
+    const navbar = document.querySelector('.navbar');
+    if (window.scrollY > 50) navbar.classList.add('scrolled');
+    else navbar.classList.remove('scrolled');
+});

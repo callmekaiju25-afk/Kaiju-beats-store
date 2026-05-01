@@ -9,14 +9,16 @@
     <link rel="stylesheet" href="style.css?v=11.0">
 </head>
 <body>
+    <!-- CURSEUR CUSTOM -->
+    <div class="cursor" id="cursor"></div>
+    <div class="cursor-ring" id="cursorRing"></div>
+
     <!-- MODALE CHOIX DE LANGUE -->
     <div id="langModal" class="lang-modal">
         <div class="lang-backdrop"></div>
         <div class="lang-card">
             <div class="lang-logo">
-                <div class="logo-wrapper">
-                    <img src="Logo.PNG" alt="KAIJU BEATS" class="lang-logo-img">
-                </div>
+                <span class="logo-main">KAIJU</span><span class="logo-accent">BEATS</span>
             </div>
             <div class="lang-title">
                 <span class="lang-line en-line">CHOOSE YOUR LANGUAGE</span>
@@ -67,9 +69,7 @@
     <nav class="navbar">
         <div class="container nav-content">
             <div class="logo">
-                <div class="logo-wrapper">
-                    <img src="Logo.PNG" alt="KAIJU BEATS" class="logo-img">
-                </div>
+                <span class="logo-main">KAIJU</span><span class="logo-accent">BEATS</span>
                 <div class="logo-underline"></div>
             </div>
             <div class="nav-right">
@@ -99,6 +99,25 @@
             <i class="fas fa-fire"></i>
             <span>2 BEATS ACHETÉS = LE 3ÈME OFFERT (AUTO-APPLIQUÉ)</span>
             <i class="fas fa-fire"></i>
+        </div>
+    </div>
+
+    <div class="hero-stats">
+        <div class="stat-item reveal">
+            <span class="stat-number" id="statBeats">24</span>
+            <span class="stat-label">BEATS</span>
+        </div>
+        <div class="stat-item reveal">
+            <span class="stat-number">39<span style="font-size:1rem">€</span></span>
+            <span class="stat-label">PAR BEAT</span>
+        </div>
+        <div class="stat-item reveal">
+            <span class="stat-number">2+1</span>
+            <span class="stat-label">OFFRE SPÉCIALE</span>
+        </div>
+        <div class="stat-item reveal">
+            <span class="stat-number">24/7</span>
+            <span class="stat-label">DISPONIBLE</span>
         </div>
     </div>
 
