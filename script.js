@@ -21,6 +21,7 @@ const database = [
     { id: 21, title: "Illusion", genre: "afro", cover: "assets/IMAGE/Illusion.png", audio: "assets/MP3/Illusion.mp3" },
     { id: 22, title: "ZURA", genre: "afro", cover: "assets/IMAGE/ZURA.png", audio: "assets/MP3/Zura.mp3" },
     { id: 23, title: "ANUBIS", genre: "trap", cover: "assets/IMAGE/Anubis.png", audio: "assets/MP3/Anubis.mp3" },
+    { id: 24, title: "Brooklyn 1964", genre: "trap", cover: "assets/IMAGE/Brooklyn1964.png", audio: "assets/MP3/Brooklyn1964.mp3" },
    
 
 ];
@@ -35,7 +36,7 @@ const translations = {
         cartSub: "Beats sélectionnés",
         cartEmpty: "Votre panier est vide.",
         promo: "OFFRE 2+1 APPLIQUÉE ✅",
-        checkout: "COMMANDER SUR WHATSAPP",
+        checkout: "PASSER LA COMMANDE",
         contactSub: "Contactez-moi pour vos projets",
         promoBar: "2 BEATS ACHETÉS = LE 3ÈME OFFERT (AUTO-APPLIQUÉ)",
         prodBy: "PROD BY KAIJU",
@@ -50,7 +51,7 @@ const translations = {
         cartSub: "Selected beats",
         cartEmpty: "Your cart is empty.",
         promo: "2+1 DEAL APPLIED ✅",
-        checkout: "ORDER ON WHATSAPP",
+        checkout: "PLACE ORDER",
         contactSub: "Contact me for your projects",
         promoBar: "BUY 2 BEATS = GET THE 3RD FREE (AUTO-APPLIED)",
         prodBy: "PROD BY KAIJU",
@@ -300,7 +301,7 @@ function updateCart() {
     }
 }
 
-window.remove = (i) => { cart.splice(i, 1); updateCart(); };
+window.remove = (i) => { cart.splice(i, 1); updateCart(); saveCart(); };
 window.checkout = () => {
     const list = cart.map(b => b.title).join(', ');
     window.open(`https://wa.me/221777694864?text=Salut Kaiju ! Je veux commander : ${list}`);
