@@ -58,6 +58,18 @@
     emailjs.init({ publicKey: EMAILJS_PUBLIC_KEY });
 
     // Parse URL params
+    // Password protection
+    const PASSWORD = 'Cheikhbane2003BEATS';
+    const entered = prompt('🔐 Accès réservé — Entrez le mot de passe :');
+    if (entered !== PASSWORD) {
+        document.getElementById('mainContent').innerHTML = `
+            <div class="invalid-page">
+                <i class="fas fa-lock"></i>
+                <h2>ACCÈS REFUSÉ</h2>
+            </div>`;
+        throw new Error('Wrong password');
+    }
+
     const params = new URLSearchParams(window.location.search);
     const raw = params.get('d');
 
