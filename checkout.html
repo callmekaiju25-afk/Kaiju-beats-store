@@ -7,7 +7,7 @@
     <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link rel="stylesheet" href="style.css?v=11.0">
-    <script src="https://cdn.emailjs.com/dist/email.min.js"></script>
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
     <style>
         .checkout-page { min-height: 100vh; padding: 120px 20px 100px; }
         .checkout-wrapper { max-width: 960px; margin: 0 auto; display: grid; grid-template-columns: 1fr 1fr; gap: 30px; }
@@ -310,6 +310,9 @@
         });
     }
 
+    // Init EmailJS v4
+    emailjs.init({ publicKey: EMAILJS_PUBLIC_KEY });
+
     function sendEmail() {
         const name  = document.getElementById('custName').value.trim();
         const email = document.getElementById('custEmail').value.trim();
@@ -323,20 +326,16 @@
             return `🎵 ${b.title}${tag}\n${link}`;
         }).join('\n\n');
 
-        emailjs.init(EMAILJS_PUBLIC_KEY);
         emailjs.send(EMAILJS_SERVICE_ID, lang === 'fr' ? EMAILJS_TEMPLATE_FR : EMAILJS_TEMPLATE_EN, {
             customer_name:  name,
             customer_email: email,
             download_links: downloadLinks,
             total:          total,
         }).then(() => {
-            // Clear cart
             localStorage.removeItem('kaijuCart');
-            // Show success
             document.getElementById('successOverlay').classList.add('show');
         }).catch(err => {
             console.error('EmailJS error:', err);
-            // Show success anyway — payment went through
             localStorage.removeItem('kaijuCart');
             document.getElementById('successOverlay').classList.add('show');
         });
