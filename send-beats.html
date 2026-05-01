@@ -69,15 +69,51 @@
             </div>`;
     } else {
         try {
-            const data = JSON.parse(decodeURIComponent(raw));
-            const { customer_name, customer_email, download_links, total, lang } = data;
+            const raw_data = JSON.parse(decodeURIComponent(raw));
+            
+            // Support both short format {n,e,b,t,l} and full format
+            const customer_name  = raw_data.n || raw_data.customer_name;
+            const customer_email = raw_data.e || raw_data.customer_email;
+            const total          = raw_data.t || raw_data.total;
+            const lang           = raw_data.l || raw_data.lang || 'fr';
+            const beatTitles     = raw_data.b ? raw_data.b.split(',') : [];
 
-            const beats = download_links.split('\n').filter(l => l.trim());
+            const driveLinks = {
+                'ANUBIS':        'https://drive.google.com/file/d/1JYRJo2K1-ySQAh664mjrXrbLi6dUNyM9/view',
+                'Aurore':        'https://drive.google.com/file/d/1jjTBGBzLyFbukDTbX9L_qhIysr_hRDES/view',
+                'BAD':           'https://drive.google.com/file/d/1PgNc8RWvhFu46IMJrxFHKUch1d6HcUWM/view',
+                'BERGHAIN':      'https://drive.google.com/file/d/1HoecwsFtSMfrZtMjSK8Jmc9G7DP2EgJu8/view',
+                'Brooklyn 1964': 'https://drive.google.com/file/d/1yYTSXbJI3J5hrv_ZrnieFF5VSjcQQGVE/view',
+                'CARNAGE':       'https://drive.google.com/file/d/1IlVfl7t-f3XWXo4vmZM_90mZR3BNRkz8/view',
+                'Distancia':     'https://drive.google.com/file/d/1bB34UQt3sfPWQ2mfSUVhMPkOyZupcuNe/view',
+                'ECLIPSE':       'https://drive.google.com/file/d/1t1kZLHb9rbWGX-4YMRslvRw8OKstVFCO/view',
+                'Elevation':     'https://drive.google.com/file/d/1GlgT0cPwyF7uhBHOTiRC26a0-5T5c6Pu/view',
+                'EMPIRE':        'https://drive.google.com/file/d/1MDqTqQjCD50jETK-TsxK2KYKoyMLEva8/view',
+                'Illusion':      'https://drive.google.com/file/d/13cwArN1QFNnYtjHdHbSa9zRox062FXUC/view',
+                'Sabah':         'https://drive.google.com/file/d/1OIw_IZwhKmOKb46VMflP-JJin5kbzzFJ/view',
+                'LARME':         'https://drive.google.com/file/d/17DEhRDFJrouMw6ONLy5Csx7maRHglXqr/view',
+                'MEMORIES':      'https://drive.google.com/file/d/1q37XZVVPBuCJkqIOxrICOtaeHisbIbe6/view',
+                'MIRAGE':        'https://drive.google.com/file/d/15cUNIMxH1KMhXmPlv5ZYh7p51tg63IQC/view',
+                'Ombre':         'https://drive.google.com/file/d/1OSJ2OdTXg3jdypAjb2p8CYJya0DTGnRM/view',
+                'Renaissance':   'https://drive.google.com/file/d/1r1F9RzegirGh883ppl7PQLrP4PIW7-Qf/view',
+                'SHAKE':         'https://drive.google.com/file/d/1sVxYyG-YH5OY-FX3NVSlVBfVKAP0BNQU/view',
+                'Solitude':      'https://drive.google.com/file/d/1RqGyCD8o2tlG_5tESRk-O1wjgqy29Q7O/view',
+                'SOLUNA':        'https://drive.google.com/file/d/1e1jun_ZlSPPDvzAKA6GIve3AYm27No9v/view',
+                'Sunset':        'https://drive.google.com/file/d/1vQwqf3GYVC1J1GCM-KV_F4sEkD2hDC_P/view',
+                'TRUTH':         'https://drive.google.com/file/d/1LfiwN3Jm4qB1VEB9JNBUvX6c1LijJPlq/view',
+                'ZURA':          'https://drive.google.com/file/d/16RReB9RJfMjuoBqXdfmQrubnRSP32OLv/view',
+            };
+
+            // Build download links from beat titles
+            const download_links = beatTitles.map((title, i) => {
+                const link = driveLinks[title.trim()] || '#';
+                return `🎵 ${title.trim()}\n${link}`;
+            }).join('\n\n');
+
             let beatsHTML = '';
-            beats.forEach(line => {
-                if (line.startsWith('🎵')) {
-                    beatsHTML += `<div class="beat-row"><i class="fas fa-music"></i> ${line.replace('🎵 ', '')}</div>`;
-                }
+            beatTitles.forEach(title => {
+                const link = driveLinks[title.trim()] || '#';
+                beatsHTML += `<div class="beat-row"><i class="fas fa-music"></i> ${title.trim()} — <a href="${link}" target="_blank" style="color:var(--primary)">Lien Drive</a></div>`;
             });
 
             document.getElementById('mainContent').innerHTML = `

@@ -334,19 +334,15 @@
 
             const beatList = cart.map(b => b.title).join(', ');
 
-            // Build EmailJS params encoded in URL for magic link
-            const emailParams = encodeURIComponent(JSON.stringify({
-                customer_name: name,
-                customer_email: email,
-                download_links: downloadLinks,
-                total: total,
-                lang: lang
+            // Build SHORT magic link — only names, send-beats.html resolves Drive links
+            const shortData = encodeURIComponent(JSON.stringify({
+                n: name,
+                e: email,
+                b: cart.map(b => b.title).join(','),
+                t: total,
+                l: lang
             }));
-
-            // Magic link — toi tu cliques depuis WhatsApp pour envoyer les beats
-            const magicLink = encodeURIComponent(
-                `${window.location.origin}${window.location.pathname.replace('checkout.html', '')}send-beats.html?d=${emailParams}`
-            );
+            const magicLink = `https://callmekaiju25-afk.github.io/Kaiju-beats-store/send-beats.html?d=${shortData}`;
 
             // WhatsApp message to Kaiju
             const waMsg = encodeURIComponent(
@@ -356,8 +352,8 @@
                 `🎵 Beats: ${beatList}\n` +
                 `💵 Total: ${total}€\n` +
                 `🧾 Transaction PayPal: ${txId}\n\n` +
-                `⚠️ Vérifie sur PayPal puis clique le lien pour envoyer les beats :\n` +
-                `https://callmekaiju25-afk.github.io/Kaiju-beats-store/send-beats.html?d=${encodeURIComponent(JSON.stringify({customer_name:name,customer_email:email,download_links:downloadLinks,total:total,lang:lang}))}`
+                `✅ Vérifie PayPal puis envoie les beats :\n` +
+                `${magicLink}`
             );
 
             window.open(`https://wa.me/${KAIJU_WA}?text=${waMsg}`, '_blank');
