@@ -1324,7 +1324,7 @@ body {
   bottom: 0; 
   left: 0; 
   width: 100%; 
-  background: rgba(5, 5, 5, 0.15);
+  background: rgba(5, 5, 5, 0.08);
   border-top: 1px solid rgba(0, 255, 136, 0.25); 
   padding: 16px 0; 
   z-index: 1500; 
@@ -1332,8 +1332,8 @@ body {
   box-shadow: 
     0 -8px 40px rgba(0, 0, 0, 0.2),
     0 -1px 0 rgba(0, 255, 136, 0.2);
-  backdrop-filter: blur(60px) saturate(180%) brightness(0.85);
-  -webkit-backdrop-filter: blur(60px) saturate(180%) brightness(0.85);
+  backdrop-filter: blur(80px) saturate(160%) brightness(0.8);
+  -webkit-backdrop-filter: blur(80px) saturate(160%) brightness(0.8);
 }
 
 .player-progress-bar {
@@ -2918,4 +2918,130 @@ body::after {
 .lang-logo-text .logo-accent {
   font-size: 2.2rem;
   letter-spacing: 5px;
+}
+/* ==================== YOUTUBE POPUP ==================== */
+#ytPopup {
+  position: fixed;
+  inset: 0;
+  z-index: 99999;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+}
+
+.yt-popup-overlay {
+  position: absolute;
+  inset: 0;
+  background: rgba(0,0,0,0.85);
+  backdrop-filter: blur(10px);
+}
+
+.yt-popup-card {
+  position: relative;
+  background: #0d0d0d;
+  border: 1px solid rgba(255,0,0,0.3);
+  border-radius: 24px;
+  padding: 44px 36px;
+  max-width: 420px;
+  width: 100%;
+  text-align: center;
+  animation: fadeInUp 0.4s ease;
+  box-shadow: 0 0 60px rgba(255,0,0,0.15), 0 20px 60px rgba(0,0,0,0.5);
+}
+
+.yt-popup-icon {
+  font-size: 3rem;
+  margin-bottom: 16px;
+  animation: bounce 1s ease infinite;
+}
+
+@keyframes bounce {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-8px); }
+}
+
+.yt-popup-title {
+  font-family: 'Orbitron', sans-serif;
+  font-size: 1rem;
+  font-weight: 900;
+  letter-spacing: 3px;
+  color: var(--primary);
+  margin-bottom: 14px;
+}
+
+.yt-popup-msg {
+  font-family: 'Space Mono', monospace;
+  font-size: 0.78rem;
+  color: #aaa;
+  line-height: 1.8;
+  margin-bottom: 28px;
+}
+
+.yt-popup-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  background: #FF0000;
+  color: white;
+  text-decoration: none;
+  font-family: 'Orbitron', sans-serif;
+  font-weight: 700;
+  font-size: 0.8rem;
+  letter-spacing: 2px;
+  padding: 14px 28px;
+  border-radius: 12px;
+  transition: all 0.3s ease;
+  margin-bottom: 16px;
+  display: flex;
+  justify-content: center;
+}
+
+.yt-popup-btn:hover {
+  background: #cc0000;
+  box-shadow: 0 0 25px rgba(255,0,0,0.5);
+  transform: translateY(-2px);
+}
+
+.yt-popup-btn .fab {
+  font-size: 1.1rem;
+}
+
+.yt-popup-close {
+  display: block;
+  width: 100%;
+  background: transparent;
+  border: 1px solid rgba(255,255,255,0.1);
+  color: #555;
+  font-family: 'Space Mono', monospace;
+  font-size: 0.7rem;
+  letter-spacing: 1px;
+  padding: 10px;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: all 0.3s;
+  margin-top: 8px;
+}
+
+.yt-popup-close:hover {
+  border-color: rgba(255,255,255,0.2);
+  color: #888;
+}
+
+/* Preview timer bar on player */
+.preview-bar {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  height: 2px;
+  background: #FF0000;
+  transition: width 0.1s linear;
+  opacity: 0.7;
+}
+
+/* Navbar scrolled effect */
+.navbar.scrolled {
+  background: rgba(5,5,5,0.97) !important;
+  border-bottom: 1px solid rgba(0,255,136,0.1) !important;
+  box-shadow: 0 4px 30px rgba(0,0,0,0.5) !important;
 }

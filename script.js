@@ -27,7 +27,8 @@ const database = [
     { id: 27, title: "NIGHT", genre: "afro", cover: "assets/IMAGE/NIGHT.png", audio: "assets/MP3/NIGHT.mp3" },
     { id: 28, title: "Heaven", genre: "afro", cover: "assets/IMAGE/Heaven.png", audio: "assets/MP3/Heaven.mp3" },
     { id: 29, title: "RANSOM", genre: "Drill", cover: "assets/IMAGE/Ransom.png", audio: "assets/MP3/Ransom.mp3" },
-    { id: 30, title: "Vulture", genre: "trap", cover: "assets/IMAGE/VULTURE.png", audio: "assets/MP3/vautour.mp3" }
+    { id: 30, title: "Vulture", genre: "trap", cover: "assets/IMAGE/VULTURE.png", audio: "assets/MP3/vautour.mp3" },
+    { id: 31, title: "Heart Break", genre: "Acoustic", cover: "assets/IMAGE/HEARTBREAK.png", audio: "assets/MP3/HeartBreak.mp3" }
     
 ];
 
