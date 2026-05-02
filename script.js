@@ -253,7 +253,7 @@ progressBar.oninput = (e) => {
 };
 
 const PREVIEW_LIMIT = 30;
-const YOUTUBE_URL = 'https://www.youtube.com/@Call_Me_Kaiju';
+const YOUTUBE_URL = 'https://www.youtube.com/@Call_Me_KaijuBeats';
 
 mainAudio.ontimeupdate = () => {
     if (!isNaN(mainAudio.duration)) {

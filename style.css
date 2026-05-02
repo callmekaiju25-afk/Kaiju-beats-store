@@ -2521,7 +2521,7 @@ body {
   border-radius: 50%;
   position: fixed;
   pointer-events: none;
-  z-index: 99999;
+  z-index: 999999;
   transition: transform 0.15s ease, width 0.2s ease, height 0.2s ease, opacity 0.2s ease;
   box-shadow: 0 0 15px var(--primary), 0 0 30px rgba(0,255,136,0.3);
   transform: translate(-50%, -50%);
@@ -2534,7 +2534,7 @@ body {
   border-radius: 50%;
   position: fixed;
   pointer-events: none;
-  z-index: 99998;
+  z-index: 999998;
   transform: translate(-50%, -50%);
   transition: transform 0.08s linear, width 0.2s ease, height 0.2s ease;
 }
