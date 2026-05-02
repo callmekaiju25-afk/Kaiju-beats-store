@@ -252,8 +252,19 @@ progressBar.oninput = (e) => {
     updateSliderGradient(progressBar, e.target.value);
 };
 
+const PREVIEW_LIMIT = 30;
+const YOUTUBE_URL = 'https://www.youtube.com/@Call_Me_Kaiju';
+
 mainAudio.ontimeupdate = () => {
     if (!isNaN(mainAudio.duration)) {
+        // Limite preview 30 secondes
+        if (mainAudio.currentTime >= PREVIEW_LIMIT) {
+            mainAudio.pause();
+            mainAudio.currentTime = 0;
+            pBtn.innerHTML = '<i class="fas fa-play"></i>';
+            showYoutubePopup();
+            return;
+        }
         const prog = (mainAudio.currentTime / mainAudio.duration) * 100;
         progressBar.value = prog;
         updateSliderGradient(progressBar, prog);
@@ -262,6 +273,33 @@ mainAudio.ontimeupdate = () => {
         document.getElementById('timeTotal').innerText = formatTime(mainAudio.duration);
     }
 };
+
+function showYoutubePopup() {
+    const existing = document.getElementById('ytPopup');
+    if (existing) existing.remove();
+    const lang = typeof currentLang !== 'undefined' ? currentLang : 'fr';
+    const isFr = lang === 'fr';
+    const popup = document.createElement('div');
+    popup.id = 'ytPopup';
+    popup.innerHTML = `
+        <div class="yt-popup-overlay" onclick="document.getElementById('ytPopup').remove()"></div>
+        <div class="yt-popup-card">
+            <div class="yt-popup-icon">🎵</div>
+            <h3 class="yt-popup-title">${isFr ? 'EXTRAIT TERMINÉ' : 'PREVIEW ENDED'}</h3>
+            <p class="yt-popup-msg">${isFr
+                ? 'Fais un tour sur ma chaîne YouTube pour écouter la version complète !'
+                : 'Check out my YouTube channel for the full version!'
+            }</p>
+            <a href="${YOUTUBE_URL}" target="_blank" class="yt-popup-btn">
+                <i class="fab fa-youtube"></i> ${isFr ? 'VOIR SUR YOUTUBE' : 'WATCH ON YOUTUBE'}
+            </a>
+            <button class="yt-popup-close" onclick="document.getElementById('ytPopup').remove()">
+                ${isFr ? 'Fermer' : 'Close'}
+            </button>
+        </div>
+    `;
+    document.body.appendChild(popup);
+}
 
 function formatTime(sec) {
     const m = Math.floor(sec / 60);
