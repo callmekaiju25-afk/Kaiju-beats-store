@@ -1,15 +1,18 @@
 :root { 
-  --primary: #00ff88; 
-  --primary-dark: #00cc6a;
-  --primary-glow: rgba(0, 255, 136, 0.3);
-  --bg: #050505; 
-  --card: #0d0d0d;
-  --card-hover: #111;
-  --border: #1a1a1a;
-  --border-light: #222;
-  --text-primary: #ffffff;
-  --text-secondary: #888;
-  --text-muted: #555;
+  --primary: #4ade80; 
+  --primary-dark: #22c55e;
+  --primary-light: #86efac;
+  --primary-bright: #dcfce7;
+  --primary-glow: rgba(74, 222, 128, 0.35);
+  --bg: #030f06; 
+  --bg-mid: #061a0c;
+  --card: rgba(10, 30, 15, 0.85);
+  --card-hover: rgba(15, 40, 20, 0.9);
+  --border: rgba(74, 222, 128, 0.12);
+  --border-light: rgba(74, 222, 128, 0.2);
+  --text-primary: #f0fdf4;
+  --text-secondary: #86efac;
+  --text-muted: #4ade80;
   --shadow-sm: 0 2px 8px rgba(0, 0, 0, 0.3);
   --shadow-md: 0 4px 16px rgba(0, 0, 0, 0.5);
   --shadow-lg: 0 8px 32px rgba(0, 0, 0, 0.7);
@@ -29,7 +32,7 @@ html {
 }
 
 body { 
-  background: var(--bg); 
+  background: linear-gradient(160deg, #030f06 0%, #061a0c 40%, #041208 70%, #020a04 100%); 
   color: var(--text-primary); 
   font-family: 'Space Mono', monospace; 
   overflow-x: hidden;
@@ -1324,8 +1327,8 @@ body {
   bottom: 0; 
   left: 0; 
   width: 100%; 
-  background: rgba(5, 5, 5, 0.08);
-  border-top: 1px solid rgba(0, 255, 136, 0.25); 
+  background: rgba(3, 15, 6, 0.7);
+  border-top: 1px solid rgba(74, 222, 128, 0.25); 
   padding: 16px 0; 
   z-index: 1500; 
   display: none;
@@ -2517,7 +2520,7 @@ body {
 .cursor {
   width: 12px;
   height: 12px;
-  background: var(--primary);
+  background: #4ade80;
   border-radius: 50%;
   position: fixed;
   pointer-events: none;
@@ -3044,4 +3047,178 @@ body::after {
   background: rgba(5,5,5,0.97) !important;
   border-bottom: 1px solid rgba(0,255,136,0.1) !important;
   box-shadow: 0 4px 30px rgba(0,0,0,0.5) !important;
+}
+/* ==================== ECLIPSE THEME UPGRADES ==================== */
+
+/* Smooth gradient background layers */
+body {
+  background: linear-gradient(160deg, #020c04 0%, #041208 30%, #061a0c 60%, #030e06 100%) !important;
+  background-attachment: fixed !important;
+}
+
+/* Eclipse glow orb - top center */
+.eclipse-orb {
+  position: fixed;
+  top: -200px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 600px;
+  height: 600px;
+  background: radial-gradient(circle, rgba(134,239,172,0.12) 0%, rgba(74,222,128,0.06) 40%, transparent 70%);
+  border-radius: 50%;
+  pointer-events: none;
+  z-index: 0;
+  animation: orb-pulse 6s ease-in-out infinite;
+}
+
+@keyframes orb-pulse {
+  0%, 100% { opacity: 0.7; transform: translateX(-50%) scale(1); }
+  50% { opacity: 1; transform: translateX(-50%) scale(1.1); }
+}
+
+/* Beat cards Eclipse style */
+.beat-card {
+  background: linear-gradient(145deg, rgba(6,22,11,0.95), rgba(3,12,6,0.9)) !important;
+  border: 1px solid rgba(74,222,128,0.15) !important;
+  box-shadow: 0 4px 20px rgba(0,0,0,0.4), inset 0 1px 0 rgba(134,239,172,0.05) !important;
+}
+
+.beat-card:hover {
+  border-color: rgba(74,222,128,0.4) !important;
+  box-shadow: 0 8px 40px rgba(0,0,0,0.5), 0 0 30px rgba(74,222,128,0.1), inset 0 1px 0 rgba(134,239,172,0.1) !important;
+}
+
+/* Buy button Eclipse */
+.buy-btn {
+  background: linear-gradient(135deg, rgba(74,222,128,0.15), rgba(34,197,94,0.1)) !important;
+  border: 1px solid rgba(74,222,128,0.3) !important;
+  color: #86efac !important;
+}
+
+.buy-btn:hover {
+  background: linear-gradient(135deg, #4ade80, #22c55e) !important;
+  color: #020c04 !important;
+  box-shadow: 0 0 25px rgba(74,222,128,0.4) !important;
+}
+
+/* Catalog header */
+.catalog-header h1 {
+  background: linear-gradient(135deg, #f0fdf4 0%, #86efac 50%, #4ade80 100%) !important;
+  -webkit-background-clip: text !important;
+  -webkit-text-fill-color: transparent !important;
+  background-clip: text !important;
+}
+
+/* Filter bar Eclipse */
+#genreFilter {
+  background: rgba(6,22,11,0.8) !important;
+  border: 1px solid rgba(74,222,128,0.3) !important;
+  color: #86efac !important;
+}
+
+#genreFilter:hover {
+  border-color: rgba(74,222,128,0.6) !important;
+  box-shadow: 0 0 20px rgba(74,222,128,0.15) !important;
+}
+
+/* Search box Eclipse */
+.search-box {
+  background: rgba(6,22,11,0.8) !important;
+  border: 1px solid rgba(74,222,128,0.2) !important;
+}
+
+.search-box:focus-within {
+  border-color: rgba(74,222,128,0.5) !important;
+  box-shadow: 0 0 20px rgba(74,222,128,0.1) !important;
+}
+
+/* Shuffle btn Eclipse */
+.shuffle-btn {
+  background: rgba(6,22,11,0.8) !important;
+  border: 1px solid rgba(74,222,128,0.3) !important;
+  color: #86efac !important;
+}
+
+.shuffle-btn:hover, .shuffle-btn.active {
+  background: linear-gradient(135deg, #4ade80, #22c55e) !important;
+  color: #020c04 !important;
+  box-shadow: 0 0 25px rgba(74,222,128,0.4) !important;
+}
+
+/* Nav buttons Eclipse */
+.nav-link-btn {
+  border-color: rgba(74,222,128,0.25) !important;
+  color: #86efac !important;
+}
+
+.nav-link-btn:hover {
+  color: #020c04 !important;
+}
+
+.nav-link-btn .btn-bg {
+  background: linear-gradient(135deg, #4ade80, #22c55e) !important;
+}
+
+/* Cart button Eclipse */
+.cart-trigger {
+  background: linear-gradient(135deg, #4ade80, #22c55e) !important;
+  box-shadow: 0 0 20px rgba(74,222,128,0.3) !important;
+}
+
+/* Testimonials Eclipse */
+.testi-card {
+  background: linear-gradient(145deg, rgba(6,22,11,0.9), rgba(3,12,6,0.85)) !important;
+  border: 1px solid rgba(74,222,128,0.12) !important;
+}
+
+.testi-featured {
+  border-color: rgba(74,222,128,0.3) !important;
+  box-shadow: 0 0 30px rgba(74,222,128,0.08) !important;
+}
+
+.testi-avatar {
+  background: linear-gradient(135deg, #4ade80, #22c55e) !important;
+}
+
+/* Particles Eclipse */
+.particle {
+  background: radial-gradient(circle, rgba(134,239,172,0.6), transparent) !important;
+}
+
+/* Scrollbar Eclipse */
+::-webkit-scrollbar-thumb {
+  background: rgba(74,222,128,0.4) !important;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #4ade80 !important;
+}
+
+/* Selection Eclipse */
+::selection {
+  background: rgba(74,222,128,0.25) !important;
+  color: #f0fdf4 !important;
+}
+
+/* Waveform Eclipse */
+.wave-bar {
+  background: #4ade80 !important;
+  box-shadow: 0 0 8px rgba(74,222,128,0.7) !important;
+}
+
+/* Genre badge Eclipse */
+.genre-badge {
+  background: rgba(74,222,128,0.08) !important;
+  border-color: rgba(74,222,128,0.2) !important;
+  color: #86efac !important;
+}
+
+/* Cursor Eclipse */
+.cursor {
+  background: #4ade80 !important;
+  box-shadow: 0 0 15px #4ade80, 0 0 30px rgba(74,222,128,0.4) !important;
+}
+
+.cursor-ring {
+  border-color: rgba(74,222,128,0.5) !important;
 }
