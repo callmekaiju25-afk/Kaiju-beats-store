@@ -6,7 +6,7 @@
     <title>KAIJU BEATS | High-End Studio</title>
     <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <link rel="stylesheet" href="style.css?v=25.0">
+    <link rel="stylesheet" href="style.css?v=26.0">
 </head>
 <body>
     <!-- CURSEUR 8-BIT -->
@@ -69,6 +69,114 @@
     <div class="deco-line-h"></div>
     <div class="deco-cross"></div>
     <div class="grid-overlay"></div>
+
+    <!-- FEUILLES DE PALMIER style ZURA -->
+    <div class="palm-leaf-container left">
+      <svg viewBox="0 0 380 500" xmlns="http://www.w3.org/2000/svg" width="380" height="500">
+        <defs>
+          <linearGradient id="leafGrad1" x1="0%" y1="100%" x2="100%" y2="0%">
+            <stop offset="0%" style="stop-color:#0a1f0d;stop-opacity:1"/>
+            <stop offset="60%" style="stop-color:#1a3d1e;stop-opacity:1"/>
+            <stop offset="100%" style="stop-color:#2d5a30;stop-opacity:0.8"/>
+          </linearGradient>
+          <linearGradient id="leafGrad2" x1="0%" y1="100%" x2="100%" y2="0%">
+            <stop offset="0%" style="stop-color:#081508;stop-opacity:1"/>
+            <stop offset="70%" style="stop-color:#142d16;stop-opacity:0.9"/>
+            <stop offset="100%" style="stop-color:#1e4020;stop-opacity:0.7"/>
+          </linearGradient>
+          <linearGradient id="leafGrad3" x1="0%" y1="100%" x2="80%" y2="0%">
+            <stop offset="0%" style="stop-color:#0d1f0e;stop-opacity:1"/>
+            <stop offset="100%" style="stop-color:#2a4a2c;stop-opacity:0.75"/>
+          </linearGradient>
+        </defs>
+
+        <!-- Feuille principale grande - part du bas gauche vers haut droite -->
+        <g class="leaf-a">
+          <path d="M20 480 Q60 420 100 360 Q140 300 200 240 Q240 195 290 155 Q320 132 350 115
+                   Q340 118 325 128 Q300 145 270 168 Q225 200 185 248 Q140 305 100 368 Q65 428 35 490 Z"
+                fill="url(#leafGrad1)" opacity="0.95"/>
+          <!-- Nervures -->
+          <path d="M20 480 Q100 360 200 240 Q280 155 350 115" stroke="#1a3d1e" stroke-width="2.5" fill="none" opacity="0.6"/>
+          <path d="M60 450 Q130 360 210 270" stroke="#0f2410" stroke-width="1" fill="none" opacity="0.3"/>
+          <path d="M100 360 Q95 320 110 280" stroke="#0f2410" stroke-width="1" fill="none" opacity="0.25"/>
+          <path d="M150 310 Q148 275 160 240" stroke="#0f2410" stroke-width="1" fill="none" opacity="0.25"/>
+        </g>
+
+        <!-- Feuille deuxième - plus inclinée -->
+        <g class="leaf-b">
+          <path d="M-30 500 Q20 440 70 370 Q115 305 175 245 Q215 205 255 170 Q285 148 310 130
+                   Q298 135 280 150 Q250 172 215 210 Q170 255 128 315 Q80 382 38 448 Q10 482 -15 510 Z"
+                fill="url(#leafGrad2)" opacity="0.85"/>
+          <path d="M-30 500 Q70 370 175 245 Q255 170 310 130" stroke="#142d16" stroke-width="2" fill="none" opacity="0.5"/>
+        </g>
+
+        <!-- Feuille troisième - la plus basse -->
+        <g class="leaf-c">
+          <path d="M-10 500 Q40 460 85 410 Q130 358 180 305 Q220 262 265 222 Q295 200 325 180
+                   Q312 186 295 200 Q265 222 228 262 Q182 312 138 365 Q90 420 48 468 Q22 494 0 512 Z"
+                fill="url(#leafGrad3)" opacity="0.8"/>
+          <path d="M-10 500 Q85 410 180 305 Q265 222 325 180" stroke="#1e4020" stroke-width="1.5" fill="none" opacity="0.4"/>
+        </g>
+
+        <!-- Feuille fine derrière -->
+        <g class="leaf-d">
+          <path d="M50 500 Q90 450 135 395 Q175 345 225 295 Q260 258 300 225 Q325 207 348 192
+                   Q335 198 315 212 Q282 235 245 272 Q198 320 158 370 Q112 428 75 478 Q58 494 42 510 Z"
+                fill="url(#leafGrad1)" opacity="0.6"/>
+        </g>
+
+        <!-- Petite feuille avant -->
+        <g class="leaf-e">
+          <path d="M0 500 Q30 468 62 428 Q92 390 128 350 Q162 312 200 278 Q228 255 258 235
+                   Q245 242 225 260 Q195 285 162 322 Q126 362 95 400 Q62 442 32 478 Q15 496 0 512 Z"
+                fill="url(#leafGrad2)" opacity="0.9"/>
+          <path d="M0 500 Q62 428 128 350 Q200 278 258 235" stroke="#142d16" stroke-width="1.5" fill="none" opacity="0.35"/>
+        </g>
+      </svg>
+    </div>
+
+    <div class="palm-leaf-container right">
+      <svg viewBox="0 0 380 500" xmlns="http://www.w3.org/2000/svg" width="380" height="500">
+        <defs>
+          <linearGradient id="leafGradR1" x1="0%" y1="100%" x2="100%" y2="0%">
+            <stop offset="0%" style="stop-color:#0a1f0d;stop-opacity:1"/>
+            <stop offset="60%" style="stop-color:#1a3d1e;stop-opacity:1"/>
+            <stop offset="100%" style="stop-color:#2d5a30;stop-opacity:0.8"/>
+          </linearGradient>
+          <linearGradient id="leafGradR2" x1="0%" y1="100%" x2="100%" y2="0%">
+            <stop offset="0%" style="stop-color:#081508;stop-opacity:1"/>
+            <stop offset="70%" style="stop-color:#142d16;stop-opacity:0.9"/>
+            <stop offset="100%" style="stop-color:#1e4020;stop-opacity:0.7"/>
+          </linearGradient>
+        </defs>
+
+        <g class="leaf-a">
+          <path d="M20 480 Q60 420 100 360 Q140 300 200 240 Q240 195 290 155 Q320 132 350 115
+                   Q340 118 325 128 Q300 145 270 168 Q225 200 185 248 Q140 305 100 368 Q65 428 35 490 Z"
+                fill="url(#leafGradR1)" opacity="0.95"/>
+          <path d="M20 480 Q100 360 200 240 Q280 155 350 115" stroke="#1a3d1e" stroke-width="2.5" fill="none" opacity="0.6"/>
+        </g>
+
+        <g class="leaf-b">
+          <path d="M-30 500 Q20 440 70 370 Q115 305 175 245 Q215 205 255 170 Q285 148 310 130
+                   Q298 135 280 150 Q250 172 215 210 Q170 255 128 315 Q80 382 38 448 Q10 482 -15 510 Z"
+                fill="url(#leafGradR2)" opacity="0.85"/>
+          <path d="M-30 500 Q70 370 175 245 Q255 170 310 130" stroke="#142d16" stroke-width="2" fill="none" opacity="0.5"/>
+        </g>
+
+        <g class="leaf-c">
+          <path d="M-10 500 Q40 460 85 410 Q130 358 180 305 Q220 262 265 222 Q295 200 325 180
+                   Q312 186 295 200 Q265 222 228 262 Q182 312 138 365 Q90 420 48 468 Q22 494 0 512 Z"
+                fill="url(#leafGradR1)" opacity="0.75"/>
+        </g>
+
+        <g class="leaf-e">
+          <path d="M0 500 Q30 468 62 428 Q92 390 128 350 Q162 312 200 278 Q228 255 258 235
+                   Q245 242 225 260 Q195 285 162 322 Q126 362 95 400 Q62 442 32 478 Q15 496 0 512 Z"
+                fill="url(#leafGradR2)" opacity="0.9"/>
+        </g>
+      </svg>
+    </div>
     
     <!-- Particules flottantes -->
     <div class="particles">
