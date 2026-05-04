@@ -455,24 +455,39 @@ window.setLang = (lang) => {
 };
 // ==================== PREMIUM UPGRADES ====================
 
-// Curseur 8-bit
+// Curseur custom élégant
 const cur8 = document.getElementById('cursor8bit');
 const trail = document.getElementById('cursorTrail');
 
-if (cur8) {
+if (cur8 && trail) {
     let mx = 0, my = 0, tx = 0, ty = 0;
+
     document.addEventListener('mousemove', (e) => {
         mx = e.clientX; my = e.clientY;
         cur8.style.left = mx + 'px';
         cur8.style.top = my + 'px';
     });
+
     function trailAnim() {
-        tx += (mx - tx) * 0.15;
-        ty += (my - ty) * 0.15;
-        if (trail) { trail.style.left = tx + 'px'; trail.style.top = ty + 'px'; }
+        tx += (mx - tx) * 0.1;
+        ty += (my - ty) * 0.1;
+        trail.style.left = tx + 'px';
+        trail.style.top = ty + 'px';
         requestAnimationFrame(trailAnim);
     }
     trailAnim();
+
+    // Hover effect on interactive elements
+    document.querySelectorAll('button, a, input, .beat-card, .lang-btn').forEach(el => {
+        el.addEventListener('mouseenter', () => {
+            cur8.classList.add('hovering');
+            trail.classList.add('hovering');
+        });
+        el.addEventListener('mouseleave', () => {
+            cur8.classList.remove('hovering');
+            trail.classList.remove('hovering');
+        });
+    });
 }
 
 // Scroll reveal
