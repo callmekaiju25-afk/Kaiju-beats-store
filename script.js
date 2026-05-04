@@ -143,23 +143,7 @@ const pBtn = document.getElementById('pPlayPause');
 const progressBar = document.getElementById('pProgress');
 
 // 1. RENDU & FILTRES
-function render(data = database) {
-    const t = translations[currentLang];
-    const grid = document.getElementById('beatsGrid');
-    grid.innerHTML = data.map(b => `
-        <div class="beat-card">
-            <div class="img-box">
-                <img src="${b.cover}">
-                <button class="overlay-play" onclick="playBeat(${b.id})"><i class="fas fa-play"></i></button>
-            </div>
-            <div class="beat-meta">
-                <h3>${b.title}</h3>
-                <p style="font-size:0.7rem; color:#555;">${b.genre.toUpperCase()}</p>
-                <button class="buy-btn" onclick="addToCart(${b.id})">${t.addToCart}</button>
-            </div>
-        </div>
-    `).join('');
-}
+// render() defined below with upgrades
 
 function runFilters() {
     const s = document.getElementById('searchInput').value.toLowerCase();
@@ -471,43 +455,24 @@ window.setLang = (lang) => {
 };
 // ==================== PREMIUM UPGRADES ====================
 
-// Custom cursor
-const cursor = document.getElementById('cursor');
-const cursorRing = document.getElementById('cursorRing');
+// Curseur 8-bit
+const cur8 = document.getElementById('cursor8bit');
+const trail = document.getElementById('cursorTrail');
 
-if (cursor && cursorRing) {
-    let mouseX = 0, mouseY = 0;
-    let ringX = 0, ringY = 0;
-
+if (cur8) {
+    let mx = 0, my = 0, tx = 0, ty = 0;
     document.addEventListener('mousemove', (e) => {
-        mouseX = e.clientX;
-        mouseY = e.clientY;
-        cursor.style.left = mouseX + 'px';
-        cursor.style.top = mouseY + 'px';
+        mx = e.clientX; my = e.clientY;
+        cur8.style.left = mx + 'px';
+        cur8.style.top = my + 'px';
     });
-
-    // Smooth ring follow
-    function animateRing() {
-        ringX += (mouseX - ringX) * 0.12;
-        ringY += (mouseY - ringY) * 0.12;
-        cursorRing.style.left = ringX + 'px';
-        cursorRing.style.top = ringY + 'px';
-        requestAnimationFrame(animateRing);
+    function trailAnim() {
+        tx += (mx - tx) * 0.15;
+        ty += (my - ty) * 0.15;
+        if (trail) { trail.style.left = tx + 'px'; trail.style.top = ty + 'px'; }
+        requestAnimationFrame(trailAnim);
     }
-    animateRing();
-
-    // Hover effects on interactive elements
-    const hoverEls = document.querySelectorAll('button, a, .beat-card, .nav-link-btn, .cart-trigger, .lang-btn, .custom-select-btn, input, select');
-    hoverEls.forEach(el => {
-        el.addEventListener('mouseenter', () => {
-            cursor.classList.add('hover');
-            cursorRing.classList.add('hover');
-        });
-        el.addEventListener('mouseleave', () => {
-            cursor.classList.remove('hover');
-            cursorRing.classList.remove('hover');
-        });
-    });
+    trailAnim();
 }
 
 // Scroll reveal
@@ -547,10 +512,7 @@ function observeCards() {
     }
 }
 
-// Override render to add waveform + genre badge + scroll animation
-const _origRender = window.render || function(){};
-const origRenderFn = render;
-
+// Render with waveform + genre badge + scroll animation
 function render(data = database) {
     const t = translations[currentLang];
     const grid = document.getElementById('beatsGrid');
