@@ -3,361 +3,475 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>KAIJU BEATS | High-End Studio</title>
+    <title>KAIJU BEATS | Checkout</title>
     <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link rel="stylesheet" href="style.css?v=11.0">
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
+    <style>
+        /* ===== CHECKOUT UPGRADE ===== */
+        @keyframes fadeInUp { from { opacity:0; transform:translateY(30px); } to { opacity:1; transform:translateY(0); } }
+        @keyframes shimmer { 0% { left:-100%; } 100% { left:200%; } }
+        @keyframes pulse-border { 0%,100% { border-color:rgba(94,234,212,0.2); } 50% { border-color:rgba(94,234,212,0.5); } }
+
+        .checkout-page { min-height:100vh; padding:120px 20px 100px; }
+        .checkout-wrapper { max-width:980px; margin:0 auto; display:grid; grid-template-columns:1fr 1fr; gap:28px; }
+
+        /* Cards avec glow subtil */
+        .checkout-card {
+            background: linear-gradient(145deg, rgba(6,22,11,0.95), rgba(3,12,6,0.9));
+            border:1px solid rgba(74,222,128,0.15);
+            border-radius:22px;
+            padding:32px;
+            position:relative;
+            overflow:hidden;
+            transition:border-color 0.3s, box-shadow 0.3s;
+        }
+        .checkout-card::before {
+            content:'';
+            position:absolute;
+            top:0; left:0; right:0;
+            height:1px;
+            background:linear-gradient(90deg, transparent, rgba(94,234,212,0.4), transparent);
+        }
+        .checkout-card:hover { border-color:rgba(94,234,212,0.25); box-shadow:0 8px 40px rgba(0,0,0,0.4), 0 0 20px rgba(94,234,212,0.05); }
+        .checkout-card h2 { font-family:'Orbitron',sans-serif; font-size:0.82rem; font-weight:900; letter-spacing:3px; color:var(--primary); margin-bottom:26px; display:flex; align-items:center; gap:12px; }
+        .checkout-card h2 i { font-size:0.9rem; opacity:0.8; }
+
+        /* Formulaire upgrade */
+        .form-group { margin-bottom:20px; }
+        .form-group label { display:block; font-family:'Space Mono',monospace; font-size:0.62rem; letter-spacing:2.5px; color:#555; margin-bottom:10px; text-transform:uppercase; }
+        .form-group input {
+            width:100%;
+            background:rgba(3,13,8,0.6);
+            border:1px solid rgba(255,255,255,0.07);
+            border-radius:12px;
+            padding:15px 18px;
+            color:#fff;
+            font-family:'Space Mono',monospace;
+            font-size:0.85rem;
+            outline:none;
+            transition:all 0.3s ease;
+            box-sizing:border-box;
+        }
+        .form-group input:focus { border-color:var(--primary); box-shadow:0 0 0 3px rgba(94,234,212,0.08), 0 0 20px rgba(94,234,212,0.1); background:rgba(94,234,212,0.02); }
+        .form-group input::placeholder { color:#333; }
+
+        /* Recap items upgrade */
+        .checkout-right { display:flex; flex-direction:column; gap:24px; }
+        .recap-item { display:flex; align-items:center; gap:14px; padding:14px 0; border-bottom:1px solid rgba(255,255,255,0.04); transition:background 0.2s; border-radius:8px; }
+        .recap-item:last-child { border-bottom:none; }
+        .recap-item:hover { background:rgba(94,234,212,0.02); padding-left:6px; }
+        .recap-cover { width:50px; height:50px; border-radius:10px; object-fit:cover; flex-shrink:0; box-shadow:0 4px 15px rgba(0,0,0,0.4); }
+        .recap-info { flex:1; }
+        .recap-info h4 { font-family:'Orbitron',sans-serif; font-size:0.75rem; font-weight:700; color:#fff; margin-bottom:4px; }
+        .recap-info small { font-size:0.62rem; color:#444; letter-spacing:1px; }
+        .recap-price { font-family:'Orbitron',sans-serif; font-size:0.85rem; font-weight:700; color:var(--primary); white-space:nowrap; text-shadow:0 0 10px rgba(94,234,212,0.3); }
+        .recap-free { color:var(--primary); font-size:0.7rem; font-weight:700; letter-spacing:1px; animation:pulse-border 2s infinite; }
+
+        .total-section { border-top:1px solid rgba(94,234,212,0.15); padding-top:20px; margin-top:10px; }
+        .total-line { display:flex; justify-content:space-between; align-items:center; margin-bottom:8px; }
+        .total-line.main { margin-top:14px; }
+        .total-line.main span:first-child { font-family:'Orbitron',sans-serif; font-size:1rem; font-weight:900; color:#fff; letter-spacing:3px; }
+        .total-line.main span:last-child { font-family:'Orbitron',sans-serif; font-size:1.4rem; font-weight:900; color:var(--primary); text-shadow:0 0 25px rgba(94,234,212,0.5); }
+
+        .promo-line { background:rgba(94,234,212,0.07); border:1px solid rgba(94,234,212,0.2); border-radius:10px; padding:12px 16px; font-size:0.7rem; color:var(--primary); text-align:center; letter-spacing:1px; margin-bottom:12px; position:relative; overflow:hidden; }
+        .promo-line::after { content:''; position:absolute; top:0; left:-100%; width:40%; height:100%; background:linear-gradient(90deg,transparent,rgba(255,255,255,0.08),transparent); animation:shimmer 3s ease-in-out infinite; }
+
+        .back-btn { display:inline-flex; align-items:center; gap:10px; color:#444; font-family:'Space Mono',monospace; font-size:0.72rem; letter-spacing:2px; text-decoration:none; margin-bottom:32px; transition:all 0.3s; padding:10px 0; }
+        .back-btn:hover { color:var(--primary); gap:14px; }
+        .back-btn i { transition:transform 0.3s; }
+        .back-btn:hover i { transform:translateX(-4px); }
+
+        .empty-cart { text-align:center; padding:80px 20px; }
+        .empty-cart i { font-size:3.5rem; color:#222; margin-bottom:20px; display:block; }
+        .empty-cart h2 { font-family:'Orbitron',sans-serif; font-size:1rem; color:#333; letter-spacing:3px; }
+
+        /* Success overlay */
+        .success-overlay { display:none; position:fixed; inset:0; background:rgba(0,0,0,0.92); z-index:9999; align-items:center; justify-content:center; padding:20px; backdrop-filter:blur(10px); }
+        .success-overlay.show { display:flex; }
+        .success-card { background:linear-gradient(145deg,#061510,#081208); border:1px solid rgba(94,234,212,0.3); border-radius:24px; padding:50px 40px; text-align:center; max-width:480px; width:100%; animation:fadeInUp 0.5s ease; box-shadow:0 0 60px rgba(94,234,212,0.1); }
+        .success-icon { font-size:4rem; margin-bottom:20px; animation:bounce 1.5s ease infinite; }
+        @keyframes bounce { 0%,100%{transform:translateY(0)} 50%{transform:translateY(-8px)} }
+        .success-card h2 { font-family:'Orbitron',sans-serif; font-size:1.1rem; font-weight:900; letter-spacing:3px; color:var(--primary); margin-bottom:14px; }
+        .success-card p { font-family:'Space Mono',monospace; font-size:0.78rem; color:#888; line-height:1.9; }
+        .success-card .go-back { display:inline-block; margin-top:24px; padding:14px 32px; background:var(--primary); color:#020a05; font-family:'Orbitron',sans-serif; font-weight:700; font-size:0.8rem; letter-spacing:2px; border-radius:12px; text-decoration:none; transition:all 0.3s; }
+        .success-card .go-back:hover { box-shadow:0 0 30px rgba(94,234,212,0.6); transform:translateY(-2px); }
+
+        /* Payment buttons */
+        .paypalme-btn { width:100%; padding:17px; background:linear-gradient(135deg,#0e7490,#0c6480); border:none; border-radius:14px; color:white; font-family:'Orbitron',sans-serif; font-weight:700; font-size:0.8rem; letter-spacing:2px; cursor:pointer; transition:all 0.3s ease; display:flex; align-items:center; justify-content:center; gap:12px; position:relative; overflow:hidden; }
+        .paypalme-btn::after { content:''; position:absolute; top:0; left:-100%; width:40%; height:100%; background:linear-gradient(90deg,transparent,rgba(255,255,255,0.15),transparent); transition:left 0.5s; }
+        .paypalme-btn:hover::after { left:150%; }
+        .paypalme-btn:hover { transform:translateY(-2px); box-shadow:0 8px 30px rgba(14,116,144,0.4); }
+
+        .confirm-btn { width:100%; padding:17px; background:var(--primary); border:none; border-radius:14px; color:#020a05; font-family:'Orbitron',sans-serif; font-weight:900; font-size:0.82rem; letter-spacing:2px; cursor:pointer; transition:all 0.3s ease; display:flex; align-items:center; justify-content:center; gap:10px; margin-top:14px; position:relative; overflow:hidden; }
+        .confirm-btn::after { content:''; position:absolute; top:0; left:-100%; width:40%; height:100%; background:linear-gradient(90deg,transparent,rgba(255,255,255,0.2),transparent); transition:left 0.5s; }
+        .confirm-btn:hover::after { left:150%; }
+        .confirm-btn:hover { box-shadow:0 8px 30px rgba(94,234,212,0.5); transform:translateY(-2px); }
+
+        .tx-box { background:rgba(94,234,212,0.03); border:1px solid rgba(74,222,128,0.15); border-radius:16px; padding:22px; margin-top:18px; display:none; animation:fadeInUp 0.4s ease; }
+        .tx-label { font-family:'Orbitron',sans-serif; font-size:0.7rem; color:var(--primary); letter-spacing:2px; margin-bottom:10px; }
+        .tx-desc { font-family:'Space Mono',monospace; font-size:0.67rem; color:#666; line-height:1.8; margin-bottom:16px; }
+        .tx-input { width:100%; background:rgba(3,13,8,0.6); border:1px solid rgba(94,234,212,0.2); border-radius:12px; padding:14px 18px; color:#fff; font-family:'Space Mono',monospace; font-size:0.82rem; outline:none; box-sizing:border-box; margin-bottom:6px; transition:all 0.3s; letter-spacing:1px; }
+        .tx-input:focus { border-color:var(--primary); box-shadow:0 0 0 3px rgba(94,234,212,0.08); }
+        .tx-error { font-size:0.63rem; color:#ff4455; font-family:'Space Mono',monospace; margin:6px 0 0; display:none; }
+
+        .pending-box { background:rgba(255,200,0,0.04); border:1px solid rgba(255,200,0,0.15); border-radius:12px; padding:16px; margin-top:14px; display:none; animation:fadeInUp 0.4s ease; }
+        .pending-box p { font-family:'Space Mono',monospace; font-size:0.68rem; color:#ffcc00; line-height:1.8; }
+
+        @media (max-width:768px) { .checkout-wrapper { grid-template-columns:1fr; } .checkout-right { order:-1; } }
+        @media (max-width:480px) { .checkout-card { padding:22px; } }
+    </style>
 </head>
 <body>
     <!-- CURSEUR CUSTOM -->
     <div class="cursor" id="cursor"></div>
     <div class="cursor-ring" id="cursorRing"></div>
 
-    <!-- MODALE CHOIX DE LANGUE -->
-    <div id="langModal" class="lang-modal">
-        <div class="lang-backdrop"></div>
-        <div class="lang-card">
-            <div class="lang-logo">
-                <div class="logo-wrapper">
-                    <img src="Logo.PNG" alt="KAIJU BEATS" class="lang-logo-img">
-                </div>
-            </div>
-            <div class="lang-title">
-                <span class="lang-line en-line">CHOOSE YOUR LANGUAGE</span>
-                <div class="lang-divider"><span></span></div>
-                <span class="lang-line fr-line">CHOISIS TA LANGUE</span>
-            </div>
-            <div class="lang-options">
-                <button class="lang-btn" onclick="setLang('fr')">
-                    <div class="flag flag-fr">
-                        <span class="flag-stripe blue"></span>
-                        <span class="flag-stripe white"></span>
-                        <span class="flag-stripe red"></span>
-                    </div>
-                    <span class="lang-name">FRANÇAIS</span>
-                    <div class="lang-btn-glow"></div>
-                </button>
-                <button class="lang-btn" onclick="setLang('en')">
-                    <div class="flag flag-us">
-                        <div class="flag-us-inner">
-                            <div class="us-stripes">
-                                <span></span><span></span><span></span><span></span><span></span><span></span><span></span>
-                            </div>
-                            <div class="us-canton">
-                                <div class="us-stars">★ ★ ★<br>★ ★<br>★ ★ ★</div>
-                            </div>
-                        </div>
-                    </div>
-                    <span class="lang-name">ENGLISH</span>
-                    <div class="lang-btn-glow"></div>
-                </button>
-            </div>
-        </div>
-    </div>
-
-    <!-- Effets de fond animés -->
     <div class="bg-glow"></div>
     <div class="eclipse-orb"></div>
     <div class="grid-overlay"></div>
-    
-    <!-- Particules flottantes -->
-    <div class="particles">
-        <div class="particle"></div>
-        <div class="particle"></div>
-        <div class="particle"></div>
-        <div class="particle"></div>
-        <div class="particle"></div>
-    </div>
 
     <nav class="navbar">
         <div class="container nav-content">
-            <div class="logo">
+            <a href="index.html" class="logo" style="text-decoration:none">
                 <div class="logo-wrapper">
                     <img src="Logo.PNG" alt="KAIJU BEATS" class="logo-img">
                 </div>
                 <div class="logo-underline"></div>
-            </div>
-            <div class="nav-right">
-                <button class="nav-link-btn readme-btn" id="readmeBtn">
-                    <span id="readmeBtnLabel">LIS MOI</span>
-                    <div class="btn-bg"></div>
-                </button>
-                <button class="nav-link-btn socials-btn" id="socialsBtn">
-                    <span>SOCIALS</span>
-                    <div class="btn-bg"></div>
-                </button>
-                <button class="nav-link-btn" id="contactBtn">
-                    <span>CONTACT</span>
-                    <div class="btn-bg"></div>
-                </button>
-                <button class="cart-trigger" id="cartBtn">
-                    <i class="fas fa-shopping-bag"></i> 
-                    <span class="cart-badge" id="cartCount">0</span>
-                    <div class="ripple"></div>
-                </button>
-            </div>
+            </a>
         </div>
     </nav>
 
-    <div class="promo-container">
-        <div class="promo-bar">
-            <i class="fas fa-fire"></i>
-            <span>2 BEATS ACHETÉS = LE 3ÈME OFFERT (AUTO-APPLIQUÉ)</span>
-            <i class="fas fa-fire"></i>
+    <div class="success-overlay" id="successOverlay">
+        <div class="success-card">
+            <div class="success-icon">🎵</div>
+            <h2 id="successTitle">PAIEMENT EN COURS DE VÉRIFICATION</h2>
+            <p id="successMsg"></p>
+            <a href="index.html" class="go-back" id="successBtn">RETOUR AU CATALOGUE</a>
         </div>
     </div>
 
-        <div class="stat-item reveal">
-            <span class="stat-number">2+1</span>
-            <span class="stat-label">OFFRE SPÉCIALE</span>
+    <main class="checkout-page container">
+        <a href="index.html" class="back-btn">
+            <i class="fas fa-arrow-left"></i> <span id="backLabel">RETOUR AU CATALOGUE</span>
+        </a>
+
+        <div id="emptyCart" class="empty-cart" style="display:none">
+            <i class="fas fa-shopping-bag"></i>
+            <h2 id="emptyMsg">TON PANIER EST VIDE</h2>
+            <a href="index.html" class="back-btn" style="justify-content:center; margin-top:20px;">
+                <i class="fas fa-arrow-left"></i> RETOUR AU CATALOGUE
+            </a>
         </div>
-    </div>
 
-    <main class="container">
-            <div class="catalog-header">
-                <h1>
-                    <span class="glitch" data-text="STUDIO CATALOG">STUDIO CATALOG</span>
-                </h1>
-                <div class="filter-bar">
-                    <div class="custom-select" id="customSelect">
-                        <button class="custom-select-btn" id="customSelectBtn">
-                            <span id="customSelectLabel">TOUS LES STYLES</span>
-                            <i class="fas fa-chevron-down custom-select-arrow"></i>
-                        </button>
-                        <ul class="custom-select-list" id="customSelectList">
-                            <li class="custom-select-item active" data-value="all">TOUS LES STYLES</li>
-                            <li class="custom-select-item" data-value="afro">AFRO</li>
-                            <li class="custom-select-item" data-value="Amapiano">AMAPIANO</li>
-                            <li class="custom-select-item" data-value="Boom bap">BOOM BAP</li>
-                            <li class="custom-select-item" data-value="Drill">DRILL</li>
-                            <li class="custom-select-item" data-value="hood-trap">HOOD-TRAP</li>
-                            <li class="custom-select-item" data-value="Jersey">JERSEY</li>
-                            <li class="custom-select-item" data-value="Oriental">ORIENTAL</li>
-                            <li class="custom-select-item" data-value="trap">TRAP</li>
-                            <li class="custom-select-item" data-value="Acoustic">ACOUSTIC</li>
-                        </ul>
-                        <input type="hidden" id="genreFilter" value="all">
+        <div class="checkout-wrapper" id="checkoutWrapper">
+            <div class="checkout-left">
+                <div class="checkout-card">
+                    <h2><i class="fas fa-user"></i> <span id="formTitle">TES INFORMATIONS</span></h2>
+                    <div class="form-group">
+                        <label id="labelName">TON PRÉNOM</label>
+                        <input type="text" id="custName" placeholder="Ex: Lenzo">
                     </div>
-                    <div class="search-box">
-                        <i class="fas fa-search"></i>
-                        <input type="text" id="searchInput" placeholder="Rechercher un beat...">
-                        <div class="search-line"></div>
+                    <div class="form-group">
+                        <label id="labelEmail">TON EMAIL</label>
+                        <input type="email" id="custEmail" placeholder="Ex: lenzo@gmail.com">
                     </div>
-                    <button class="shuffle-btn" id="shuffleBtn">
-                        <i class="fas fa-random"></i>
-                        <span id="shuffleBtnLabel">SHUFFLE</span>
-                    </button>
+                    <p style="font-size:0.63rem; color:#444; font-family:'Space Mono',monospace; line-height:1.6;" id="emailNote"></p>
+                </div>
+
+                <div class="checkout-card">
+                    <h2><i class="fas fa-credit-card"></i> <span id="payTitle">PAIEMENT SÉCURISÉ</span></h2>
+                    <div id="payContainer"></div>
                 </div>
             </div>
-        <div class="beats-grid" id="beatsGrid"></div>
 
-        <!-- TESTIMONIALS -->
-        <div class="testimonials-section">
-            <div class="testimonials-header">
-                <h2 class="glitch-sm">ILS ONT KIFFÉ</h2>
-                <p id="testimonialsSubtitle">Ce que disent les artistes</p>
-            </div>
-            <div class="testimonials-grid">
-                <div class="testi-card">
-                    <div class="testi-stars">★★★★★</div>
-                    <p class="testi-text">"Le beat EMPIRE m'a donné exactement le son que je cherchais. La prod est cinématique, chaque élément est à sa place."</p>
-                    <div class="testi-author">
-                        <div class="testi-avatar">L</div>
-                        <div><span class="testi-name">Lenzo</span><small>Rappeur – Paris</small></div>
-                    </div>
-                </div>
-                <div class="testi-card testi-featured">
-                    <div class="testi-stars">★★★★★</div>
-                    <p class="testi-text">"Kaiju a un vrai sens du détail. CARNAGE c'est une bête – les 808 sont énormes, l'ambiance est parfaite. Mon son préféré du moment."</p>
-                    <div class="testi-author">
-                        <div class="testi-avatar">S</div>
-                        <div><span class="testi-name">Senzo</span><small>Artiste – Dakar</small></div>
-                    </div>
-                </div>
-                <div class="testi-card">
-                    <div class="testi-stars">★★★★★</div>
-                    <p class="testi-text">"J'ai pris Distancia pour un projet afro et le résultat est incroyable. La mélodie est accrocheuse, ça sonne très professionnel."</p>
-                    <div class="testi-author">
-                        <div class="testi-avatar">A</div>
-                        <div><span class="testi-name">Amara K.</span><small>Chanteur – Abidjan</small></div>
+            <div class="checkout-right">
+                <div class="checkout-card">
+                    <h2><i class="fas fa-shopping-bag"></i> <span id="recapTitle">RÉCAP DE COMMANDE</span></h2>
+                    <div id="recapItems"></div>
+                    <div class="total-section">
+                        <div id="promoLine"></div>
+                        <div class="total-line main">
+                            <span>TOTAL</span>
+                            <span id="recapTotal">0€</span>
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
     </main>
 
-    <div id="readmeModal" class="modal">
-        <div class="modal-overlay"></div>
-        <div class="modal-card readme-modal-card">
-            <button class="close-btn" id="closeReadme">
-                <i class="fas fa-times"></i>
-            </button>
-            <div class="readme-content" id="readmeContent">
-                <!-- Rempli dynamiquement par JS selon la langue -->
-            </div>
-        </div>
-    </div>
+    <script>
+    const EMAILJS_PUBLIC_KEY  = '7E6XV-vYEiZ0_WpyD';
+    const EMAILJS_SERVICE_ID  = 'service_j2kw8w9';
+    const EMAILJS_TEMPLATE_FR = 'template_rbznd3c';
+    const EMAILJS_TEMPLATE_EN = 'template_ekgt4yq';
+    const PAYPALME_LINK       = 'https://paypal.me/ItsKaiju09';
+    const KAIJU_WA            = '221777694864';
 
-    <div id="contactModal" class="modal">
-        <div class="modal-overlay"></div>
-        <div class="modal-card">
-            <button class="close-btn" id="closeContact">
-                <i class="fas fa-times"></i>
-            </button>
-            <div class="modal-header">
-                <i class="fas fa-paper-plane modal-icon"></i>
-                <h2>CONNECT WITH KAIJU</h2>
-                <p>Contactez-moi pour vos projets</p>
-            </div>
-            <div class="contact-list">
-                <a href="https://wa.me/221777694864" target="_blank" class="c-item">
-                    <div class="c-icon">
-                        <i class="fab fa-whatsapp"></i>
-                    </div>
-                    <div class="c-txt">
-                        <span>WhatsApp</span>
-                        <small>Direct Line</small>
-                    </div>
-                    <i class="fas fa-arrow-right c-arrow"></i>
-                </a>
-                <a href="mailto:callmekaiju@gmail.com" class="c-item">
-                    <div class="c-icon">
-                        <i class="fas fa-envelope"></i>
-                    </div>
-                    <div class="c-txt">
-                        <span>Email</span>
-                        <small>callmekaiju@gmail.com</small>
-                    </div>
-                    <i class="fas fa-arrow-right c-arrow"></i>
-                </a>
-                <a href="https://instagram.com/its._kaiju" target="_blank" class="c-item">
-                    <div class="c-icon">
-                        <i class="fab fa-instagram"></i>
-                    </div>
-                    <div class="c-txt">
-                        <span>Instagram</span>
-                        <small>@its._kaiju</small>
-                    </div>
-                    <i class="fas fa-arrow-right c-arrow"></i>
-                </a>
-            </div>
-        </div>
-    </div>
+    const driveLinks = {
+        'ANUBIS':        'https://drive.google.com/file/d/1JYRJo2K1-ySQAh664mjrXrbLi6dUNyM9/view',
+        'Aurore':        'https://drive.google.com/file/d/1jjTBGBzLyFbukDTbX9L_qhIysr_hRDES/view',
+        'BAD':           'https://drive.google.com/file/d/1PgNc8RWvhFu46IMJrxFHKUch1d6HcUWM/view',
+        'BERGHAIN':      'https://drive.google.com/file/d/1HoecwsFtSMfrZtMjSK8Jmc9G7DP2EgJu8/view',
+        'Brooklyn 1964': 'https://drive.google.com/file/d/1yYTSXbJI3J5hrv_ZrnieFF5VSjcQQGVE/view',
+        'CARNAGE':       'https://drive.google.com/file/d/1IlVfl7t-f3XWXo4vmZM_90mZR3BNRkz8/view',
+        'Distancia':     'https://drive.google.com/file/d/1bB34UQt3sfPWQ2mfSUVhMPkOyZupcuNe/view',
+        'ECLIPSE':       'https://drive.google.com/file/d/1t1kZLHb9rbWGX-4YMRslvRw8OKstVFCO/view',
+        'Elevation':     'https://drive.google.com/file/d/1GlgT0cPwyF7uhBHOTiRC26a0-5T5c6Pu/view',
+        'EMPIRE':        'https://drive.google.com/file/d/1MDqTqQjCD50jETK-TsxK2KYKoyMLEva8/view',
+        'Illusion':      'https://drive.google.com/file/d/13cwArN1QFNnYtjHdHbSa9zRox062FXUC/view',
+        'Sabah':         'https://drive.google.com/file/d/1OIw_IZwhKmOKb46VMflP-JJin5kbzzFJ/view',
+        'LARME':         'https://drive.google.com/file/d/17DEhRDFJrouMw6ONLy5Csx7maRHglXqr/view',
+        'MEMORIES':      'https://drive.google.com/file/d/1q37XZVVPBuCJkqIOxrICOtaeHisbIbe6/view',
+        'MIRAGE':        'https://drive.google.com/file/d/15cUNIMxH1KMhXmPlv5ZYh7p51tg63IQC/view',
+        'Ombre':         'https://drive.google.com/file/d/1OSJ2OdTXg3jdypAjb2p8CYJya0DTGnRM/view',
+        'Renaissance':   'https://drive.google.com/file/d/1r1F9RzegirGh883ppl7PQLrP4PIW7-Qf/view',
+        'SHAKE':         'https://drive.google.com/file/d/1sVxYyG-YH5OY-FX3NVSlVBfVKAP0BNQU/view',
+        'Solitude':      'https://drive.google.com/file/d/1RqGyCD8o2tlG_5tESRk-O1wjgqy29Q7O/view',
+        'SOLUNA':        'https://drive.google.com/file/d/1e1jun_ZlSPPDvzAKA6GIve3AYm27No9v/view',
+        'Sunset':        'https://drive.google.com/file/d/1vQwqf3GYVC1J1GCM-KV_F4sEkD2hDC_P/view',
+        'TRUTH':         'https://drive.google.com/file/d/1LfiwN3Jm4qB1VEB9JNBUvX6c1LijJPlq/view',
+        'ZURA':          'https://drive.google.com/file/d/16RReB9RJfMjuoBqXdfmQrubnRSP32OLv/view',
+    };
 
-    <div id="socialsModal" class="modal">
-        <div class="modal-overlay"></div>
-        <div class="modal-card">
-            <button class="close-btn" id="closeSocials">
-                <i class="fas fa-times"></i>
-            </button>
-            <div class="modal-header">
-                <i class="fas fa-satellite-dish modal-icon" style="color: var(--primary);"></i>
-                <h2>FOLLOW KAIJU</h2>
-                <p id="socialsSub">Retrouve-moi sur les réseaux</p>
-            </div>
-            <div class="contact-list">
-                <a href="https://www.youtube.com/@Call_Me_KaijuBeats" target="_blank" class="c-item social-yt">
-                    <div class="c-icon c-icon-yt">
-                        <i class="fab fa-youtube"></i>
-                    </div>
-                    <div class="c-txt">
-                        <span>YouTube</span>
-                        <small>@Call_Me_Kaiju</small>
-                    </div>
-                    <i class="fas fa-arrow-right c-arrow"></i>
-                </a>
-                <a href="https://instagram.com/its._kaiju" target="_blank" class="c-item social-ig">
-                    <div class="c-icon c-icon-ig">
-                        <i class="fab fa-instagram"></i>
-                    </div>
-                    <div class="c-txt">
-                        <span>Instagram</span>
-                        <small>@its._kaiju</small>
-                    </div>
-                    <i class="fas fa-arrow-right c-arrow"></i>
-                </a>
-                <a href="https://www.tiktok.com/@its._kaiju6" target="_blank" class="c-item social-tt">
-                    <div class="c-icon c-icon-tt">
-                        <i class="fab fa-tiktok"></i>
-                    </div>
-                    <div class="c-txt">
-                        <span>TikTok</span>
-                        <small>@its._kaiju6</small>
-                    </div>
-                    <i class="fas fa-arrow-right c-arrow"></i>
-                </a>
-            </div>
-        </div>
-    </div>
+    const t = {
+        fr: {
+            backLabel: 'RETOUR AU CATALOGUE',
+            formTitle: 'TES INFORMATIONS',
+            labelName: 'TON PRÉNOM',
+            labelEmail: 'TON EMAIL',
+            emailNote: '📧 Tes beats seront envoyés à cette adresse après vérification.',
+            payTitle: 'PAIEMENT SÉCURISÉ',
+            recapTitle: 'RÉCAP DE COMMANDE',
+            promoTxt: '✅ OFFRE 2+1 APPLIQUÉE — Le 3ème beat est offert !',
+            emptyMsg: 'TON PANIER EST VIDE',
+            successTitle: '⏳ VÉRIFICATION EN COURS',
+            successMsg: 'Ton numéro de transaction a bien été reçu.\n\nKaiju va vérifier ton paiement sur PayPal.\n\nDès que c\'est confirmé, tu recevras tes beats par email ! 📧\n\nGénéralement moins de 30 minutes.',
+            successBtn: 'RETOUR AU CATALOGUE',
+            errorName: 'Entre ton prénom pour continuer.',
+            errorEmail: 'Entre un email valide pour recevoir tes beats.',
+            errorTx: '⚠️ Entre ton numéro de transaction PayPal.',
+            payBtn: 'PAYER',
+            txLabel: '✅ PAIEMENT EFFECTUÉ ?',
+            txDesc: 'Copie ton numéro de transaction PayPal (ex: 4XY12345AB678) et colle-le ci-dessous.',
+            txPlaceholder: 'Numéro de transaction PayPal...',
+            confirmBtn: '✅ CONFIRMER MA COMMANDE',
+            pendingMsg: '⏳ Ton paiement est en attente de vérification. Kaiju te contactera très vite !',
+        },
+        en: {
+            backLabel: 'BACK TO CATALOG',
+            formTitle: 'YOUR INFORMATION',
+            labelName: 'YOUR FIRST NAME',
+            labelEmail: 'YOUR EMAIL',
+            emailNote: '📧 Your beats will be sent to this address after verification.',
+            payTitle: 'SECURE PAYMENT',
+            recapTitle: 'ORDER SUMMARY',
+            promoTxt: '✅ 2+1 DEAL APPLIED — Your 3rd beat is on me!',
+            emptyMsg: 'YOUR CART IS EMPTY',
+            successTitle: '⏳ VERIFICATION IN PROGRESS',
+            successMsg: 'Your transaction ID has been received.\n\nKaiju will verify your payment on PayPal.\n\nOnce confirmed, your beats will be sent to your email! 📧\n\nUsually within 30 minutes.',
+            successBtn: 'BACK TO CATALOG',
+            errorName: 'Please enter your name to continue.',
+            errorEmail: 'Please enter a valid email to receive your beats.',
+            errorTx: '⚠️ Please enter your PayPal transaction ID.',
+            payBtn: 'PAY',
+            txLabel: '✅ PAYMENT DONE?',
+            txDesc: 'Copy your PayPal transaction ID (e.g. 4XY12345AB678) and paste it below.',
+            txPlaceholder: 'PayPal transaction ID...',
+            confirmBtn: '✅ CONFIRM MY ORDER',
+            pendingMsg: '⏳ Your payment is pending verification. Kaiju will contact you soon!',
+        }
+    };
 
-    <div id="cartModal" class="modal">
-        <div class="modal-overlay"></div>
-        <div class="modal-card cart-modal">
-            <button class="close-btn" id="closeCart">
-                <i class="fas fa-times"></i>
-            </button>
-            <div class="modal-header">
-                <i class="fas fa-shopping-cart modal-icon"></i>
-                <h2 class="cart-title" id="cartTitle">VOTRE PANIER</h2>
-                <p id="cartSub">Beats sélectionnés</p>
-            </div>
-            <div id="cartItems" class="cart-scroll"></div>
-            <div id="cartTotalArea"></div>
-        </div>
-    </div>
+    emailjs.init({ publicKey: EMAILJS_PUBLIC_KEY });
 
-    <div class="player-fixed" id="audioPlayer">
-        <div class="player-progress-bar">
-            <div class="player-progress-fill"></div>
-        </div>
-        <div class="container player-grid">
-            <div class="p-info">
-                <div class="p-cover-wrapper">
-                    <img src="" id="pCover" alt="Cover">
-                    <div class="vinyl-effect"></div>
-                </div>
-                <div class="p-meta">
-                    <h4 id="pTitle">Titre</h4>
-                    <small class="logo-accent">
-                        <i class="fas fa-record-vinyl"></i> PROD BY KAIJU
-                    </small>
-                </div>
-            </div>
-            <div class="p-controls">
-                <div class="p-buttons">
-                    <button onclick="changeTime(-10)" class="skip-btn" title="Reculer 10s">
-                        <i class="fas fa-backward"></i>
-                    </button>
-                    <button id="pPlayPause" class="play-main-btn">
-                        <i class="fas fa-play"></i>
-                        <div class="play-pulse"></div>
-                    </button>
-                    <button onclick="changeTime(10)" class="skip-btn" title="Avancer 10s">
-                        <i class="fas fa-forward"></i>
-                    </button>
-                </div>
-                <div class="p-seeker">
-                    <span id="timeCurrent">0:00</span>
-                    <div class="progress-container">
-                        <input type="range" id="pProgress" value="0" max="100" step="0.1">
-                        <div class="progress-fill"></div>
+    const lang = localStorage.getItem('kaijuLang') || 'fr';
+    const tx = t[lang];
+    const cart = JSON.parse(localStorage.getItem('kaijuCart') || '[]');
+
+    // Apply translations
+    document.getElementById('backLabel').textContent  = tx.backLabel;
+    document.getElementById('formTitle').textContent  = tx.formTitle;
+    document.getElementById('labelName').textContent  = tx.labelName;
+    document.getElementById('labelEmail').textContent = tx.labelEmail;
+    document.getElementById('emailNote').textContent  = tx.emailNote;
+    document.getElementById('payTitle').textContent   = tx.payTitle;
+    document.getElementById('recapTitle').textContent = tx.recapTitle;
+    document.getElementById('emptyMsg').textContent   = tx.emptyMsg;
+    document.getElementById('successTitle').textContent = tx.successTitle;
+    document.getElementById('successMsg').style.whiteSpace = 'pre-line';
+    document.getElementById('successMsg').textContent = tx.successMsg;
+    document.getElementById('successBtn').textContent = tx.successBtn;
+
+    if (cart.length === 0) {
+        document.getElementById('checkoutWrapper').style.display = 'none';
+        document.getElementById('emptyCart').style.display = 'block';
+    } else {
+        renderRecap();
+        renderPayment();
+    }
+
+    function calcTotal(items) {
+        let total = 0;
+        for (let i = 1; i <= items.length; i++) { if (i % 3 !== 0) total += 39.99; }
+        return parseFloat(total.toFixed(2));
+    }
+
+    function renderRecap() {
+        const total = calcTotal(cart);
+        let html = '';
+        cart.forEach((b, i) => {
+            const isFree = (i + 1) % 3 === 0;
+            html += `
+                <div class="recap-item">
+                    <img class="recap-cover" src="${b.cover}" alt="${b.title}" onerror="this.style.display='none'">
+                    <div class="recap-info">
+                        <h4>${b.title}</h4>
+                        <small>${b.genre ? b.genre.toUpperCase() : 'BEAT'} • PROD BY KAIJU</small>
                     </div>
-                    <span id="timeTotal">0:00</span>
-                </div>
-            </div>
-            <div class="p-vol">
-                <button class="vol-icon" id="volIcon">
-                    <i class="fas fa-volume-up"></i>
+                    ${isFree ? `<span class="recap-free">OFFERT 🎁</span>` : `<span class="recap-price">39.99€</span>`}
+                </div>`;
+        });
+        document.getElementById('recapItems').innerHTML = html;
+        if (cart.length >= 3) {
+            document.getElementById('promoLine').innerHTML = `<div class="promo-line">${tx.promoTxt}</div>`;
+        }
+        document.getElementById('recapTotal').textContent = total + '€';
+    }
+
+    function renderPayment() {
+        const total = calcTotal(cart);
+        document.getElementById('payContainer').innerHTML = `
+            <button class="paypalme-btn" id="payBtn">
+                <img src="https://www.paypalobjects.com/webstatic/mktg/Logo/pp-logo-100px.png" alt="PayPal" style="height:20px;">
+                <span>${tx.payBtn} ${total}€ — PayPal.Me</span>
+            </button>
+            <p style="font-size:0.62rem; color:#444; font-family:'Space Mono',monospace; text-align:center; margin-top:10px;">
+                🔒 ${lang === 'fr' ? 'Paiement sécurisé via PayPal' : 'Secure payment via PayPal'}
+            </p>
+
+            <div class="tx-box" id="txBox">
+                <p class="tx-label">${tx.txLabel}</p>
+                <p class="tx-desc">${tx.txDesc}</p>
+                <input type="text" class="tx-input" id="txInput" placeholder="${tx.txPlaceholder}">
+                <p class="tx-error" id="txError">${tx.errorTx}</p>
+                <button class="confirm-btn" id="confirmBtn">
+                    <i class="fas fa-check-circle"></i> ${tx.confirmBtn}
                 </button>
-                <div class="vol-slider-wrapper">
-                    <input type="range" id="volControl" min="0" max="1" step="0.01" value="1">
-                    <div class="vol-fill"></div>
-                </div>
             </div>
-        </div>
-        <audio id="mainAudio"></audio>
-    </div>
 
-    <script src="script.js"></script>
+            <div class="pending-box" id="pendingBox">
+                <p>${tx.pendingMsg}</p>
+            </div>
+        `;
+
+        // Step 1 — Open PayPal
+        document.getElementById('payBtn').onclick = () => {
+            const name  = document.getElementById('custName').value.trim();
+            const email = document.getElementById('custEmail').value.trim();
+            if (!name) { alert(tx.errorName); return; }
+            if (!email || !email.includes('@')) { alert(tx.errorEmail); return; }
+            window.open(`${PAYPALME_LINK}/${total}EUR`, '_blank');
+            setTimeout(() => {
+                document.getElementById('txBox').style.display = 'block';
+                document.getElementById('txInput').focus();
+            }, 1500);
+        };
+
+        // Step 2 — Confirm transaction + notify Kaiju on WhatsApp
+        document.getElementById('confirmBtn').onclick = () => {
+            const txId  = document.getElementById('txInput').value.trim();
+            const name  = document.getElementById('custName').value.trim();
+            const email = document.getElementById('custEmail').value.trim();
+
+            if (!txId || txId.length < 4) {
+                document.getElementById('txError').style.display = 'block';
+                return;
+            }
+            document.getElementById('txError').style.display = 'none';
+
+            // Build download links for the magic link
+            const downloadLinks = cart.map((b, i) => {
+                const isFree = (i + 1) % 3 === 0;
+                const link = driveLinks[b.title] || '#';
+                const tag = isFree ? (lang === 'fr' ? ' 🎁 OFFERT' : ' 🎁 FREE') : '';
+                return `🎵 ${b.title}${tag}: ${link}`;
+            }).join('\n');
+
+            const beatList = cart.map(b => b.title).join(', ');
+
+            // Build SHORT magic link — only names, send-beats.html resolves Drive links
+            const shortData = encodeURIComponent(JSON.stringify({
+                n: name,
+                e: email,
+                b: cart.map(b => b.title).join(','),
+                t: total,
+                l: lang
+            }));
+            const magicLink = `https://callmekaiju25-afk.github.io/Kaiju-beats-store/send-beats.html?d=${shortData}`;
+
+            // WhatsApp message to Kaiju
+            const waMsg = encodeURIComponent(
+                `💰 NOUVELLE COMMANDE — KAIJU BEATS\n` +
+                `👤 Client: ${name}\n` +
+                `📧 Email: ${email}\n` +
+                `🎵 Beats: ${beatList}\n` +
+                `💵 Total: ${total}€\n` +
+                `🧾 Transaction PayPal: ${txId}\n\n` +
+                `✅ Vérifie PayPal puis envoie les beats :\n` +
+                `${magicLink}`
+            );
+
+            window.open(`https://wa.me/${KAIJU_WA}?text=${waMsg}`, '_blank');
+
+            // Disable button and show pending
+            document.getElementById('confirmBtn').disabled = true;
+            document.getElementById('confirmBtn').style.opacity = '0.5';
+            document.getElementById('pendingBox').style.display = 'block';
+
+            // Clear cart and show success
+            localStorage.removeItem('kaijuCart');
+            setTimeout(() => {
+                document.getElementById('successOverlay').classList.add('show');
+            }, 2000);
+        };
+    }
+    // Custom cursor
+    const cursor = document.getElementById('cursor');
+    const cursorRing = document.getElementById('cursorRing');
+    if (cursor && cursorRing) {
+        let mouseX = 0, mouseY = 0, ringX = 0, ringY = 0;
+        document.addEventListener('mousemove', (e) => {
+            mouseX = e.clientX; mouseY = e.clientY;
+            cursor.style.left = mouseX + 'px';
+            cursor.style.top = mouseY + 'px';
+        });
+        function animateRing() {
+            ringX += (mouseX - ringX) * 0.12;
+            ringY += (mouseY - ringY) * 0.12;
+            cursorRing.style.left = ringX + 'px';
+            cursorRing.style.top = ringY + 'px';
+            requestAnimationFrame(animateRing);
+        }
+        animateRing();
+        document.querySelectorAll('button, a, input').forEach(el => {
+            el.addEventListener('mouseenter', () => { cursor.classList.add('hover'); cursorRing.classList.add('hover'); });
+            el.addEventListener('mouseleave', () => { cursor.classList.remove('hover'); cursorRing.classList.remove('hover'); });
+        });
+    }
+
+    // Scroll reveal
+    document.querySelectorAll('.checkout-card, .checkout-left, .checkout-right').forEach((el, i) => {
+        el.style.opacity = '0';
+        el.style.transform = 'translateY(30px)';
+        el.style.transition = `opacity 0.6s ease ${i * 0.1}s, transform 0.6s ease ${i * 0.1}s`;
+        setTimeout(() => {
+            el.style.opacity = '1';
+            el.style.transform = 'translateY(0)';
+        }, 100 + i * 100);
+    });
+    </script>
 </body>
 </html>
